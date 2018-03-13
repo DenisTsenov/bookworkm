@@ -1,0 +1,72 @@
+.main{
+    /*width: 1170px;*/
+    width: 90%;
+    height: auto;
+    margin: 0 auto;
+    margin-top: 100px;
+    background-color: whitesmoke;
+}
+
+body {
+    height: 100%;
+    min-height: 100%;
+    
+}
+.navigation{
+    overflow: hidden;
+    background-color: #333;
+    position: fixed;
+    top: 0;
+    /*width: 1170%;*/
+    width: 90%;
+    height: 15%;
+}
+.navigation a:hover {
+  background: #ddd;
+  color: black;
+}
+.navigation #login {
+  float: right;
+  margin-right: 30px;
+  margin-top: 20px;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+#logo{
+    width: 120px;
+    height: auto;
+    float: left;
+}
+.category_list{
+    display: inline-block;
+    float: left;
+    width: 20%;
+    height: 600px;
+    background-color: cadetblue;
+}
+.popular_book{
+    width: 72%;
+    position: absolute;
+    float: right;
+    
+    display: inline-block;
+    height: 200px;
+    
+    background-color: chartreuse;
+}
+
+.footer{
+    width: 100%;
+    height: 30px;
+    background-color: #333;
+    display: inline-block;
+    
+}
+.footer p{
+    text-align: center;
+    margin-top: 10px;
+}
