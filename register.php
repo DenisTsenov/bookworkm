@@ -4,8 +4,11 @@
   </div>
 
   <div class="container">
-    <label for="uname"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="uname" required>
+    <label for="uname"><b>First Name</b></label>
+    <input type="text" placeholder="Enter Username" name="first_name" required>
+    
+    <label for="last_name"><b>Last Name</b></label>
+    <input type="text" placeholder="Enter Username" name="last_name" required>
     
      <label for="email"><b>Email</b></label>
      <input type="text" placeholder="Enter Email" name="email" required>
