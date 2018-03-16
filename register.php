@@ -5,10 +5,10 @@
 
   <div class="container">
     <label for="uname"><b>First Name</b></label>
-    <input type="text" placeholder="Enter Username" name="first_name" required>
+    <input type="text" placeholder="Enter your first name" name="first_name" required>
     
     <label for="last_name"><b>Last Name</b></label>
-    <input type="text" placeholder="Enter Username" name="last_name" required>
+    <input type="text" placeholder="Enter your last name" name="last_name" required>
     
      <label for="email"><b>Email</b></label>
      <input type="text" placeholder="Enter Email" name="email" required>
@@ -20,8 +20,8 @@
     <input type="password" placeholder="Enter Password" name="c_pass" required>
         
     <label for="c_pass"><b>Avatar Image</b></label>
-    <input type="file" placeholder="Enter Password" name="c_pass" required>
-    <button type="submit">Register</button>
+    <input type="file" name="avatar" required>
+    <button type="submit" name="register">Register</button>
 <!--    <label>
       <input type="checkbox" checked="checked" name="remember"> Remember me
     </label>-->

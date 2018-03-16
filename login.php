@@ -7,10 +7,10 @@
     <label for="email"><b>Email Address</b></label>
     <input type="text" placeholder="Enter Email.." name="email" required>
 
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
+    <label for="pass"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="pass" required>
         
-    <button type="submit">Login</button>
+    <button type="submit" name="login">Login</button>
 <!--    <label>
       <input type="checkbox" checked="checked" name="remember"> Remember me
     </label>-->
