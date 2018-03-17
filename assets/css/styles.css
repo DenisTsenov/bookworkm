@@ -195,3 +195,13 @@ span.psw {
 }
 
 .info:hover {background: #0b7dda;}
+#success{
+    width: 93%;
+    height: auto;
+    font-size:2em;
+    padding: 10px;
+    visibility: hidden;
+    
+    background-color: chartreuse;
+    text-align: center;
+}

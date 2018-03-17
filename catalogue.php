@@ -8,7 +8,11 @@
             <th>Price</th>
             <th>Quantity</th>
             <th>Image</th>
-            <th>To Cart</th>
+            <?php if (isset($_SESSION["user"])) { ?>
+                <th>To Cart</th>
+                <?php
+            }
+            ?>
         </tr>
         <?php
         foreach ($products as &$product) {
@@ -21,13 +25,19 @@
                     <td><?= $product["price"] ?></td>
                     <td><?= $product["quantity"] ?></td>
                     <td><img id="book_img" src="./assets/uploads/product_img/<?= $product["img"]; ?>" alt="book_img"></td>
-                    <td><button class="btn info">Add to Cart</button></td>
-                </tr>
+                    <?php if (isset($_SESSION["user"])) { ?>
+                        <td>
+                            <button class="btn info" value="<?= $product["book_name"]; ?>" onclick="addToCart(this.value);some(this.value)" >Add to Cart</button>
+                        </td>
+                        <?php
+                    }
+                    ?>
 
-            <?php
-            }
-        }
-        ?>
+                </tr>
+        <?php
+    }
+}
+?>
     </table>
-    
+
 </section>
