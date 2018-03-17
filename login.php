@@ -1,3 +1,8 @@
+<?php
+    if (isset($_SESSION["user"]["first_name"])) {
+        header("location: index.php");
+    }
+?>
 <form action="./index.php" method="POST">
   <div class="imgcontainer">
     <!--<img src="img_avatar2.png" alt="Avatar" class="avatar">-->

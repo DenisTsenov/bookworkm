@@ -8,8 +8,8 @@
     <div class="container">
         <?php echo $_SESSION["user"]["email"] ?>
     </div>
-    <div class="container">
+    <div class="container" id="avatar">
         <img id="avatar" src="<?= $_SESSION["user"]["avatar"] ?>" alt="">
     </div>
-    <a href="index.php?page=redactProfile">Edit my profile</a>
+    <a href="index.php?page=redactProfile" ><button type="button" class="register">Edit my profile</button></a>
 </section>

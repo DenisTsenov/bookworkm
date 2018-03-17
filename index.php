@@ -5,12 +5,12 @@ require_once './header.php';
 $error = false;
 
 if(isset($_POST["register"])){
-    $firstName = htmlentities($_POST["first_name"]);
-    $lastName = htmlentities($_POST["last_name"]);
-    $email = htmlentities($_POST["email"]);
+    $firstName = trim(htmlentities($_POST["first_name"]));
+    $lastName = trim(htmlentities($_POST["last_name"]));
+    $email = trim(htmlentities($_POST["email"]));
     $password = htmlentities(sha1($_POST["pass"]));
     $confirm = htmlentities(sha1($_POST["c_pass"]));
-
+    $error_reg = [];
     $tmp_name = $_FILES["avatar"]["tmp_name"];
     $orig_name = $_FILES["avatar"]["name"];
 
@@ -22,31 +22,32 @@ if(isset($_POST["register"])){
 
         }
         else{
-            $error = "File not moved successfully";
+            $error_reg[] = "File not moved successfully";
         }
     }
     else{
-        $error = "File not uploaded successfully";
+        $error_reg[] = "File not uploaded successfully";
     }
     foreach ($users as $user) {
         if($user["email"] == $email){
-            $error = "A user with that email already exists.";
+            $error_reg[] = "A user with that email already exists.";
             break;
         }
     }
     if(empty($firstName) || empty($lastName) || empty($email) || empty($password)){
-        $error = "All fields must be filled!";
+        $error_reg[] = "All fields must be filled!";
     }
     if($password !== $confirm){
-        $error = "Password mismatch!";
+        $error_reg[] = "Password mismatch!";
     }
-    if(!$error){
+    if(!$error_reg){
         $user = array();
         $user["first_name"] = $firstName;
         $user["last_name"] = $lastName;
         $user["email"] = $email;
         $user["password"] = $password;
         $user["avatar"] = $logo_url;
+        $user["type"] = 0;
         $user["cart"] = array();
         $user["history"] = array();
         $users[] = $user;
@@ -61,29 +62,31 @@ if(isset($_POST["register"])){
 if(isset($_POST["login"])){
     $email = $_POST["email"];
     $password = $_POST["pass"];
+    $error_log = [];
     foreach ($users as $user) {
         if($user["email"] == $email){
             if($user["password"] == sha1($password)){
                 $_SESSION["user"]= $user;
+
                 header("Location: index.php?page=catalogue");
             }
             else{
-                $error = "Wrong email and/or password";
+                $error_log[] = "Wrong email and/or password";
             }
         }
         else{
-            $error = "Wrong email and/or password";
+            $error_log[] = "Wrong email and/or password";
         }
     }
 }
 
 if(isset($_POST["edit_profile"])){
-    $firstName = htmlentities($_POST["first_name"]);
-    $lastName = htmlentities($_POST["last_name"]);
-    $email = htmlentities($_POST["email"]);
-    $oldPassword = htmlentities($_POST["new_pass"]);
-    $newPassword = htmlentities($_POST["old_pass"]);
-
+    $firstName = trim(htmlentities($_POST["first_name"]));
+    $lastName = trim(htmlentities($_POST["last_name"]));
+    $email = trim(htmlentities($_POST["email"]));
+    $oldPassword = trim(htmlentities($_POST["new_pass"]));
+    $newPassword = trim(htmlentities($_POST["old_pass"]));
+    $error = [];
     $tmp_name = $_FILES["avatar"]["tmp_name"];
     $orig_name = $_FILES["avatar"]["name"];
 
@@ -95,14 +98,14 @@ if(isset($_POST["edit_profile"])){
 
         }
         else{
-            $error = "File not moved successfully";
+            $error[] = "File not moved successfully";
         }
     }
     else{
-        $error = "File not uploaded successfully";
+        $error[] = "File not uploaded successfully";
     }
     if(empty($firstName) || empty($lastName) || empty($email) || empty($oldPassword) || empty($newPassword)){
-        $error = "All fields must be filled!";
+        $error[] = "All fields must be filled!";
     }
     if(!$error){
         foreach ($users as &$user) {
@@ -124,6 +127,8 @@ if(isset($_POST["edit_profile"])){
     }
 }
 
+
+
 ?>
 
 <div class="main">
@@ -132,7 +137,18 @@ if(isset($_POST["edit_profile"])){
     </aside>
     <section class="baic_content">
         <?php
-
+        if (isset($error_reg)) {
+            foreach ($error_reg as $err) {
+                echo $err . "<br/>";
+            }
+            require_once './register.php';
+        }
+        if (isset($error_log)) {
+            foreach ($error_log as $err) {
+                echo $err . "<br/>";
+            }
+            require_once './login.php';
+        }
         if(isset($_GET["page"]) && $_GET["page"] == "logout"){
             session_destroy();
             header("Location: index.php");
