@@ -2,6 +2,9 @@
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
+if (!$_SESSION["user"]) {
+    header("Location: index.php");
+}
 require_once "load_data.php";
 if (isset($_GET["buy_product"])) {
     $productToBuy = trim(htmlentities($_GET["buy_product"]));
