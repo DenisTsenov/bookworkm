@@ -127,26 +127,26 @@ if (isset($_POST["edit_profile"])) {
     </aside>
     <div id="success"></div>
     <section class="baic_content">
-<?php
-if (isset($error_reg)) {
-    foreach ($error_reg as $err) {
-        echo $err . "<br/>";
-    }
-    require_once './register.php';
-}
-if (isset($error_log)) {
-    foreach ($error_log as $err) {
-        echo $err . "<br/>";
-    }
-    require_once './login.php';
-}
-if (isset($_GET["page"]) && $_GET["page"] == "logout") {
-    session_destroy();
-    header("Location: index.php");
-} elseif (isset($_GET["page"])) {
-    require_once $_GET["page"] . ".php";
-}
-?>
+        <?php
+        if (isset($error_reg)) {
+            foreach ($error_reg as $err) {
+                echo $err . "<br/>";
+            }
+            require_once './register.php';
+        }
+        if (isset($error_log)) {
+            foreach ($error_log as $err) {
+                echo $err . "<br/>";
+            }
+            require_once './login.php';
+        }
+        if (isset($_GET["page"]) && $_GET["page"] == "logout") {
+            session_destroy();
+            header("Location: index.php");
+        } elseif (isset($_GET["page"])) {
+            require_once $_GET["page"] . ".php";
+        }
+        ?>
 
 
         <!-- tuk moje  da sa knigite spored towa  dali  e  lognat poterbitelq ili ne -->    
@@ -168,12 +168,12 @@ if (isset($_GET["page"]) && $_GET["page"] == "logout") {
             if (this.readyState === 4 && this.status === 200) {
 //                var resp = this.responseText;
                 location.reload();
-                
+
             }
         }
         request.send();
     }
-    
+
     function reverseQuantity(bookName) {
         var request = new XMLHttpRequest;
         request.open("GET", "bucket.php?book=" + bookName);
@@ -183,9 +183,9 @@ if (isset($_GET["page"]) && $_GET["page"] == "logout") {
             }
         }
         request.send();
-        
+
     }
-    
+
     function removeBook(nameToRemove) {
         var request = new XMLHttpRequest;
         request.open("GET", "bucket.php?book_to_remove=" + nameToRemove);
@@ -196,7 +196,7 @@ if (isset($_GET["page"]) && $_GET["page"] == "logout") {
         }
         request.send();
     }
-    
+
     //TO DO
     function successAdd(name) {
 //        var create = document.getElementById("success");
