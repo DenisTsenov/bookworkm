@@ -43,7 +43,7 @@ if (isset($_GET["book_to_remove"])) {
     //premahwame kolichestwoto  ot producta  i go wrushtame obratno  w kataloga
     $productToRemove = trim(htmlentities($_GET["book_to_remove"]));
     if (isset($_SESSION["bucket"][$productToRemove])) {
-        //dostupwame  produkta po referenciq
+        //dostupwame  produkta w sessiqta po referenciq
         $removeQuantity = &$_SESSION["bucket"][$productToRemove];
         foreach ($products as &$product) {
             if ($removeQuantity["name"] == $product["book_name"]) {

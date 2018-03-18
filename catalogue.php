@@ -1,5 +1,4 @@
 <section class="table">
-
     <table id="products">
         <tr>
             <th>Book Name</th>
@@ -32,12 +31,10 @@
                         <?php
                     }
                     ?>
-
                 </tr>
         <?php
     }
 }
 ?>
     </table>
-
 </section>
