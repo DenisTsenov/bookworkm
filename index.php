@@ -119,8 +119,6 @@ if (isset($_POST["edit_profile"])) {
         }
     }
 }
-
-
 ?>
 
 <div class="main" id="main">
@@ -169,44 +167,50 @@ if (isset($_GET["page"]) && $_GET["page"] == "logout") {
         request.onreadystatechange = function (ev) {
             if (this.readyState === 4 && this.status === 200) {
 //                var resp = this.responseText;
-
+                location.reload();
+                
             }
         }
         request.send();
     }
     
-    function reverseQuantity(bookName){
+    function reverseQuantity(bookName) {
         var request = new XMLHttpRequest;
         request.open("GET", "bucket.php?book=" + bookName);
         request.onreadystatechange = function (ev) {
             if (this.readyState === 4 && this.status === 200) {
-                
                 location.reload();
-
             }
         }
         request.send();
         
     }
     
-    function removeBook(nameToRemove){
+    function removeBook(nameToRemove) {
         var request = new XMLHttpRequest;
         request.open("GET", "bucket.php?book_to_remove=" + nameToRemove);
         request.onreadystatechange = function (ev) {
             if (this.readyState === 4 && this.status === 200) {
                 location.reload();
-
             }
         }
         request.send();
     }
     
-    function some(name){
-        
-        var create = document.getElementById("success");
-        create.style.visibility = "visible";
-        create.innerHTML = name + " was added to  you  buket!";
-        
+    //TO DO
+    function successAdd(name) {
+//        var create = document.getElementById("success");
+//        create.style.visibility = "visible";
+//        create.innerHTML = name + " was added to  you  buket!";
+//        
+//        var request = new XMLHttpRequest;
+//        request.open("GET", "bucket.php?minus=" + name);
+//        request.onreadystatechange = function (ev) {
+//            if (this.readyState === 4 && this.status === 200) {
+//                
+//            }
+//        }
+//        request.send();
     }
 </script>
 

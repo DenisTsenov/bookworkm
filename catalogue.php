@@ -27,7 +27,7 @@
                     <td><img id="book_img" src="./assets/uploads/product_img/<?= $product["img"]; ?>" alt="book_img"></td>
                     <?php if (isset($_SESSION["user"])) { ?>
                         <td>
-                            <button class="btn info" value="<?= $product["book_name"]; ?>" onclick="addToCart(this.value);some(this.value)" >Add to Cart</button>
+                            <button class="btn info" value="<?= $product["book_name"]; ?>" onclick="addToCart(this.value);successAdd(this.value)" >Add to Cart</button>
                         </td>
                         <?php
                     }

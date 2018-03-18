@@ -11,12 +11,13 @@ if (isset($_GET["buy_product"])) {
     $noProductError = "No such  a product!";
     $success = false;
 
-    foreach ($products as $key => &$product) {
+    foreach ($products as &$product) {
         if ($product["book_name"] === $productToBuy) {
             $price = $product["price"];
-            $products[$key]["quantity"] - 1;
+            $product["quantity"] --;
+            $encod = json_encode($products);
+            file_put_contents("./assets/data/books.json", $encod);
 
-//            file_put_contents("./assets/data/books.json", json_encode($product));
             $success = true;
             break;
         }
@@ -39,21 +40,44 @@ if (isset($_GET["buy_product"])) {
 }
 
 if (isset($_GET["book_to_remove"])) {
+    //premahwame kolichestwoto  ot producta  i go wrushtame obratno  w kataloga
     $productToRemove = trim(htmlentities($_GET["book_to_remove"]));
     if (isset($_SESSION["bucket"][$productToRemove])) {
-        
-            unset($_SESSION["bucket"][$productToRemove]);
-        
+        //dostupwame  produkta po referenciq
+        $removeQuantity = &$_SESSION["bucket"][$productToRemove];
+        foreach ($products as &$product) {
+            if ($removeQuantity["name"] == $product["book_name"]) {
+                //fakticheskoto wrushtane na kolichestwoto  w kataloga
+                $product['quantity'] += $removeQuantity["quantity"];
+                
+                //zapiswame books.json sus nowoto(staro) kolichestwo
+                $encod = json_encode($products);
+                file_put_contents("./assets/data/books.json", $encod);
+                break;
+            }
+        }
+
+        unset($_SESSION["bucket"][$productToRemove]);
     }
 }
 
 if (isset($_GET["book"])) {
-    
+
     $productToRev = trim(htmlentities($_GET["book"]));
     if (isset($_SESSION["bucket"][$productToRev])) {
         $bookName = &$_SESSION["bucket"][$productToRev];
+        foreach ($products as &$product) {
+            if ($bookName["name"] == $product["book_name"]) {
+                $product['quantity'] ++;
+
+                $encod = json_encode($products);
+                file_put_contents("./assets/data/books.json", $encod);
+                break;
+            }
+        }
         if ($bookName['quantity'] > 1) {
-            $bookName['quantity']--;
+
+            $bookName['quantity'] --;
         } else {
             unset($_SESSION["bucket"][$productToRev]);
         }
@@ -72,11 +96,11 @@ if (!$_SESSION["bucket"]) {
             <th>Minus one!</th>
             <th>Remove</th>
         </tr>
-    <?php $total = 0; ?>
-    <?php
-    foreach ($_SESSION["bucket"] as $productInBucket) {
-        $total += $productInBucket["price"] * $productInBucket["quantity"];
-        ?>
+        <?php $total = 0; ?>
+        <?php
+        foreach ($_SESSION["bucket"] as $productInBucket) {
+            $total += $productInBucket["price"] * $productInBucket["quantity"];
+            ?>
             <tr>
                 <td><?= $productInBucket["name"] ?></td>
                 <td><?= $productInBucket["price"] ?></td>
@@ -85,9 +109,10 @@ if (!$_SESSION["bucket"]) {
                 <td><button class="" value="<?= $productInBucket["name"] ?>" onclick="removeBook(this.value)">Remove</button></td>
             </tr>
 
-    <?php }
-}
-?>
+            <?php
+        }
+    }
+    ?>
 </table>
 <?= isset($total) ? "<h4>Total in  bucket &nbsp -> &nbsp" . $total . "</h4>" : "" ?></h4>
 
