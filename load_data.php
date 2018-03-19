@@ -1,6 +1,6 @@
 <?php
 require_once './config/db_config.php';
-
+require_once './helperFunctions/dbHelperFunctions.php';
 try{
     $pdo = new PDO("mysql:host=" . DB_HOST . ":" . DB_PORT . ";dbname=" . DB_NAME, USER, PASS,
     [PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\'']); 
@@ -18,14 +18,30 @@ try{
 //$products = json_decode($products, true);
 
 $users_query = "SELECT * FROM users;";
-$users = $pdo->query($users_query);
+$stmtUsers = $pdo->prepare($users_query);
+$stmtUsers->execute();
+$users = [];
+
+while ($usersRow = $stmtUsers->fetch(PDO::FETCH_ASSOC)){
+    $users[] = $usersRow;
+}
+
+
 
 $books_query = "SELECT b.name , b.price, b.quantity, b.img_url,
 a.name AS author_id , c.name AS category_id  
 FROM books AS b
 JOIN authors AS a ON a.id = b.author_id
-JOIN categories AS c ON b.category_id = c.id";
-$products = $pdo->query($books_query);
+JOIN categories AS c ON b.category_id = c.id ORDER BY b.name";
+
+$stmt = $pdo->prepare($books_query);
+$stmt->execute();
+$products = [];
+while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+    $products[] = $row;
+}
+
+
 ?>
 
 

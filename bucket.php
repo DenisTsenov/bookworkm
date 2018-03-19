@@ -12,11 +12,14 @@ if (isset($_GET["buy_product"])) {
     $success = false;
 
     foreach ($products as &$product) {
-        if ($product["book_name"] === $productToBuy) {
+        if ($product["name"] === $productToBuy) {
             $price = $product["price"];
-            $product["quantity"] --;
-            $encod = json_encode($products);
-            file_put_contents("./assets/data/books.json", $encod);
+            
+            
+            minusQuantity($pdo, $product["name"]);
+//            $product["quantity"] --;
+//            $encod = json_encode($products);
+//            file_put_contents("./assets/data/books.json", $encod);
 
             $success = true;
             break;
@@ -46,13 +49,18 @@ if (isset($_GET["book_to_remove"])) {
         //dostupwame  produkta w sessiqta po referenciq
         $removeQuantity = &$_SESSION["bucket"][$productToRemove];
         foreach ($products as &$product) {
-            if ($removeQuantity["name"] == $product["book_name"]) {
+            if ($removeQuantity["name"] == $product["name"]) {
                 //fakticheskoto wrushtane na kolichestwoto  w kataloga
-                $product['quantity'] += $removeQuantity["quantity"];
+//                $product['quantity'] += $removeQuantity["quantity"];
+               $result =  plusQuantity($pdo, $removeQuantity["quantity"], $removeQuantity["name"]);
+               
+               if (!$result) {
+                   echo  $result;
+               }
                 
                 //zapiswame books.json sus nowoto(staro) kolichestwo
-                $encod = json_encode($products);
-                file_put_contents("./assets/data/books.json", $encod);
+//                $encod = json_encode($products);
+//                file_put_contents("./assets/data/books.json", $encod);
                 break;
             }
         }
@@ -67,16 +75,16 @@ if (isset($_GET["book"])) {
     if (isset($_SESSION["bucket"][$productToRev])) {
         $bookName = &$_SESSION["bucket"][$productToRev];
         foreach ($products as &$product) {
-            if ($bookName["name"] == $product["book_name"]) {
-                $product['quantity'] ++;
+            if ($bookName["name"] == $product["name"]) {
 
-                $encod = json_encode($products);
-                file_put_contents("./assets/data/books.json", $encod);
+                plusOneQuantity($pdo, $product["name"]);
+//                $product['quantity'] ++;
+//                $encod = json_encode($products);
+//                file_put_contents("./assets/data/books.json", $encod);
                 break;
             }
         }
         if ($bookName['quantity'] > 1) {
-
             $bookName['quantity'] --;
         } else {
             unset($_SESSION["bucket"][$productToRev]);
