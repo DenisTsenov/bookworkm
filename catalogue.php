@@ -3,9 +3,9 @@
         <tr>
             <th>Book Name</th>
             <th>Author</th>
-            <th>Genre</th>
             <th>Price</th>
             <th>Quantity</th>
+            <th>Genre</th>
             <th>Image</th>
             <?php if (isset($_SESSION["user"])) { ?>
                 <th>To Cart</th>
@@ -14,16 +14,16 @@
             ?>
         </tr>
         <?php
-        foreach ($products as &$product) {
+        foreach ($products as $product) {
             if ($product["quantity"] > 0) {
                 ?>
                 <tr>
-                    <td><?= $product["book_name"] ?></td>
-                    <td><?= $product["author"] ?></td>
-                    <td><?= $product["type"] ?></td>
+                    <td><?= $product["name"] ?></td>
+                    <td><?= $product["author_id"] ?></td>
                     <td><?= $product["price"] ?></td>
                     <td><?= $product["quantity"] ?></td>
-                    <td><img id="book_img" src="./assets/uploads/product_img/<?= $product["img"]; ?>" alt="book_img"></td>
+                    <td><?= $product["category_id"] ?></td>
+                    <td><img id="book_img" src="./assets/uploads/product_img/<?= $product["img_url"]; ?>" alt="book_img"></td>
                     <?php if (isset($_SESSION["user"])) { ?>
                         <td>
                             <button class="btn info" value="<?= $product["book_name"]; ?>" onclick="addToCart(this.value);successAdd(this.value)" >Add to Cart</button>
