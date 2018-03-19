@@ -170,7 +170,7 @@ if (isset($_POST["edit_profile"])) {
                 location.reload();
 
             }
-        }
+        };
         request.send();
     }
 
@@ -181,7 +181,7 @@ if (isset($_POST["edit_profile"])) {
             if (this.readyState === 4 && this.status === 200) {
                 location.reload();
             }
-        }
+        };
         request.send();
 
     }
@@ -193,7 +193,7 @@ if (isset($_POST["edit_profile"])) {
             if (this.readyState === 4 && this.status === 200) {
                 location.reload();
             }
-        }
+        };
         request.send();
     }
 
