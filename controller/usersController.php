@@ -1,4 +1,5 @@
 <?php
+$error = false;
 if (isset($_POST["register"])) {
     $firstName = trim(htmlentities($_POST["first_name"]));
     $lastName = trim(htmlentities($_POST["last_name"]));

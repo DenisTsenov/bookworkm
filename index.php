@@ -1,10 +1,12 @@
 <?php
 session_start();
-require_once "load_data.php";
-require_once './header.php';
-$error = false;
-?>
+require_once "./model/load_data.php";
 
+require_once './view/header.php';
+
+?>
+<link rel="stylesheet" href="./assets/css/styles.css" type="text/css"/>
+<link rel="stylesheet" href="./assets/css/cssReset.css" type="text/css"/>
 <div class="main" id="main">
     <aside class="category_list">
         <!-- tuk moje  da  durjim list s kategoriite(i podkategorii) -->
@@ -16,19 +18,19 @@ $error = false;
             foreach ($error_reg as $err) {
                 echo $err . "<br/>";
             }
-            require_once './register.php';
+            require_once './view/register.php';
         }
         if (isset($error_log)) {
             foreach ($error_log as $err) {
                 echo $err . "<br/>";
             }
-            require_once './login.php';
+            require_once './view/login.php';
         }
         if (isset($_GET["page"]) && $_GET["page"] == "logout") {
             session_destroy();
             header("Location: index.php");
         } elseif (isset($_GET["page"])) {
-            require_once $_GET["page"] . ".php";
+            require_once "./view/" . $_GET["page"] . ".php";
         }
         ?>
 
@@ -99,5 +101,5 @@ $error = false;
 </script>
 
 <?php
-include_once './footer.php';
+include_once './view/footer.php';
 ?>
