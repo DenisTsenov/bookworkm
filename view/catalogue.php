@@ -12,6 +12,10 @@
                 <?php
             }
             ?>
+                
+                <?php if (isset($_SESSION["user"]) && $_SESSION["user"]["type"] == 1) { ?>
+                <th>To Cart</th>
+                <?php }?>
         </tr>
         <?php
         foreach ($products as $product) {
@@ -27,6 +31,13 @@
                     <?php if (isset($_SESSION["user"])) { ?>
                         <td>
                             <button class="btn info" value="<?= $product["name"]; ?>" onclick="addToCart(this.value);successAdd(this.value)" >Add to Cart</button>
+                        </td>
+                        <?php
+                    }
+                    ?>
+                        <?php if (isset($_SESSION["user"]) && $_SESSION["user"]["type"] == 1) { ?>
+                        <td>         
+                            <button class="btn info" onclick="getBookInfo(this.value)" value="<?= $product["name"] ?>" >Redact</button>
                         </td>
                         <?php
                     }

@@ -71,7 +71,7 @@ require_once './view/header.php';
 <script type="text/javascript">
     function addToCart(name) {
         var request = new XMLHttpRequest;
-        request.open("GET", "bucket.php?buy_product=" + name);
+        request.open("GET", "./controller/bucketController.php?buy_product=" + name);
         request.onreadystatechange = function (ev) {
             if (this.readyState === 4 && this.status === 200) {
 //                var resp = this.responseText;
@@ -84,7 +84,7 @@ require_once './view/header.php';
 
     function reverseQuantity(bookName) {
         var request = new XMLHttpRequest;
-        request.open("GET", "bucket.php?book=" + bookName);
+        request.open("GET", "./controller/bucketController.php?book=" + bookName);
         request.onreadystatechange = function (ev) {
             if (this.readyState === 4 && this.status === 200) {
                 location.reload();
@@ -96,7 +96,7 @@ require_once './view/header.php';
 
     function removeBook(nameToRemove) {
         var request = new XMLHttpRequest;
-        request.open("GET", "bucket.php?book_to_remove=" + nameToRemove);
+        request.open("GET", "./controller/bucketController.php?book_to_remove=" + nameToRemove);
         request.onreadystatechange = function (ev) {
             if (this.readyState === 4 && this.status === 200) {
                 location.reload();
