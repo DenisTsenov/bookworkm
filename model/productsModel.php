@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__."/load_data.php";
 function minusQuantity($pdo, $bookName) {
-//    require_once __DIR__."/load_data.php";
+
     try {
         $bookCelan = trim(htmlentities($bookName));
         $query = "UPDATE books SET quantity = quantity - 1 WHERE name = ?;";

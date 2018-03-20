@@ -32,6 +32,13 @@ if (!$_SESSION["user"]) {
     
     ?>
 </table>
-<?= isset($total) ? "<h4>Total in  bucket &nbsp -> &nbsp" . $total . "</h4>" : "" ?></h4>
+<?php
+if (!$_SESSION["bucket"]) {
+    echo "<h3>Your  Bucket is empty!</h3>";
+} else {  ?>
+    <?= isset($total) ? "<h4>Total in  bucket &nbsp -> &nbsp" . $total . "</h4>" : "" ?>
+<?php }
+?>
+
 
 

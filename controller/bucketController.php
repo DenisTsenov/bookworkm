@@ -95,9 +95,5 @@ if (isset($_GET["book"])) {
     }
 }
 
-if (!$_SESSION["bucket"]) {
-    echo "<h3>Your  Bucket is empty!</h3>";
-} else { 
-    
-}
+
 

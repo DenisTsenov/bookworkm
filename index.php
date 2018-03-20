@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 require_once "./model/load_data.php";
 
 require_once './view/header.php';
@@ -12,6 +13,10 @@ require_once './view/header.php';
             <?php
             if(isset($_SESSION["user"])){ ?>
             <a id="login" href="index.php?page=profile">My profile</a>
+            <?php } ?>
+            <?php
+            if(isset($_SESSION["user"])){ ?>
+            <a id="login" href="index.php?page=redactProductView">Redact</a>
             <?php } ?>
             <?php
             if(isset($_SESSION["user"])){ ?>
@@ -68,58 +73,8 @@ require_once './view/header.php';
         <p>This is  footer</p>
     </footer>
 </div>
-<script type="text/javascript">
-    function addToCart(name) {
-        var request = new XMLHttpRequest;
-        request.open("GET", "./controller/bucketController.php?buy_product=" + name);
-        request.onreadystatechange = function (ev) {
-            if (this.readyState === 4 && this.status === 200) {
-//                var resp = this.responseText;
-                location.reload();
-
-            }
-        };
-        request.send();
-    }
-
-    function reverseQuantity(bookName) {
-        var request = new XMLHttpRequest;
-        request.open("GET", "./controller/bucketController.php?book=" + bookName);
-        request.onreadystatechange = function (ev) {
-            if (this.readyState === 4 && this.status === 200) {
-                location.reload();
-            }
-        };
-        request.send();
-
-    }
-
-    function removeBook(nameToRemove) {
-        var request = new XMLHttpRequest;
-        request.open("GET", "./controller/bucketController.php?book_to_remove=" + nameToRemove);
-        request.onreadystatechange = function (ev) {
-            if (this.readyState === 4 && this.status === 200) {
-                location.reload();
-            }
-        };
-        request.send();
-    }
-
-    //TO DO
-    function successAdd(name) {
-//        var create = document.getElementById("success");
-//        create.style.visibility = "visible";
-//        create.innerHTML = name + " was added to  you  buket!";
-//        
-//        var request = new XMLHttpRequest;
-//        request.open("GET", "bucket.php?minus=" + name);
-//        request.onreadystatechange = function (ev) {
-//            if (this.readyState === 4 && this.status === 200) {
-//                
-//            }
-//        }
-//        request.send();
-    }
+<script src="./assets/js/ajax.js" type="text/javascript">
+   
 </script>
 
 <?php

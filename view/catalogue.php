@@ -1,6 +1,7 @@
 <section class="table">
     <table id="products">
         <tr>
+
             <th>Book Name</th>
             <th>Author</th>
             <th>Price</th>
