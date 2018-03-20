@@ -1,6 +1,7 @@
 <?php
 
 require_once "../model/usersModel.php";
+session_start();
 $error = false;
 
 if (isset($_POST["register"])) {
@@ -18,7 +19,7 @@ if (isset($_POST["register"])) {
         $ext = $exploded_name[count($exploded_name) - 1];
         $logo_url = "./assets/uploads/$firstName.$ext";
         if (move_uploaded_file($tmp_name, $logo_url)) {
-
+            
         } else {
             $error_reg[] = "File not moved successfully";
         }
@@ -43,19 +44,18 @@ if (isset($_POST["login"])) {
     $email = $_POST["email"];
     $password = $_POST["pass"];
     $error_log = [];
-    foreach ($users as $user) {
-        if ($user["email"] == $email) {
-            if ($user["password"] == sha1($password)) {
-                $_SESSION["user"] = $user;
-                $_SESSION["bucket"] = [];
-                header("Location: index.php?page=catalogue");
-            } else {
-                $error_log[] = "Wrong email and/or password";
-            }
-        } else {
-            $error_log[] = "Wrong email and/or password";
-        }
+    $result = login($pdo, $email, sha1($password));
+    if ($result) {
+
+        $_SESSION["user"] = $result;
+        $_SESSION["bucket"] = [];
+        header("Location: " . "http://localhost/bookworkm/" . "index.php");
+    }else{
+        echo $error_reg[] = "Invaid User Name/Password";
+//        var_dump($result);
     }
+    
+    
 }
 
 if (isset($_POST["edit_profile"])) {

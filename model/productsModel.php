@@ -37,3 +37,18 @@ function plusQuantity($pdo, $qunatity, $bookName ) {
         return "Something  went wrong " . $exp->getMessage();
     }
 }
+
+function getProductInfo($pdo, $bookName) {
+    try {
+        
+        $query = "SELECT name, price, quantity, img_url FROM  books WHERE name = ?;";
+        $statement = $pdo->prepare($query);
+        $params = [$bookName];
+        $statement->execute($params);
+        $product = $statement->fetch(PDO::FETCH_ASSOC);
+        return  $product;
+        
+    } catch (PDOException $exp) {
+        return "Something  went wrong. " . $exp->getMessage();
+    }
+}

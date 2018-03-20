@@ -1,4 +1,4 @@
-<form action="../model/usersModel.php" method="POST">
+<form action="./controller/usersController.php" method="POST">
   <div class="imgcontainer">
     <!--<img src="img_avatar2.png" alt="Avatar" class="avatar">-->
   </div>
