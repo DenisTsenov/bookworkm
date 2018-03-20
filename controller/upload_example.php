@@ -23,7 +23,7 @@ if (!file_exists($img)) {
             echo "Sorry, something  went  wrong! Try  again  later<br>";
         }
     } else {
-        echo "File is  not uploadet!<br>";
+        echo "File is  not uploaded!<br>";
     }
 } else {
     echo "Sorry, the  file  allready exist!<br>";

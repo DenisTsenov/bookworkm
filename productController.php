@@ -1,5 +1,5 @@
 <?php 
-require_once './load_data.php';
+require_once './model/load_data.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $productName = trim(htmlentities($_GET["productName"]));

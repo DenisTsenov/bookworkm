@@ -1,5 +1,11 @@
 <?php
-require_once __DIR__ . '/../config/db_config.php';
+
+const DB_HOST = "127.0.0.1";
+const DB_PORT = 3306;
+const DB_NAME = "book_worms_db";
+const USER = "root";
+const PASS = "";
+
 require_once __DIR__.'/usersModel.php';
 try{
     $pdo = new PDO("mysql:host=" . DB_HOST . ":" . DB_PORT . ";dbname=" . DB_NAME, USER, PASS,

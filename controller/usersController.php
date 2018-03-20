@@ -1,5 +1,8 @@
 <?php
+
+require_once "../model/usersModel.php";
 $error = false;
+
 if (isset($_POST["register"])) {
     $firstName = trim(htmlentities($_POST["first_name"]));
     $lastName = trim(htmlentities($_POST["last_name"]));
@@ -15,18 +18,12 @@ if (isset($_POST["register"])) {
         $ext = $exploded_name[count($exploded_name) - 1];
         $logo_url = "./assets/uploads/$firstName.$ext";
         if (move_uploaded_file($tmp_name, $logo_url)) {
-            
+
         } else {
             $error_reg[] = "File not moved successfully";
         }
     } else {
         $error_reg[] = "File not uploaded successfully";
-    }
-    foreach ($users as $user) {
-        if ($user["email"] == $email) {
-            $error_reg[] = "A user with that email already exists.";
-            break;
-        }
     }
     if (empty($firstName) || empty($lastName) || empty($email) || empty($password)) {
         $error_reg[] = "All fields must be filled!";
@@ -35,18 +32,8 @@ if (isset($_POST["register"])) {
         $error_reg[] = "Password mismatch!";
     }
     if (!$error_reg) {
-        $user = array();
-        $user["first_name"] = $firstName;
-        $user["last_name"] = $lastName;
-        $user["email"] = $email;
-        $user["password"] = $password;
-        $user["avatar"] = $logo_url;
-        $user["type"] = 0;
-        $user["cart"] = array();
-        $user["history"] = array();
-        $users[] = $user;
-        file_put_contents("assets/data/users.json", json_encode($users));
-        header("Location: index.php?page=login");
+        registerProfile($firstName, $lastName, $email, $password, $logo_url);
+        header("Location: index?page=catalogue.php");
     } else {
         require_once "register.php";
     }
