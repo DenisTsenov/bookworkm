@@ -1,5 +1,7 @@
 <?php
-require_once __DIR__."/load_data.php";
+
+require_once __DIR__ . "/load_data.php";
+
 function minusQuantity($pdo, $bookName) {
 
     try {
@@ -8,11 +10,10 @@ function minusQuantity($pdo, $bookName) {
         $statement = $pdo->prepare($query);
         $params = [$bookCelan];
         if ($statement->execute($params)) {
-            return  true;
-        }else{
-            return  false;
+            return true;
+        } else {
+            return false;
         }
-        
     } catch (PDOException $exp) {
         return "Something  went wrong " . $exp->getMessage();
     }
@@ -30,7 +31,7 @@ function plusOneQuantity($pdo, $bookName) {
     }
 }
 
-function plusQuantity($pdo, $qunatity, $bookName ) {
+function plusQuantity($pdo, $qunatity, $bookName) {
     try {
         $bookNameClean = trim(htmlentities($bookName));
         $qunatityClean = trim(htmlentities($qunatity));
@@ -45,13 +46,30 @@ function plusQuantity($pdo, $qunatity, $bookName ) {
 
 function getProductInfo($pdo, $bookName) {
     try {
-        
+
         $query = "SELECT name, price, quantity, img_url FROM  books WHERE name = ?;";
         $statement = $pdo->prepare($query);
         $params = [$bookName];
         $statement->execute($params);
         $product = $statement->fetch(PDO::FETCH_ASSOC);
-        return  $product;
+        return $product;
+    } catch (PDOException $exp) {
+        return "Something  went wrong. " . $exp->getMessage();
+    }
+}
+
+function updateBook($pdo, $name, $price, $quantity, $oldName) {
+    try {
+        $query = "UPDATE books SET name = ?, price= ? , quantity = ? WHERE name = ?;";
+        $statement = $pdo->prepare($query);
+        $params = [$name, $price, $quantity, $oldName];
+        
+        if ($statement->execute($params)) {
+            return getProductInfo($pdo, $name);
+        }else{
+            return  FALSE;
+        }
+        
         
     } catch (PDOException $exp) {
         return "Something  went wrong. " . $exp->getMessage();
