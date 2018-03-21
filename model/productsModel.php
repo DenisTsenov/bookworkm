@@ -1,12 +1,17 @@
 <?php
-
+require_once __DIR__."/load_data.php";
 function minusQuantity($pdo, $bookName) {
+
     try {
         $bookCelan = trim(htmlentities($bookName));
         $query = "UPDATE books SET quantity = quantity - 1 WHERE name = ?;";
         $statement = $pdo->prepare($query);
         $params = [$bookCelan];
-        $statement->execute($params);
+        if ($statement->execute($params)) {
+            return  true;
+        }else{
+            return  false;
+        }
         
     } catch (PDOException $exp) {
         return "Something  went wrong " . $exp->getMessage();

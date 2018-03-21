@@ -44,6 +44,9 @@ if (isset($_POST["login"])) {
     $email = $_POST["email"];
     $password = $_POST["pass"];
     $error_log = [];
+    /*
+     * tuk  trqbwa  da si naprawish  walidaciq na  dannite
+     */
     $result = login($pdo, $email, sha1($password));
     if ($result) {
 
