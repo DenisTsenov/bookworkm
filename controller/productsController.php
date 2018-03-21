@@ -56,10 +56,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
         $result = updateBook($pdo, $productName, $productPrice, $productQuantity, $_SESSION["redact"]["old"]);
         if ($result) {
-            $_SESSION["redact"]["name"] = $result["name"];
-            $_SESSION["redact"]["price"] = $result["price"];
-            $_SESSION["redact"]["quantiy"] = $result["quantity"];
-            echo json_encode($result);
+            $output = getProductInfo($pdo, $productName);
+            $_SESSION["redact"]["name"] = $output["name"];
+            $_SESSION["redact"]["price"] = $output["price"];
+            $_SESSION["redact"]["quantity"] = $output["quantity"];
+//            echo json_encode($result);
         }else{
             
         }
