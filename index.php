@@ -59,6 +59,8 @@ require_once './view/header.php';
         } elseif (isset($_GET["page"])) {
             require_once "./view/" . $_GET["page"] . ".php";
         }
+        var_dump($_SESSION);
+        var_dump($_GET);
         ?>
 
 

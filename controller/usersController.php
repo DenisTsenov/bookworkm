@@ -44,12 +44,13 @@ if (isset($_POST["login"])) {
     $email = $_POST["email"];
     $password = $_POST["pass"];
     $error_log = [];
-    /*
-     * tuk  trqbwa  da si naprawish  walidaciq na  dannite
-     */
-    $result = login($pdo, $email, sha1($password));
+    if(empty($email) || empty($password)){
+        $error_log[] = "Please fill in the fields";
+    }
+    if(!$error_log){
+        $result = login($pdo, $email, sha1($password));
+    }
     if ($result) {
-
         $_SESSION["user"] = $result;
         $_SESSION["bucket"] = [];
         header("Location: ../index.php");
@@ -103,4 +104,13 @@ if (isset($_POST["edit_profile"])) {
             }
         }
     }
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    if(isset($_GET["profile"])){
+        $logged_mail = $_SESSION["user"]["email"];
+        $user = getUserByEmail($logged_mail);
+        echo json_encode($user);
+    }
+
 }

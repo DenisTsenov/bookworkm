@@ -27,3 +27,17 @@ require_once __DIR__."/load_data.php";
         echo "Something  went wrong! " . $exp->getMessage();
     }
 }
+
+function getUserByEmail($pdo, $email){
+require_once __DIR__."/load_data.php";
+    try{
+        $statement = $pdo->prepare("SELECT first_name, last_name, email, age FROM users WHERE email = ?");
+        $statement->execute(array($email));
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+    catch(PDOException $exp){
+        echo "Something went wrong!" . $exp->getMessage();
+    }
+
+}
