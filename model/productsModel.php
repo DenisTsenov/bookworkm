@@ -63,11 +63,11 @@ function updateBook($pdo, $name, $price, $quantity, $oldName) {
         $query = "UPDATE books SET name = ?, price= ? , quantity = ? WHERE name = ?;";
         $statement = $pdo->prepare($query);
         $params = [$name, $price, $quantity, $oldName];
-        
+        $row = getProductInfo($pdo, $name);
         if ($statement->execute($params)) {
-            return getProductInfo($pdo, $name);
+            return $row;
         }else{
-            return  FALSE;
+            return  false;
         }
         
         

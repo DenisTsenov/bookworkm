@@ -37,8 +37,12 @@
                     }
                     ?>
                         <?php if (isset($_SESSION["user"]) && $_SESSION["user"]["type"] == 1) { ?>
-                        <td>         
-                            <button class="btn info" onclick="getBookInfo(this.value)" value="<?= $product["name"] ?>" >Redact</button>
+                        <td>        
+                            <form action="./controller/productsController.php" method="GET">
+                                <input type="hidden" name="book_name" value="<?= $product["name"] ?>"/>
+                                <input type="submit" name="redact" value="Redact"/>
+                            </form>
+                            
                         </td>
                         <?php
                     }

@@ -14,10 +14,7 @@ require_once './view/header.php';
             if(isset($_SESSION["user"])){ ?>
             <a id="login" href="index.php?page=profile">My profile</a>
             <?php } ?>
-            <?php
-            if(isset($_SESSION["user"])){ ?>
-            <a id="login" href="index.php?page=redactProductView">Redact</a>
-            <?php } ?>
+            
             <?php
             if(isset($_SESSION["user"])){ ?>
             <a id="login" href="index.php?page=bucket">My Cart</a>
@@ -59,7 +56,7 @@ require_once './view/header.php';
         } elseif (isset($_GET["page"])) {
             require_once "./view/" . $_GET["page"] . ".php";
         }
-//        var_dump($_SESSION);
+        var_dump($_SESSION);
 //        var_dump($_GET);
         ?>
 

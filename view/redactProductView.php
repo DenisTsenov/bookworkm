@@ -6,6 +6,7 @@ if (!$_SESSION["user"]) {
     header("Location: index.php");
 }
 ?>
+
 <div id="redact">
     <?php 
     if (isset( $_SESSION["redact"]["name"])) {

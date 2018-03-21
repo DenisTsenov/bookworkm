@@ -9,8 +9,8 @@ if (!$_SESSION["user"]) {
 
 require_once '../model/productsModel.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    $productName = trim(htmlentities($_GET["productName"]));
+if (isset($_GET["redact"])) {
+    $productName = trim(htmlentities($_GET["book_name"]));
 
     if (!empty($productName) && mb_strlen($productName) > 2) {
 
@@ -19,7 +19,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 //            echo json_encode($result, JSON_FORCE_OBJECT);
             $_SESSION['redact'] = $result;
 
-            header("Location: " . "http://localhost/bookworkm/view/redactProductView.php");
+            header("Location: ../index.php?page=redactProductView");
+            
         } catch (Exception $exp) {
             echo "Something  went  worng. " . $exp->getMessage();
         }
@@ -33,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $productName = trim(htmlentities($_POST["name"]));
     $productPrice = trim(htmlentities($_POST["price"]));
     $productQuantity = trim(htmlentities($_POST["quantity"]));
-//    $img = basename($_FILES['product_pic']['name']);
+
     $errArr = [];
     
     if (empty($productName) || mb_strlen($productName) < 2) {
@@ -52,38 +53,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errArr[] = "Min  length  for  name  is  2 chars.";
     }
 
-//    $imageFileType = strtolower(pathinfo($img, PATHINFO_EXTENSION));
-//
-//    $imgSize = $_FILES['product_pic']['size'];
-//    if ($imgSize > 1000000) {
-//        echo "Max size is 100 KB!<br>";
-//    }
-//    $f = false;
-//    if ($imageFileType != "jpg" && $imageFileType != "ico" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
-//        echo "Sorry, only JPG, JPEG, ICO, PNG & GIF files are allowed.<br>";
-//    }
-//
-//    if (!file_exists($img)) {
-//        if (is_uploaded_file($_FILES['product_pic']['tmp_name'])) {
-//            $path = "../assets/uploads/product_img/" . $productName . $imageFileType;
-//            if (move_uploaded_file($_FILES['product_pic']['tmp_name'], $path)) {
-//                $f = true;
-//            } else {
-//                echo "Sorry, something  went  wrong! Try  again  later<br>";
-//            }
-//        } else {
-//            echo "File is  not uploaded!<br>";
-//        }
-//    } else {
-//        echo "Sorry, the  file  allready exist!<br>";
-//    }
-
     try {
         $result = updateBook($pdo, $productName, $productPrice, $productQuantity, $_SESSION["redact"]["old"]);
         if ($result) {
+            $_SESSION["redact"]["name"] = $result["name"];
+            $_SESSION["redact"]["price"] = $result["price"];
+            $_SESSION["redact"]["quantiy"] = $result["quantity"];
             echo json_encode($result);
         }else{
-            //TODO
             
         }
     } catch (PDOException $exp) {

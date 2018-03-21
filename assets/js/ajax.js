@@ -72,8 +72,9 @@ function  redactBook(bookToRedact) {
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     request.onreadystatechange = function (ev) {
         if (this.readyState === 4 && this.status === 200) {
-            
+            location.reload();
             var response = JSON.parse(this.resposeText);
+            alert(response.name);
             name.value = response.name;
             name.price = response.price;
             name.quantity = response.quantity;
