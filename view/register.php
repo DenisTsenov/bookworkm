@@ -3,7 +3,7 @@
         header("location: index.php");
     }
 ?>
-<form action="../controller/usersController.php" method="POST" enctype="multipart/form-data">
+<form action="./controller/usersController.php" method="POST" enctype="multipart/form-data">
   <div class="imgcontainer">
     <!--<img src="img_avatar2.png" alt="Avatar" class="avatar">-->
   </div>

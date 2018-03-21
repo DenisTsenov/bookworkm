@@ -16,7 +16,7 @@ function login($pdo, $email, $password) {
 require_once __DIR__."/load_data.php";
     try {
         
-        $query = "SELECT first_name, email, img_name, password FROM users WHERE email = ? AND password = ?;";
+        $query = "SELECT first_name, email, img_name, pass FROM users WHERE email = ? AND pass = ?;";
         $statement = $pdo->prepare($query);
         $params = [$email, $password];
         

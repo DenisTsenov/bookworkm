@@ -17,7 +17,7 @@ if (isset($_POST["register"])) {
     if (is_uploaded_file($tmp_name)) {
         $exploded_name = explode(".", $orig_name);
         $ext = $exploded_name[count($exploded_name) - 1];
-        $logo_url = "./assets/uploads/$firstName.$ext";
+        $logo_url = "../assets/uploads/$firstName.$ext";
         if (move_uploaded_file($tmp_name, $logo_url)) {
             
         } else {
@@ -33,10 +33,10 @@ if (isset($_POST["register"])) {
         $error_reg[] = "Password mismatch!";
     }
     if (!$error_reg) {
-        registerProfile($firstName, $lastName, $email, $password, $logo_url);
-        header("Location: index?page=catalogue.php");
+        registerProfile($pdo, $firstName, $lastName, $email, $password, $logo_url);
+        header("Location: index.php");
     } else {
-        require_once "register.php";
+        require_once "../../view/register.php";
     }
 }
 
@@ -49,10 +49,9 @@ if (isset($_POST["login"])) {
 
         $_SESSION["user"] = $result;
         $_SESSION["bucket"] = [];
-        header("Location: " . "http://localhost/bookworkm/" . "index.php");
+        header("Location: ../index.php");
     }else{
         echo $error_reg[] = "Invaid User Name/Password";
-//        var_dump($result);
     }
     
     
