@@ -15,7 +15,7 @@
             ?>
                 
                 <?php if (isset($_SESSION["user"]) && $_SESSION["user"]["type"] == 1) { ?>
-                <th>To Cart</th>
+                <th>Redact</th>
                 <?php }?>
         </tr>
         <?php
@@ -40,7 +40,7 @@
                         <td>        
                             <form action="./controller/productsController.php" method="GET">
                                 <input type="hidden" name="book_name" value="<?= $product["name"] ?>"/>
-                                <input type="submit" name="redact" value="Redact"/>
+                                <input type="submit" class="btn info" name="redact" value="Redact"/>
                             </form>
                             
                         </td>

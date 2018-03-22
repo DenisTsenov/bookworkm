@@ -96,6 +96,25 @@ button {
     cursor: pointer;
     width: 100%;
 }
+
+.blue {
+    background-color: #2196F3;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+.smal_blue{
+    background-color: #2196F3;
+    color: white;
+    padding: 1px 1px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
 .register  {
     background-color: cadetblue;
     color: white;
@@ -226,4 +245,21 @@ span.psw {
     padding: 10px;
     border: 1px solid silver;
     border-radius: 3px;
+}
+
+#addBook{
+    margin: 5px;
+    padding: 10px;
+    border: 1px solid silver;
+    border-radius: 3px;
+}
+.err{
+    width: 50%;
+    margin: 0 auto;
+    padding: 5px;
+    height: 30px;
+    text-align: center;
+    border: 1px solid yellow;
+    background-color: orangered;
+    font-style: italic;
 }

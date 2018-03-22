@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="../assets/css/styles.css" type="text/css"/>
         <link rel="stylesheet" href="../assets/css/cssReset.css" type="text/css"/>
     </head>
-    <body>
+    <body onload="takeAuthors(); takeGenres();">
     <div class="main">
         <nav class="navigation">
             <a href="index.php"><img id="logo" src="http://akgerber.com/wp-content/uploads/Open_Book_Logo_1small.png" alt="book_logo"/></a>

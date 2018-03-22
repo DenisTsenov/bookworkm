@@ -1,6 +1,9 @@
 <?php
-
 require_once __DIR__ . "/load_data.php";
+
+if (!$_SESSION["user"]) {
+    header("Location: index.php");
+}
 
 function minusQuantity($pdo, $bookName) {
 
@@ -70,6 +73,22 @@ function updateBook($pdo, $name, $price, $quantity, $oldName) {
             return  false;
         }
         
+        
+    } catch (PDOException $exp) {
+        return "Something  went wrong. " . $exp->getMessage();
+    }
+}
+
+function insertBook($pdo, $name, $author, $price, $quantity, $genre, $img) {
+    try {
+        $query = "INSERT INTO books(name, author_id, price, quantity, category_id, img_url)
+                VALUES(?,?,?,?,?,?)";
+        $statement = $pdo->prepare($query);
+        $params = [$name, $author, $price, $quantity, $genre, $img];
+        
+        if ($statement->execute($params)) {
+            return true;
+        }
         
     } catch (PDOException $exp) {
         return "Something  went wrong. " . $exp->getMessage();

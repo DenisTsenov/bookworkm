@@ -17,7 +17,8 @@ if (!$_SESSION["user"]) {
     Price<input type="number" id="redact_price" name="redact_price" value="<?= $_SESSION["redact"]["price"]; ?>"><br>
     Quantity<input type="number" id="redact_quantity" name="redact_quantity" value="<?= $_SESSION["redact"]["quantity"]; ?>"><br>
     
-    Picture <img id="book_img" src="./assets/uploads/product_img/<?= $_SESSION["redact"]["img_url"]; ?>" alt="book_img"/>
+    Picture <img id="book_img" src="./assets/uploads/product_img/<?= $_SESSION["redact"]["img_url"]; ?>" alt="book_img"/><br/>
     <input type="file" id="redact_img" name="product_pic"><br>
     <button type="submit" value="<?= $_SESSION["redact"]["name"]; ?>" onclick="redactBook(this.value)" name="redact-product">Redact</button>
+    <a href="index.php?page=addBook"><button type="submit" class="blue" name="newBook">Add  New Book!</button></a>
 </div>
