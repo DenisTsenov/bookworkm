@@ -1,11 +1,14 @@
 <?php
-require_once __DIR__."/load_data.php";
+
 function registerProfile($pdo, $firstName, $lastName, $email, $password, $logo_url) {
-    
+    require_once __DIR__."./load_data.php";
     try {
-        $statement = $pdo->prepare("INSERT INTO users (first_name, last_name, email, pass, img_name) VALUES (?, ?, ?, ?, ?)");
+        $statement = $pdo->prepare("INSERT INTO users (first_name, last_name, email, pass, img_name, type) VALUES (?, ?, ?, ?, ?, 0);");
         $params = [$firstName, $lastName, $email, $password, $logo_url];
-        $statement->execute($params);
+
+        if ($statement->execute($params)){
+            return true;
+        }
     } catch (PDOException $exp) {
         echo "Something  went wrong! " . $exp->getMessage();
     }

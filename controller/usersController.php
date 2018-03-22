@@ -33,8 +33,14 @@ if (isset($_POST["register"])) {
         $error_reg[] = "Password mismatch!";
     }
     if (!$error_reg) {
-        registerProfile($pdo, $firstName, $lastName, $email, $password, $logo_url);
-        header("Location: index.php");
+        $a = registerProfile($pdo, $firstName, $lastName, $email, $password, $logo_url);
+        if($a){
+            header("Location: ../index.php");
+        }
+        else{
+            header("Location: ../view/register.php");
+        }
+
     } else {
         require_once "../../view/register.php";
     }
