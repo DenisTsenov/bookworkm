@@ -1,7 +1,7 @@
 <?php
 
 function registerProfile($firstName, $lastName, $email, $password, $logo_url) {
-    require_once __DIR__."./load_data.php";
+    require_once __DIR__."/load_data.php";
     try {
         $query = "INSERT INTO users (first_name, last_name, email, password, img_name, type) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $pdo->prepare($query);

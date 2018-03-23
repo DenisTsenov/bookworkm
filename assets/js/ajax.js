@@ -72,18 +72,18 @@ function  redactBook(bookToRedact) {
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     request.onreadystatechange = function (ev) {
         if (this.readyState === 4 && this.status === 200) {
-//            location.reload();
-            var response = JSON.parse(this.responseText);
-            
-            for(var i in response){
-                var h4 = document.createElement("h4");
-                h4.setAttribute("class", "err");
-                
-                h4.innerHTML = response[i];
-                var div = document.getElementById("redact");
-                div.appendChild(h4);
-//                h4.innerHTML = "";
-            }
+            location.reload();
+//            var response = JSON.parse(this.responseText);
+//            
+//            for(var i in response){
+//                var h4 = document.createElement("h4");
+//                h4.setAttribute("class", "err");
+//                
+//                h4.innerHTML = response[i];
+//                var div = document.getElementById("redact");
+//                div.appendChild(h4);
+////                h4.innerHTML = "";
+//            }
             
 //            alert(response[0]);
 //           
@@ -94,6 +94,6 @@ function  redactBook(bookToRedact) {
             
         }
     };
-    request.send("name=" + name + "&price=" + price + "&quantity=" + quantity);
+    request.send("redact_name=" + name + "&redact_price=" + price + "&redact_quantity=" + quantity);
 
 }
