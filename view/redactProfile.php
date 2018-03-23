@@ -1,5 +1,5 @@
 <div class="baic_content">
-    <form action="index.php" method="post" enctype="multipart/form-data">
+    <form action="./controller/usersController.php" method="post" enctype="multipart/form-data">
         <table>
             <tr>
                 <td>
@@ -46,7 +46,7 @@
                     Your avatar:
                 </td>
                 <td>
-                    <img src="<?= $_SESSION["user"]["avatar"] ?>" alt="">
+                    <img src="<?= $_SESSION["user"]["img_name"] ?>" alt="">
                 </td>
             </tr>
             <tr>

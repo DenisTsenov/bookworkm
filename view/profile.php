@@ -1,32 +1,15 @@
 <section class="baic_content">
-    <div id="first_name" class="container">
-
+    <div class="container">
+        <?= $_SESSION["user"]["first_name"]; ?>
     </div>
-    <div id="last_name" class="container">
-
+    <div class="container">
+        <?= $_SESSION["user"]["last_name"]; ?>
     </div>
-    <div id="email" class="container">
-
+    <div class="container">
+        <?= $_SESSION["user"]["email"]; ?>
     </div>
-    <div id="age" class="container">
-
+    <div class="container">
+        <img id="avatar" src="<?= $_SESSION["user"]["img_name"] ?>" alt="">
     </div>
-    <div class="container" id="avatar">
-        <img id="avatar" src="" alt="">
-    </div>
-    <a href="../index.php?page=redactProfile" ><button type="button" class="register">Edit my profile</button></a>
+    <a href="./index.php?page=redactProfile" ><button type="button" class="register">Edit my profile</button></a>
 </section>
-
-<script>
-    var req = new XMLHttpRequest();
-    req.open("get", "../controller/usersController.php");
-    req.onreadystatechange = function (ev) {
-        var resp = this.responseText;
-        resp = JSON.parse(resp);
-        document.getElementById("first_name").value = resp.first_name;
-        document.getElementById("last_name").value = resp.last_name;
-        document.getElementById("email").value = resp.email;
-        document.getElementById("age").value = resp.age;
-    }
-    req.send();
-</script>

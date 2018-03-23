@@ -56,8 +56,9 @@ require_once './view/header.php';
         } elseif (isset($_GET["page"])) {
             require_once "./view/" . $_GET["page"] . ".php";
         }
-//        var_dump($_SESSION);
-//        var_dump($_GET);
+       var_dump($_SESSION);
+        var_dump($user);
+//
         ?>
 
 
@@ -69,7 +70,7 @@ require_once './view/header.php';
             
             </article>-->
     <footer class="footer">
-        <p>This is  footer</p>
+        <p>This is footer</p>
     </footer>
 </div>
 <script src="./assets/js/ajax.js">
