@@ -263,3 +263,36 @@ span.psw {
     background-color: orangered;
     font-style: italic;
 }
+
+drop-down select {
+    -moz-appearance: none;
+    text-indent: 0.01px;
+    text-overflow: '';
+}
+
+#drop-down{
+    font-style: oblique;
+    height: 40px;
+    float: left;
+    margin: 20px;
+    background-color: #333;
+    color: #0b7dda;
+    border-radius: 8px;
+    margin-top: 30px;
+}
+
+#drop-down:hover{
+    
+    height: 40px;
+    
+    margin-right: 20px;
+    
+    background-color: whitesmoke;
+    color: #2196F3;
+    margin-top: 30px;
+}
+
+#drop-down option{
+    padding: 7px;
+    background-color: #2196F3;
+}

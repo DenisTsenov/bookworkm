@@ -40,5 +40,43 @@ function getAuthorName($pdo, $id) {
     } catch (PDOException $exp){
         return "Ups something went wrong " . $exp->getMessage();
     }
+
+}
+
+
+function ifAuthorExsist($pdo, $name) {
+    try{
+        
+    $query = "SELECT COUNT(*) from authors WHERE name = ?;";
+    $stmt = $pdo->prepare($query);
+    $params = [$name];
+    $stmt->execute($params);
+    $num_rows = $stmt->fetchColumn();
+    if ($num_rows) {
+        return true;
+    }else{
+        return false;
+    }
+    
+    } catch (PDOException $exp){
+        return "Ups something went wrong " . $exp->getMessage();
+    }
+}
+       
+
+function insertAuthor($pdo, $name) {
+    try{
+        
+    $query = "INSERT INTO authors(name) VALUES(?);";
+    $stmt = $pdo->prepare($query);
+    $param = [$name];
+    
+    
+    if ($stmt->execute($param)) {
+        return getAuthorName($pdo, $name);
+    }
+    } catch (PDOException $exp){
+        return "Ups something went wrong " . $exp->getMessage();
+    }
 }
 

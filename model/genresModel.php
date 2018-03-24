@@ -29,7 +29,7 @@ function getGenreName($pdo, $id) {
     if ($result) {
         return  true;
     }else{
-        return  fasle;
+        return  false;
     }
     
     } catch (PDOException $exp){

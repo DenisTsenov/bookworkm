@@ -31,11 +31,11 @@ if (isset($_GET["redact"])) {
 /*
  * redact books in table
  */
-if (isset($_POST["name"])) {
+if (isset($_POST["redact_name"])) {
 
-    $productName = trim(htmlentities($_POST["name"]));
-    $productPrice = trim(htmlentities($_POST["price"]));
-    $productQuantity = trim(htmlentities($_POST["quantity"]));
+    $productName = trim(htmlentities($_POST["redact_name"]));
+    $productPrice = trim(htmlentities($_POST["redact_price"]));
+    $productQuantity = trim(htmlentities($_POST["redact_quantity"]));
 
     $errArr = [];
 
@@ -77,11 +77,11 @@ if (isset($_POST["name"])) {
  * inser  new  book in  table
  */
 if (isset($_POST["insertBook"])) {
-    $name = trim(htmlentities($_POST["insertBook"]));
-    $author = trim(htmlentities($_POST["author"]));
-    $price = trim(htmlentities($_POST["price"]));
-    $quantity = trim(htmlentities($_POST["quantity"]));
-    $genre = trim(htmlentities($_POST["genre"]));
+    $name = trim(htmlentities($_POST["new_name"]));
+    $author = trim(htmlentities($_POST["new_author"]));
+    $price = trim(htmlentities($_POST["new_price"]));
+    $quantity = trim(htmlentities($_POST["new_quantity"]));
+    $genre = trim(htmlentities($_POST["new_category"]));
     
     $insertErr = [];
 
@@ -104,13 +104,13 @@ if (isset($_POST["insertBook"])) {
     if ($genre < 0) {
         $insertErr[] = "Invaid genre!";
     }
-    $tmp_name = $_FILES["img"]["tmp_name"];
-    $orig_name = $_FILES["img"]["name"];
+    $tmp_name = $_FILES["new_img"]["tmp_name"];
+    $orig_name = $_FILES["new_img"]["name"];
 
     if (is_uploaded_file($tmp_name)) {
         $exploded_name = explode(".", $orig_name);
         $ext = $exploded_name[count($exploded_name) - 1];
-        $logo_url = "../assets/uploads/product_img/$firstName.$ext";
+        $logo_url = "../assets/uploads/product_img/$name.$ext";
         if (move_uploaded_file($tmp_name, $logo_url)) {
             
         } else {
@@ -119,12 +119,9 @@ if (isset($_POST["insertBook"])) {
     } else {
         $error_reg[] = "File not uploaded successfully";
     }
-        
-    
 
     if ($insertErr) {
-//        echo json_encode($insertErr);
-        echo "losho";
+        echo json_encode($insertErr);
     } else {
         require_once '../model/authorsModel.php';
         require_once '../model/genresModel.php';
@@ -133,26 +130,26 @@ if (isset($_POST["insertBook"])) {
         $genreResult = getGenreName($pdo, $genre);
         
         if (!$genreResult) {
-            echo $insertErr[] = "Invalid  author!";
-//            echo  $genreResult;
+            $insertErr[] = "Invalid  author!";
+
         }
         
         if (!$authorResult) {
-            echo $insertErr[] = "Invalid  author!";
-//            echo $authorResult;
+            $insertErr[] = "Invalid  author!";
+
         }
 
-        
-
         if ($insertErr) {
-//            echo "error again";
+            echo $insertErr;
         } else {
 
-            $successInsert = insertBook($pdo, $name, $author, $price, $quantity, $genre, $name . ".jpg");
-            if ($successInsert) {
-                echo "The book  was added succsesfully!";
+            
+            if (insertBook($pdo, $name, $author, $price, $quantity, $genre, $name . ".jpg")) {
+                $_SESSION["success"] = true;
+                header("Location: ../index.php?page=addBook");
             } else {
-                echo "I'm  stil sad...";
+                //todo
+                //return err msg or redirect
             }
         }
     }
