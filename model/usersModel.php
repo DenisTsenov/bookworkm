@@ -46,7 +46,7 @@ require_once __DIR__."/load_data.php";
 
 }
 
-function editUser($id,  $firstName, $lastName, $email, $password, $avatar){
+function editUser($id, $firstName, $lastName, $email, $password, $avatar){
     require_once __DIR__."/load_data.php";
     try{
         $statement = $pdo -> prepare("UPDATE users SET first_name = ?, last_name = ?, email = ?, password = ?, img_name = ? WHERE id = ?");
@@ -62,3 +62,4 @@ function editUser($id,  $firstName, $lastName, $email, $password, $avatar){
         echo "Something went wrong! " . $exp->getMessage();
     }
 }
+

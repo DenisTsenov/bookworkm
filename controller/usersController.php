@@ -92,9 +92,11 @@ if (isset($_POST["edit_profile"])) {
         echo "Invalid username and/or password.";
     }
     if (!$error) {
-        editUser($id, $firstName, $lastName, $email, $newPassword, $logo_url);
+        $user = array();
+        $user = editUser($id, $firstName, $lastName, $email, $newPassword, $logo_url);
+        unset($_SESSION["user"]);
+        $_SESSION["user"] = $user;
         header("Location: ../index.php");
-
     }
 }
 

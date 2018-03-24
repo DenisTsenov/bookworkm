@@ -57,7 +57,6 @@ require_once './view/header.php';
             require_once "./view/" . $_GET["page"] . ".php";
         }
        var_dump($_SESSION);
-        var_dump($user);
 //
         ?>
 
