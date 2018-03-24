@@ -37,23 +37,23 @@ if (isset($_POST["redact_name"])) {
     $productPrice = trim(htmlentities($_POST["redact_price"]));
     $productQuantity = trim(htmlentities($_POST["redact_quantity"]));
 
-    $errArr = [];
+    $rsponseArr = [];
 
     if (empty($productName) || mb_strlen($productName) < 2) {
-        $errArr["min_len"] = "Min  length  for  name  is  2 chars.";
+        $rsponseArr["min_len"] = "Min  length  for  name  is  2 chars.";
     }
 
     if (empty($productPrice) || !is_numeric($productPrice) || $productPrice < 2.99) {
-        $errArr["min_price"] = "Min  price  2.99$";
+        $rsponseArr["min_price"] = "Min  price  2.99$";
     }
 
     if (empty($productQuantity) || !is_numeric($productQuantity) || $productQuantity < 1) {
-        $errArr["min_quantity"] = "Min  quantity is 1(one)";
+        $rsponseArr["min_quantity"] = "Min  quantity is 1(one)";
     }
 
-    if ($errArr) {
+    if ($rsponseArr) {
 
-        echo json_encode($errArr);
+        echo json_encode($rsponseArr);
     } else {
         try {
             $result = updateBook($pdo, $productName, $productPrice, $productQuantity, $_SESSION["redact"]["old"]);
@@ -140,7 +140,7 @@ if (isset($_POST["insertBook"])) {
         }
 
         if ($insertErr) {
-            echo $insertErr;
+            echo json_encode($insertErr);
         } else {
 
             

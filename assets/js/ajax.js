@@ -66,7 +66,7 @@ function  redactBook(bookToRedact) {
     var price = document.getElementById("redact_price").value;
     var quantity = document.getElementById("redact_quantity").value;
 //    var img = document.getElementById("redact_img");
-    
+
     var request = new XMLHttpRequest;
     request.open("POST", "./controller/productsController.php", true);
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -84,16 +84,35 @@ function  redactBook(bookToRedact) {
 //                div.appendChild(h4);
 ////                h4.innerHTML = "";
 //            }
-            
+
 //            alert(response[0]);
 //           
 //            name.value = response.name;
 //            name.price = response.price;
 //            name.quantity = response.quantity;
-            
-            
+
+
         }
     };
     request.send("redact_name=" + name + "&redact_price=" + price + "&redact_quantity=" + quantity);
 
 }
+
+var request = new XMLHttpRequest;
+request.open("GET", "./controller/typesController.php", true);
+request.onreadystatechange = function (ev) {
+    if (this.readyState === 4 && this.status) {
+        var select = document.getElementById("type");
+        var resp = JSON.parse(this.responseText);
+
+        for (i in resp) {
+            var option = document.createElement("option");
+            option.setAttribute("value", resp[i]["id"]);
+            option.innerHTML = resp[i]["name"];
+            select.appendChild(option);
+        }
+    }
+};
+request.send();
+
+

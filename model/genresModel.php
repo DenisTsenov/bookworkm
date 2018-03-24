@@ -16,6 +16,27 @@ function getAllGenres($pdo) {
         return "Ups something went wrong " . $exp->getMessage();
     }
 }
+
+function ifGenreExsist($pdo, $name) {
+    try{
+    
+    $query = "SELECT COUNT(id) from categories WHERE name = ?;";
+    $stmt = $pdo->prepare($query);
+    $params = [$name];
+    $stmt->execute($params);
+    $num_rows = $stmt->fetchColumn();
+    
+    if ($num_rows) {
+        return true;
+    }else{
+        return false;
+    }
+    
+    } catch (PDOException $exp){
+        return "Ups something went wrong " . $exp->getMessage();
+    }
+}
+
 function getGenreName($pdo, $id) {
     try{
         
@@ -32,6 +53,21 @@ function getGenreName($pdo, $id) {
         return  false;
     }
     
+    } catch (PDOException $exp){
+        return "Ups something went wrong " . $exp->getMessage();
+    }
+}
+
+function addGenre($pdo, $name, $type) {
+    try{
+        
+    $query = "INSERT INTO categories(name, type_id) VALUES(?,?);";
+    $stmt = $pdo->prepare($query);
+    $param = [$name, $type];
+    
+    if ($stmt->execute($param)) {
+        return true;
+    }
     } catch (PDOException $exp){
         return "Ups something went wrong " . $exp->getMessage();
     }
