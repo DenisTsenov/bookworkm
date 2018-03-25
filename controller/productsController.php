@@ -37,35 +37,38 @@ if (isset($_POST["redact_name"])) {
     $productPrice = trim(htmlentities($_POST["redact_price"]));
     $productQuantity = trim(htmlentities($_POST["redact_quantity"]));
 
-    $rsponseArr = [];
+    $responseArr = [];
 
     if (empty($productName) || mb_strlen($productName) < 2) {
-        $rsponseArr["min_len"] = "Min  length  for  name  is  2 chars.";
+        $responseArr["min_len"] = "Min  length  for  name  is  2 chars.";
     }
 
     if (empty($productPrice) || !is_numeric($productPrice) || $productPrice < 2.99) {
-        $rsponseArr["min_price"] = "Min  price  2.99$";
+        $responseArr["min_price"] = "Min  price  2.99$";
     }
 
     if (empty($productQuantity) || !is_numeric($productQuantity) || $productQuantity < 1) {
-        $rsponseArr["min_quantity"] = "Min  quantity is 1(one)";
+        $responseArr["min_quantity"] = "Min  quantity is 1(one)";
     }
 
-    if ($rsponseArr) {
+    if ($responseArr) {
 
-        echo json_encode($rsponseArr);
+        echo json_encode($responseArr);
     } else {
         try {
-            $result = updateBook($pdo, $productName, $productPrice, $productQuantity, $_SESSION["redact"]["old"]);
-            if ($result) {
-                $output = getProductInfo($pdo, $productName);
-                $_SESSION["redact"]["name"] = $output["name"];
-                $_SESSION["redact"]["price"] = $output["price"];
-                $_SESSION["redact"]["quantity"] = $output["quantity"];
-//            echo json_encode($output);
+            
+            if (updateBook($pdo, $productName, $productPrice, $productQuantity, $_SESSION["redact"]["old"])) {
+//                $output = getProductInfo($pdo, $productName);
+                $_SESSION["redact"]["name"] = $productName;
+                $_SESSION["redact"]["price"] = $productPrice;
+                $_SESSION["redact"]["quantity"] = $productQuantity;
                 $_SESSION["redact"]["success"] = true;
+                $responseArr[] = "You succsessfully redact " . $_SESSION["redact"]["old"];
+                echo json_encode($responseArr);
             } else {
-                header("Location: ../imdex.php?page=updateError");
+                $responseArr[] = "Sorry... something went  wrong  with your query! Try again  later!";
+                echo json_encode($responseArr);
+//                header("Location: ../imdex.php?page=updateError");
             }
         } catch (PDOException $exp) {
             echo "something went  wrong! " . $exp->getMessage();
@@ -159,6 +162,7 @@ if(isset($_GET["search"])){
     $criteria = $_GET["search"];
     $result = array();
     $counter = 0;
-    searchDB($criteria);
+    $result = searchDB($pdo, $criteria);
+    
     echo json_encode($result);
 }

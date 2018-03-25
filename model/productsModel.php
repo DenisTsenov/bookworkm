@@ -98,7 +98,7 @@ function insertBook($pdo, $name, $author, $price, $quantity, $genre, $img) {
 function searchForBooks($category){
     try{
         $query = "SELECT b.name FROM books as B JOIN categories as C ON (b.category_id = c.id) WHERE c.name = ?";
-        $statement = $pdo ->prepare($query);
+        $statement = $pdo->prepare($query);
         $statement = execute($category);
     }
     catch(PDOException $exp){
@@ -107,13 +107,21 @@ function searchForBooks($category){
 
 }
 
-function searchDB($criteria){
+function searchDB($pdo, $criteria){
     try{
-        $query = "SELECT name FROM books WHERE name LIKE %?%";
-        $statement = $pdo -> prepare($query);
-        $statement = execute($criteria);
-        $result = $statement -> fetch(PDO::FETCH_ASSOC);
-        return $result;
+        
+        $query = 'SELECT name FROM books WHERE name LIKE ?;';
+        $statement = $pdo->prepare($query);
+        $params = ["%" . trim($criteria) . "%"];
+        
+        if ($statement->execute($params)) {
+            $result = $statement -> fetch(PDO::FETCH_ASSOC);
+            return $result;
+        }else{
+            return false;
+        }
+        
+        
     }
     catch(PDOException $exp){
         return "Something went wrong." . $exp -> getMessage();

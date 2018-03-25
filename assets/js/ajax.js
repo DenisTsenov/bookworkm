@@ -32,6 +32,9 @@ function removeBook(nameToRemove) {
     };
     request.send();
 }
+
+
+
 function getBookInfo(bookName) {
     var request = new XMLHttpRequest;
     request.open("get", "./controller/productsController.php?productName=" + bookName);
@@ -61,42 +64,7 @@ function getBookInfo(bookName) {
     request.send();
 }
 
-function  redactBook(bookToRedact) {
-    var name = document.getElementById("redact_name").value;
-    var price = document.getElementById("redact_price").value;
-    var quantity = document.getElementById("redact_quantity").value;
-//    var img = document.getElementById("redact_img");
 
-    var request = new XMLHttpRequest;
-    request.open("POST", "./controller/productsController.php", true);
-    request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    request.onreadystatechange = function (ev) {
-        if (this.readyState === 4 && this.status === 200) {
-            location.reload();
-//            var response = JSON.parse(this.responseText);
-//            
-//            for(var i in response){
-//                var h4 = document.createElement("h4");
-//                h4.setAttribute("class", "err");
-//                
-//                h4.innerHTML = response[i];
-//                var div = document.getElementById("redact");
-//                div.appendChild(h4);
-////                h4.innerHTML = "";
-//            }
-
-//            alert(response[0]);
-//           
-//            name.value = response.name;
-//            name.price = response.price;
-//            name.quantity = response.quantity;
-
-
-        }
-    };
-    request.send("redact_name=" + name + "&redact_price=" + price + "&redact_quantity=" + quantity);
-
-}
 
 var request = new XMLHttpRequest;
 request.open("GET", "./controller/typesController.php", true);
@@ -119,19 +87,40 @@ function getBook(pole) {
     var div = document.getElementById("result");
     div.innerHTML = "";
     var request = new XMLHttpRequest();
-    request.open("get", "server.php?search=" + pole.value);
-    request.onreadystatechange = function (){
-        if(this.readyState === 4 && this.status === 200){
-            var names = JSON.parse(this.responseText);
-            var ul = document.createElement("ul");
-            for(var i = 0; i < names.length; i++){
-                var li = document.createElement("li");
-                li.innerHTML = names[i];
-                ul.appendChild(li);
-            }
-            div.appendChild(ul);
-            div.style.visibility = "visible";
+    request.open("GET", "controller/productsController.php?search=" + pole.value, true);
+    request.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            var names = this.responseText;
+            console.log(names);
+//            var ul = document.createElement("ul");
+//            for(var i = 0; i < names.length; i++){
+//                var li = document.createElement("li");
+//                li.innerHTML = names[i];
+//                ul.appendChild(li);
+//            }
+//            div.appendChild(ul);
+//            div.style.visibility = "visible";
         }
-    }
+    };
     request.send();
 }
+
+
+
+function fadeOut() {
+        document.addEventListener('click', function (e) {
+            if (e.target && e.target.id === 'fade') {
+                var fadeTarget = document.getElementById("fade");
+                var fadeEffect = setInterval(function () {
+                    if (!fadeTarget.style.opacity) {
+                        fadeTarget.style.opacity = 1;
+                    }
+                    if (fadeTarget.style.opacity < 0.1) {
+                        clearInterval(fadeEffect);
+                    } else {
+                        fadeTarget.style.opacity -= 0.1;
+                    }
+                }, 100);
+            }
+        });
+    }

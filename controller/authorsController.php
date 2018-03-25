@@ -34,27 +34,27 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
  */
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["name"])) {
     $authorName = trim(htmlentities($_POST["name"]));
-    $rsponseArr = [];
+    $responseArr = [];
     
     if (mb_strlen($authorName) < 4) {
-        $rsponseArr[] = "Name min length  is  5 chars!";
-        echo json_encode($rsponseArr);
+        $responseArr[] = "Name min length  is  5 chars!";
+        echo json_encode($responseArr);
     } else {
 
         if (!ifAuthorExsist($pdo, $authorName)) {
 
             if (insertAuthor($pdo, $authorName)) {
-                $rsponseArr[] = "You added $authorName succsessfully!";
-                echo json_encode($rsponseArr);
+                $responseArr[] = "You added $authorName succsessfully!";
+                echo json_encode($responseArr);
             } else {
-                $rsponseArr[] = "Something  went  wrong!";
-                echo json_encode($rsponseArr);
+                $responseArr[] = "Something  went  wrong!";
+                echo json_encode($responseArr);
             }
 //            $_SESSION["success"] = $authorName;
 //            header("Location: ../index.php?page=addAuthor");
         } else {
-            $rsponseArr[] = "Author allready  exsist!";
-            echo json_encode($rsponseArr);
+            $responseArr[] = "Author allready  exsist!";
+            echo json_encode($responseArr);
 //        header("Location: ../index.php?page=addAuthor");
         }
     }

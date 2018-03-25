@@ -14,7 +14,7 @@ require_once __DIR__ . '/view/header.php';
 <div class="main" id="main">
 
     <aside class="category_list">
-        <input type="text" onkeydown="getBook(this)">
+        <input type="text" onkeydown="getBook(this);">
         <form action="controller/productsController.php" method="post">
             <select name="category">
                 <option value="category1">Category1</option>
