@@ -13,7 +13,17 @@ require_once __DIR__ . '/view/header.php';
 <link rel="stylesheet" href="./assets/css/cssReset.css" type="text/css"/>
 <div class="main" id="main">
     <aside class="category_list">
-        <!-- tuk moje  da  durjim list s kategoriite(i podkategorii) -->
+        <input type="text" id="searchByName">
+        <form action="controller/productsController.php" method="post">
+            <select name="category">
+                <option value="category1">Category1</option>
+                <option value="category2">Category2</option>
+                <option value="category3">Category3</option>
+                <option value="category4">Category4</option>
+            </select>
+            <input type="submit" name="search" value="Submit">
+        </form>
+
     </aside>
     
     <section class="baic_content">

@@ -155,4 +155,7 @@ if (isset($_POST["insertBook"])) {
     }
 }
 
+if(isset($_POST["search"])){
+    $category = trim(htmlentities($_POST["category"]));
 
+}

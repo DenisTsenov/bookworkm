@@ -94,3 +94,15 @@ function insertBook($pdo, $name, $author, $price, $quantity, $genre, $img) {
         return "Something  went wrong. " . $exp->getMessage();
     }
 }
+
+function searchForBooks($category){
+    try{
+        $query = "SELECT b.name FROM books as B JOIN categories as C ON (b.category_id = c.id) WHERE c.name = ?";
+        $statement = $pdo ->prepare($query);
+        $statement = execute($category);
+    }
+    catch(PDOException $exp){
+        return "Something went wrong." . $exp ->getMessage();
+    }
+
+}
