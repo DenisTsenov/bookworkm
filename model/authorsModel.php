@@ -28,6 +28,7 @@ function getAuthorName($pdo, $id) {
     $stmt = $pdo->prepare($query);
     $params = [$id];
     $stmt->execute($params);
+    $result = [];
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
         $result[] = $row;
     }
@@ -40,19 +41,18 @@ function getAuthorName($pdo, $id) {
     } catch (PDOException $exp){
         return "Ups something went wrong " . $exp->getMessage();
     }
-
 }
-
 
 function ifAuthorExsist($pdo, $name) {
     try{
         
-    $query = "SELECT COUNT(*) from authors WHERE name = ?;";
+    $query = "SELECT COUNT(id) from authors WHERE name = ?;";
     $stmt = $pdo->prepare($query);
     $params = [$name];
     $stmt->execute($params);
     $num_rows = $stmt->fetchColumn();
-    if ($num_rows) {
+    
+    if ($num_rows > 0) {
         return true;
     }else{
         return false;
@@ -63,7 +63,6 @@ function ifAuthorExsist($pdo, $name) {
     }
 }
        
-
 function insertAuthor($pdo, $name) {
     try{
         
@@ -71,9 +70,8 @@ function insertAuthor($pdo, $name) {
     $stmt = $pdo->prepare($query);
     $param = [$name];
     
-    
     if ($stmt->execute($param)) {
-        return getAuthorName($pdo, $name);
+        return true;
     }
     } catch (PDOException $exp){
         return "Ups something went wrong " . $exp->getMessage();
