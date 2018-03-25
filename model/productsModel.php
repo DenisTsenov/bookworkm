@@ -106,3 +106,16 @@ function searchForBooks($category){
     }
 
 }
+
+function searchDB($criteria){
+    try{
+        $query = "SELECT name FROM books WHERE name LIKE %?%";
+        $statement = $pdo -> prepare($query);
+        $statement = execute($criteria);
+        $result = $statement -> fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+    catch(PDOException $exp){
+        return "Something went wrong." . $exp -> getMessage();
+    }
+}

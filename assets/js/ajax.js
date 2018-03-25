@@ -115,4 +115,23 @@ request.onreadystatechange = function (ev) {
 };
 request.send();
 
-
+function getBook(pole) {
+    var div = document.getElementById("result");
+    div.innerHTML = "";
+    var request = new XMLHttpRequest();
+    request.open("get", "server.php?search=" + pole.value);
+    request.onreadystatechange = function (){
+        if(this.readyState === 4 && this.status === 200){
+            var names = JSON.parse(this.responseText);
+            var ul = document.createElement("ul");
+            for(var i = 0; i < names.length; i++){
+                var li = document.createElement("li");
+                li.innerHTML = names[i];
+                ul.appendChild(li);
+            }
+            div.appendChild(ul);
+            div.style.visibility = "visible";
+        }
+    }
+    request.send();
+}

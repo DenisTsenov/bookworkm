@@ -155,7 +155,10 @@ if (isset($_POST["insertBook"])) {
     }
 }
 
-if(isset($_POST["search"])){
-    $category = trim(htmlentities($_POST["category"]));
-
+if(isset($_GET["search"])){
+    $criteria = $_GET["search"];
+    $result = array();
+    $counter = 0;
+    searchDB($criteria);
+    echo json_encode($result);
 }
