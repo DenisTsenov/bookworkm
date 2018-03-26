@@ -301,3 +301,8 @@ drop-down select {
     height: 200px;
     visibility: hidden;
 }
+.finish{
+    width: 50%;
+    margin-left: 25%;
+    background-color: #333;
+}
