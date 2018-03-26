@@ -1,4 +1,7 @@
 <?php
+if ($_SESSION["user"]["type"] != 1) {
+    header("Location: index.php");
+}
 require_once __DIR__ . "/load_data.php";
 
 if (!$_SESSION["user"]) {
@@ -55,6 +58,46 @@ function getProductInfo($pdo, $bookName) {
         $params = [$bookName];
         $statement->execute($params);
         $product = $statement->fetch(PDO::FETCH_ASSOC);
+        return $product;
+    } catch (PDOException $exp) {
+        return "Something  went wrong. " . $exp->getMessage();
+    }
+}
+
+
+function getProductId($pdo, $bookName) {
+    try {
+
+        $query = "SELECT id FROM  books WHERE name = ?;";
+        $statement = $pdo->prepare($query);
+        $params = [$bookName];
+        $statement->execute($params);
+        
+        $product= [];
+        while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+            $product[] = $row;
+        }
+        return $product;
+    } catch (PDOException $exp) {
+        return "Something  went wrong. " . $exp->getMessage();
+    }
+}
+
+/*
+ * ne sum i  nameril prilojenie  wse oshte :)
+ */
+function getProductPrice($pdo, $bookName) {
+    try {
+
+        $query = "SELECT price FROM  books WHERE name = ?;";
+        $statement = $pdo->prepare($query);
+        $params = [$bookName];
+        $statement->execute($params);
+        $product= [];
+        
+        if ($statement->fetch(PDO::FETCH_ASSOC)) {
+            $product[] = $statement->fetch(PDO::FETCH_ASSOC);
+        }
         return $product;
     } catch (PDOException $exp) {
         return "Something  went wrong. " . $exp->getMessage();

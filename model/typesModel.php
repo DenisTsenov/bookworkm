@@ -1,4 +1,7 @@
 <?php
+if ($_SESSION["user"]["type"] != 1) {
+    header("Location: index.php");
+}
 require_once __DIR__ . "/load_data.php";
 
 function getAllTypes($pdo) {

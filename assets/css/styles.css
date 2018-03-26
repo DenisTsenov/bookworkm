@@ -304,5 +304,11 @@ drop-down select {
 .finish{
     width: 50%;
     margin-left: 25%;
-    background-color: #333;
+    background-color: #00FF7F;
+    color: black;
+    font-size: 1.1em;
+}
+
+.finish:hover{
+    color: #555;
 }
