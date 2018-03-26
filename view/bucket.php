@@ -71,12 +71,6 @@ if (!$_SESSION["user"]) {
             url: "./controller/ordersController.php",
             success: function () {
 
-                for (var i = 0; i <= convertTableIntoArray("products").length + 2; i++) {
-                    var elem = document.getElementById("list");
-                    elem.parentNode.removeChild(elem);
-                }
-
-
                 var total = document.getElementById("total");
                 total.parentNode.removeChild(total);
 
@@ -88,6 +82,12 @@ if (!$_SESSION["user"]) {
 
                 h3.innerHTML = "Congrats! You finished  your order :)";
                 div.appendChild(h3);
+                
+                 for (var i = 0; i <= convertTableIntoArray("products").length + 2; i++) {
+                    var elem = document.getElementById("list");
+                    elem.parentNode.removeChild(elem);
+                }
+
 
 //                location.reload();
 //                alert(this.responseText);
