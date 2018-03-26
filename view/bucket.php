@@ -8,44 +8,44 @@ if (!$_SESSION["user"]) {
 ?>
 
 <div id="addBook">
-<table id="products">
-    <tr>
-        <th>Book Name</th>
-        <th>Price</th>
-        <th>Quantity</th>
-        <th>Minus one!</th>
-        <th>Remove</th>
-    </tr>
-    <?php $total = 0;
-    ?>
-    <?php
-    if (isset($_SESSION["bucket"])) {
-        
-    
-    foreach ($_SESSION["bucket"] as $productInBucket) {
-        $total += $productInBucket["price"] * $productInBucket["quantity"];
-        ?>
-        <tr id="list">
-            <td id="name"><?= $productInBucket["name"] ?></td>
-            <td id="price"><?= $productInBucket["price"] ?></td>
-            <td id="quantity"><?= $productInBucket["quantity"] ?></td>
-            <td><button value="<?= $productInBucket["name"] ?>" onclick="reverseQuantity(this.value)">Minus one quantity</button></td>
-            <td><button value="<?= $productInBucket["name"] ?>" onclick="removeBook(this.value)">Remove</button></td>
+    <table id="products">
+        <tr>
+            <th>Book Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Minus one!</th>
+            <th>Remove</th>
         </tr>
-
+        <?php $total = 0;
+        ?>
         <?php
-    }
-    }
-    ?>
-</table>
-<?php
-if (!isset($_SESSION["bucket"])) {
-    echo "<h3>Your  Bucket is empty!</h3>";
-} else {
-    ?>
-    <?= isset($total) ? "<h4 id='total' >Total in  bucket &nbsp -> &nbsp" . $total . "</h4>" : "" ?>
-    <button class="finish" id="finish" onclick="finishOrder();" value="">Finish your order!</button>
-<?php } ?>
+        if (isset($_SESSION["bucket"])) {
+
+
+            foreach ($_SESSION["bucket"] as $productInBucket) {
+                $total += $productInBucket["price"] * $productInBucket["quantity"];
+                ?>
+                <tr id="list">
+                    <td id="name"><?= $productInBucket["name"] ?></td>
+                    <td id="price"><?= $productInBucket["price"] ?></td>
+                    <td id="quantity"><?= $productInBucket["quantity"] ?></td>
+                    <td><button value="<?= $productInBucket["name"] ?>" onclick="reverseQuantity(this.value)">Minus one quantity</button></td>
+                    <td><button value="<?= $productInBucket["name"] ?>" onclick="removeBook(this.value)">Remove</button></td>
+                </tr>
+
+                <?php
+            }
+        }
+        ?>
+    </table>
+    <?php
+    if (!isset($_SESSION["bucket"])) {
+        echo "<h3>Your  Bucket is empty!</h3>";
+    } else {
+        ?>
+        <?= isset($total) ? "<h4 id='total' >Total in  bucket &nbsp -> &nbsp" . $total . "</h4>" : "" ?>
+        <button class="finish" id="finish" onclick="finishOrder();" value="">Finish your order!</button>
+    <?php } ?>
 </div>
 <script type="text/javascript">
     function convertTableIntoArray(tbl) {
@@ -70,18 +70,25 @@ if (!isset($_SESSION["bucket"])) {
             data: {info: convertTableIntoArray("products")},
             url: "./controller/ordersController.php",
             success: function () {
+
+                for (var i = 0; i <= convertTableIntoArray("products").length + 2; i++) {
+                    var elem = document.getElementById("list");
+                    elem.parentNode.removeChild(elem);
+                }
+
+
+                var total = document.getElementById("total");
+                total.parentNode.removeChild(total);
+
+                var finish = document.getElementById("finish");
+                finish.parentNode.removeChild(finish);
+
                 var div = document.getElementById("addBook");
                 var h3 = document.createElement("h3");
-                
+
                 h3.innerHTML = "Congrats! You finished  your order :)";
                 div.appendChild(h3);
-                var elem = document.getElementById("list");
-                elem.parentNode.removeChild(elem);
-                var total = document.getElementById("total");
-                total.parentNode.removeChild(total);  
-                
-                var finish = document.getElementById("finish");
-                finish.parentNode.removeChild(finish);  
+
 //                location.reload();
 //                alert(this.responseText);
             }
