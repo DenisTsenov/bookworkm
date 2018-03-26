@@ -4,11 +4,10 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 if (!$_SESSION["user"]) {
     header("Location: index.php");
-} ?>
-<?= isset($_SESSION["pruchase"]) ? "<h3>Congrats! You finished  your order :) </h3>" : "";
- unset($_SESSION["pruchase"]);
+}
 ?>
-    
+
+<div id="addBook">
 <table id="products">
     <tr>
         <th>Book Name</th>
@@ -20,12 +19,10 @@ if (!$_SESSION["user"]) {
     <?php $total = 0;
     ?>
     <?php
-    if (isset($_SESSION["bucket"])) {?>
+    if (isset($_SESSION["bucket"])) {
         
-    <?php } ?>
-    <?php 
-    if (isset($_SESSION["bucket"])) { ?>
-         <?php foreach ($_SESSION["bucket"] as $productInBucket) {
+    
+    foreach ($_SESSION["bucket"] as $productInBucket) {
         $total += $productInBucket["price"] * $productInBucket["quantity"];
         ?>
         <tr id="list">
@@ -38,19 +35,18 @@ if (!$_SESSION["user"]) {
 
         <?php
     }
+    }
     ?>
 </table>
 <?php
-if (!$_SESSION["bucket"]) {
+if (!isset($_SESSION["bucket"])) {
     echo "<h3>Your  Bucket is empty!</h3>";
 } else {
     ?>
-    <?= isset($total) ? "<h4>Total in  bucket &nbsp -> &nbsp" . $total . "</h4>" : "" ?>
-    <button class="finish" onclick="finishOrder();" value="">Finish your order!</button>
+    <?= isset($total) ? "<h4 id='total' >Total in  bucket &nbsp -> &nbsp" . $total . "</h4>" : "" ?>
+    <button class="finish" id="finish" onclick="finishOrder();" value="">Finish your order!</button>
 <?php } ?>
-    <?php }?>
-   
-
+</div>
 <script type="text/javascript">
     function convertTableIntoArray(tbl) {
         var tblData = "";
@@ -74,11 +70,24 @@ if (!$_SESSION["bucket"]) {
             data: {info: convertTableIntoArray("products")},
             url: "./controller/ordersController.php",
             success: function () {
-                location.reload();
+                var div = document.getElementById("addBook");
+                var h3 = document.createElement("h3");
+                
+                h3.innerHTML = "Congrats! You finished  your order :)";
+                div.appendChild(h3);
+                var elem = document.getElementById("list");
+                elem.parentNode.removeChild(elem);
+                var total = document.getElementById("total");
+                total.parentNode.removeChild(total);  
+                
+                var finish = document.getElementById("finish");
+                finish.parentNode.removeChild(finish);  
+//                location.reload();
 //                alert(this.responseText);
             }
         });
     }
+
 
 </script>
 
