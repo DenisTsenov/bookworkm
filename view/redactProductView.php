@@ -45,7 +45,7 @@ if (!$_SESSION["user"]) {
 //                console.log(response);
 
                 var h4 = document.createElement("h4");
-                h4.innerHTML = "";
+                
                 for (var i in response) {
 
                     h4.setAttribute("class", "err");
@@ -53,14 +53,14 @@ if (!$_SESSION["user"]) {
                     h4.innerHTML = response[i];
                     var div = document.getElementById("redact");
                     div.appendChild(h4);
-
+                    
                 }
 //                setTimeout(function(){h4.style.visibility = "none";}, 200);
                 
                 name.value = response.name;
                 name.price = response.price;
                 name.quantity = response.quantity;
-
+                
 
             }
 

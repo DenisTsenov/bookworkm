@@ -108,7 +108,7 @@ if (isset($_POST["insertBook"])) {
         $insertErr[] = "Invaid genre!";
     }
     $tmp_name = $_FILES["new_img"]["tmp_name"];
-    $orig_name = $_FILES["new_img"]["name"];
+    $orig_name = basename($_FILES['new_img']['name']);
 
     if (is_uploaded_file($tmp_name)) {
         $exploded_name = explode(".", $orig_name);
