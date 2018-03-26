@@ -10,6 +10,7 @@ if (isset($_SESSION['discard_after']) && $now > $_SESSION['discard_after']) {
 }
 
 // either new or old, it should live at most for another hour
+//  60min * 60sec = 3600sec (1 hour)
 $_SESSION['discard_after'] = $now + 3600;
 
 require_once "./model/load_data.php";
