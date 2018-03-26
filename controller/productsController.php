@@ -56,7 +56,7 @@ if (isset($_POST["redact_name"])) {
         echo json_encode($responseArr);
     } else {
         try {
-            
+
             if (updateBook($pdo, $productName, $productPrice, $productQuantity, $_SESSION["redact"]["old"])) {
 //                $output = getProductInfo($pdo, $productName);
                 $_SESSION["redact"]["name"] = $productName;
@@ -85,7 +85,7 @@ if (isset($_POST["insertBook"])) {
     $price = trim(htmlentities($_POST["new_price"]));
     $quantity = trim(htmlentities($_POST["new_quantity"]));
     $genre = trim(htmlentities($_POST["new_category"]));
-    
+
     $insertErr = [];
 
     if (empty($name) || mb_strlen($name) < 2) {
@@ -109,6 +109,15 @@ if (isset($_POST["insertBook"])) {
     }
     $tmp_name = $_FILES["new_img"]["tmp_name"];
     $orig_name = basename($_FILES['new_img']['name']);
+    $imageFileType = strtolower(pathinfo($orig_name, PATHINFO_EXTENSION));
+    $imgSize = $_FILES['new_img']['size'];
+    if ($imgSize > 100000) {
+        $insertErr[] = "Max size is 100 KB!<br>";
+    }
+
+    if ($imageFileType != "jpg" && $imageFileType != "ico" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
+        $insertErr[] = "Sorry, only JPG, JPEG, ICO, PNG & GIF files are allowed.<br>";
+    }
 
     if (is_uploaded_file($tmp_name)) {
         $exploded_name = explode(".", $orig_name);
@@ -131,22 +140,20 @@ if (isset($_POST["insertBook"])) {
 
         $authorResult = getAuthorName($pdo, $author);
         $genreResult = getGenreName($pdo, $genre);
-        
+
         if (!$genreResult) {
             $insertErr[] = "Invalid  author!";
-
         }
-        
+
         if (!$authorResult) {
             $insertErr[] = "Invalid  author!";
-
         }
 
         if ($insertErr) {
             echo json_encode($insertErr);
         } else {
 
-            
+
             if (insertBook($pdo, $name, $author, $price, $quantity, $genre, $name . ".jpg")) {
                 $_SESSION["success"] = true;
                 header("Location: ../index.php?page=addBook");
@@ -158,11 +165,11 @@ if (isset($_POST["insertBook"])) {
     }
 }
 
-if(isset($_GET["search"])){
+if (isset($_GET["search"])) {
     $criteria = $_GET["search"];
     $result = array();
     $counter = 0;
     $result = searchDB($pdo, $criteria);
-    
+
     echo json_encode($result);
 }
