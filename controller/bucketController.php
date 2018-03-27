@@ -1,4 +1,5 @@
 <?php
+
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
@@ -10,14 +11,14 @@ if (isset($_GET["buy_product"])) {
     $productToBuy = trim(htmlentities($_GET["buy_product"]));
     $noProductError = "No such  a product!";
     $success = false;
-    
+
     foreach ($products as &$product) {
         if ($product["name"] === $productToBuy) {
             $price = $product["price"];
-            
-            try{
+
+            try {
                 $result = minusQuantity($pdo, $product["name"]);
-            } catch (PDOException $exp){
+            } catch (PDOException $exp) {
                 $exp->getMessage();
             }
 //            $product["quantity"] --;
@@ -45,6 +46,8 @@ if (isset($_GET["buy_product"])) {
     }
 }
 
+
+
 if (isset($_GET["book_to_remove"])) {
     //premahwame kolichestwoto  ot producta  i go wrushtame obratno  w kataloga
     $productToRemove = trim(htmlentities($_GET["book_to_remove"]));
@@ -55,12 +58,12 @@ if (isset($_GET["book_to_remove"])) {
             if ($removeQuantity["name"] == $product["name"]) {
                 //fakticheskoto wrushtane na kolichestwoto  w kataloga
 //                $product['quantity'] += $removeQuantity["quantity"];
-               $result =  plusQuantity($pdo, $removeQuantity["quantity"], $removeQuantity["name"]);
-               
-               if (!$result) {
-                   echo  $result;
-               }
-                
+                $result = plusQuantity($pdo, $removeQuantity["quantity"], $removeQuantity["name"]);
+
+                if (!$result) {
+                    echo $result;
+                }
+
                 //zapiswame books.json sus nowoto(staro) kolichestwo
 //                $encod = json_encode($products);
 //                file_put_contents("./assets/data/books.json", $encod);

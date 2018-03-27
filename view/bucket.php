@@ -5,6 +5,12 @@ if (session_status() == PHP_SESSION_NONE) {
 if (!$_SESSION["user"]) {
     header("Location: index.php");
 }
+
+if (isset($_SESSION["too_late"])) { ?>
+    <h3>Your Bucket session was expire! You  can  go  back  to  the  catalogue!</h3>
+<?php 
+ unset($_SESSION["too_late"]);
+}
 ?>
 
 <div id="addBook">
@@ -79,7 +85,7 @@ if (!$_SESSION["user"]) {
 
                 var div = document.getElementById("addBook");
                 var h3 = document.createElement("h3");
-
+                h3.setAttribute("class", "success");
                 h3.innerHTML = "Congrats! You finished  your order :)";
                 div.appendChild(h3);
                 

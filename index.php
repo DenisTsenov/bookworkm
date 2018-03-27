@@ -1,26 +1,32 @@
 <?php
 session_start();
+require_once "./model/load_data.php";
+require_once './heplerFunctions/bucketHelper.php';
+require_once './config/session.php';
 $now = time();
 
 if (isset($_SESSION['discard_after']) && $now > $_SESSION['discard_after']) {
     // the time  has expired and  start  new  session
-    session_unset();
-    session_destroy();
-    session_start();
+
+    if (LOG) {
+        removeProduct($pdo, $_SESSION["bucket"], $products);
+        session_unset();
+        session_destroy();
+        session_start();
+        $_SESSION["too_late"] = true;
+    } else {
+        removeProduct($pdo, $_SESSION["bucket"], $products);
+        $_SESSION["too_late"] = true;
+    }
 }
 
-// either new or old, it should live at most for another hour
-//  60min * 60sec = 3600sec (1 hour)
-$_SESSION['discard_after'] = $now + 3600;
-
-require_once "./model/load_data.php";
+$_SESSION['discard_after'] = $now + BUCKET_LIVE;
 
 require_once __DIR__ . '/view/header.php';
-
 ?>
 <div class="main">
-        
-    </div>
+
+</div>
 <link rel="stylesheet" href="./assets/css/styles.css" type="text/css"/>
 <link rel="stylesheet" href="./assets/css/cssReset.css" type="text/css"/>
 <div class="main" id="main">
@@ -42,30 +48,29 @@ require_once __DIR__ . '/view/header.php';
     </aside>
 
     <section class="baic_content">
-        <?php
-        if (isset($error_reg)) {
-            foreach ($error_reg as $err) {
-                echo $err . "<br/>";
-            }
-            require_once './view/register.php';
-        }
-        if (isset($error_log)) {
-            foreach ($error_log as $err) {
-                echo $err . "<br/>";
-            }
-            require_once './view/login.php';
-        }
-        if (isset($_GET["page"]) && $_GET["page"] == "logout") {
-            session_destroy();
-            header("Location: index.php");
-        } elseif (isset($_GET["page"])) {
-            require_once "./view/" . $_GET["page"] . ".php";
-        }
+<?php
+if (isset($error_reg)) {
+    foreach ($error_reg as $err) {
+        echo $err . "<br/>";
+    }
+    require_once './view/register.php';
+}
+if (isset($error_log)) {
+    foreach ($error_log as $err) {
+        echo $err . "<br/>";
+    }
+    require_once './view/login.php';
+}
+if (isset($_GET["page"]) && $_GET["page"] == "logout") {
+    session_destroy();
+    header("Location: index.php");
+} elseif (isset($_GET["page"])) {
+    require_once "./view/" . $_GET["page"] . ".php";
+}
 
 //       var_dump($_SESSION);
 //        var_dump($user);
-
-        ?>
+?>
 
 
         <!-- tuk moje  da sa knigite spored towa  dali  e  lognat poterbitelq ili ne -->    
