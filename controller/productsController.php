@@ -165,6 +165,51 @@ if (isset($_POST["insertBook"])) {
     }
 }
 
+if (isset($_POST["like_for"])) {
+
+    /* @var $likedProduct
+     *  type string 
+     */
+    $likedProduct = trim(htmlentities($_POST["like_for"]));
+    $resultArr = [];
+    if (!empty($likedProduct) && mb_strlen($likedProduct) > 2) {
+
+        if (!ifIsLiked($pdo, $_SESSION["user"]["id"], $likedProduct)) {
+            if (likeProduct($pdo, $_SESSION["user"]["id"], $likedProduct)) {
+               $resultArr[] = "You liked $likedProduct!" ;
+               echo json_encode($resultArr);
+            } else {
+                $resultArr[] = "Something  went wrong with $likedProduct!" ;
+               echo json_encode($resultArr);
+            }
+        }else{
+            $resultArr[] = "You  allready like this book!";
+            echo json_encode($resultArr);
+        }
+    } else {
+        $resultArr[] = "Invaid book!";
+        echo json_encode($resultArr);
+    }
+}
+
+if (isset($_GET["user_id"])) {
+    $userId = trim(htmlentities($_GET["user_id"]));
+
+    if (!is_numeric($userId) || $userId < 0) {
+        $resultArr = [];
+        $resultArr[] = "Invaid user!!";
+        echo json_encode($resultArr);
+    } else {
+        $r = getLikedProducts($pdo, $userId);
+
+        if (!empty($r)) {
+            echo json_encode($r);
+        } else {
+            return false;
+        }
+    }
+}
+
 if (isset($_GET["search"])) {
     $criteria = $_GET["search"];
     $result = array();

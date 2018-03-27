@@ -1,4 +1,5 @@
 <?php
+
 if ($_SESSION["user"]["type"] != 1) {
     header("Location: index.php");
 }
@@ -64,7 +65,6 @@ function getProductInfo($pdo, $bookName) {
     }
 }
 
-
 function getProductId($pdo, $bookName) {
     try {
 
@@ -72,8 +72,8 @@ function getProductId($pdo, $bookName) {
         $statement = $pdo->prepare($query);
         $params = [$bookName];
         $statement->execute($params);
-        
-        $product= [];
+
+        $product = [];
         while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
             $product[] = $row;
         }
@@ -86,6 +86,7 @@ function getProductId($pdo, $bookName) {
 /*
  * ne sum i  nameril prilojenie  wse oshte :)
  */
+
 function getProductPrice($pdo, $bookName) {
     try {
 
@@ -93,8 +94,8 @@ function getProductPrice($pdo, $bookName) {
         $statement = $pdo->prepare($query);
         $params = [$bookName];
         $statement->execute($params);
-        $product= [];
-        
+        $product = [];
+
         if ($statement->fetch(PDO::FETCH_ASSOC)) {
             $product[] = $statement->fetch(PDO::FETCH_ASSOC);
         }
@@ -109,14 +110,12 @@ function updateBook($pdo, $name, $price, $quantity, $oldName) {
         $query = "UPDATE books SET name = ?, price= ? , quantity = ? WHERE name = ?;";
         $statement = $pdo->prepare($query);
         $params = [$name, $price, $quantity, $oldName];
-        
+
         if ($statement->execute($params)) {
             return true;
-        }else{
-            return  false;
+        } else {
+            return false;
         }
-        
-        
     } catch (PDOException $exp) {
         return "Something  went wrong. " . $exp->getMessage();
     }
@@ -128,45 +127,102 @@ function insertBook($pdo, $name, $author, $price, $quantity, $genre, $img) {
                 VALUES(?,?,?,?,?,?)";
         $statement = $pdo->prepare($query);
         $params = [$name, $author, $price, $quantity, $genre, $img];
-        
+
         if ($statement->execute($params)) {
             return true;
         }
-        
     } catch (PDOException $exp) {
         return "Something  went wrong. " . $exp->getMessage();
     }
 }
 
-function searchForBooks($category){
-    try{
+function likeProduct($pdo, $user, $productToLike) {
+
+    try {
+        $pdo->beginTransaction();
+        $productId = getProductId($pdo, $productToLike);
+
+        $query = "INSERT INTO likes(b_id, user_id) VALUES(?,?)";
+        $stmt = $pdo->prepare($query);
+        $params = [$productId[0]["id"], $user];
+        if ($stmt->execute($params)) {
+
+            $pdo->commit();
+            return true;
+        } else {
+            $pdo->rollBack();
+            return false;
+        }
+    } catch (\PDOException $exp) {
+        return $exp->getMessage();
+        $pdo->rollBack();
+    }
+}
+
+function ifIsLiked($pdo, $userId, $productName) {
+    try {
+
+        $productId = getProductId($pdo, $productName);
+            
+        $query = "SELECT COUNT(*) FROM likes WHERE b_id = ? AND user_id = ?";
+        $stmt = $pdo->prepare($query);
+        $params = [$productId[0]["id"], $userId];
+        $stmt->execute($params);
+        $num_rows = $stmt->fetchColumn();
+        
+        if ($num_rows > 0) { 
+            return true;
+        } else {
+            
+            return false;
+        }
+    } catch (\PDOException $exp) {
+        return $exp->getMessage();
+        
+    }
+}
+
+function getLikedProducts($pdo, $userId) {
+    try {
+        $query = "SELECT b_id FROM likes WHERE user_id = ?";
+        $stmt = $pdo->prepare($query);
+        $params = [$userId];
+        $stmt->execute($params);
+        $result = [];
+        
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+            $result[] = $row;
+        }
+        return  $result;
+    } catch (PDOException $exp) {
+        return "Something  wrnt Wrong " . $exp->getMessage();
+    }
+}
+
+function searchForBooks($category) {
+    try {
         $query = "SELECT b.name FROM books as B JOIN categories as C ON (b.category_id = c.id) WHERE c.name = ?";
         $statement = $pdo->prepare($query);
         $statement = execute($category);
+    } catch (PDOException $exp) {
+        return "Something went wrong." . $exp->getMessage();
     }
-    catch(PDOException $exp){
-        return "Something went wrong." . $exp ->getMessage();
-    }
-
 }
 
-function searchDB($pdo, $criteria){
-    try{
-        
+function searchDB($pdo, $criteria) {
+    try {
+
         $query = 'SELECT name FROM books WHERE name LIKE ?;';
         $statement = $pdo->prepare($query);
         $params = ["%" . trim($criteria) . "%"];
-        
+
         if ($statement->execute($params)) {
-            $result = $statement -> fetch(PDO::FETCH_ASSOC);
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
             return $result;
-        }else{
+        } else {
             return false;
         }
-        
-        
-    }
-    catch(PDOException $exp){
-        return "Something went wrong." . $exp -> getMessage();
+    } catch (PDOException $exp) {
+        return "Something went wrong." . $exp->getMessage();
     }
 }

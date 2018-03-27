@@ -1,13 +1,13 @@
 <?php
 session_start();
 require_once "./model/load_data.php";
-require_once './heplerFunctions/bucketHelper.php';
+
 require_once './config/session.php';
 $now = time();
 
 if (isset($_SESSION['discard_after']) && $now > $_SESSION['discard_after']) {
     // the time  has expired and  start  new  session
-
+    require_once './heplerFunctions/bucketHelper.php';
     if (LOG) {
         removeProduct($pdo, $_SESSION["bucket"], $products);
         session_unset();
@@ -48,29 +48,29 @@ require_once __DIR__ . '/view/header.php';
     </aside>
 
     <section class="baic_content">
-<?php
-if (isset($error_reg)) {
-    foreach ($error_reg as $err) {
-        echo $err . "<br/>";
-    }
-    require_once './view/register.php';
-}
-if (isset($error_log)) {
-    foreach ($error_log as $err) {
-        echo $err . "<br/>";
-    }
-    require_once './view/login.php';
-}
-if (isset($_GET["page"]) && $_GET["page"] == "logout") {
-    session_destroy();
-    header("Location: index.php");
-} elseif (isset($_GET["page"])) {
-    require_once "./view/" . $_GET["page"] . ".php";
-}
+        <?php
+        if (isset($error_reg)) {
+            foreach ($error_reg as $err) {
+                echo $err . "<br/>";
+            }
+            require_once './view/register.php';
+        }
+        if (isset($error_log)) {
+            foreach ($error_log as $err) {
+                echo $err . "<br/>";
+            }
+            require_once './view/login.php';
+        }
+        if (isset($_GET["page"]) && $_GET["page"] == "logout") {
+            session_destroy();
+            header("Location: index.php");
+        } elseif (isset($_GET["page"])) {
+            require_once "./view/" . $_GET["page"] . ".php";
+        }
 
 //       var_dump($_SESSION);
 //        var_dump($user);
-?>
+        ?>
 
 
         <!-- tuk moje  da sa knigite spored towa  dali  e  lognat poterbitelq ili ne -->    

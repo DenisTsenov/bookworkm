@@ -321,3 +321,11 @@ drop-down select {
     color: #0b7dda;
     margin-left: 25%;
 }
+#like{
+    background-color: chartreuse;
+     /*margin-top: 5px;*/
+     padding: 5px;
+    height: 30px;
+    border: 1px solid cyan;
+    border-radius: 5px;
+}

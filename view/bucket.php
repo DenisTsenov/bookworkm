@@ -6,10 +6,11 @@ if (!$_SESSION["user"]) {
     header("Location: index.php");
 }
 
-if (isset($_SESSION["too_late"])) { ?>
+if (isset($_SESSION["too_late"])) {
+    ?>
     <h3>Your Bucket session was expire! You  can  go  back  to  the  catalogue!</h3>
-<?php 
- unset($_SESSION["too_late"]);
+    <?php
+    unset($_SESSION["too_late"]);
 }
 ?>
 
@@ -45,13 +46,13 @@ if (isset($_SESSION["too_late"])) { ?>
         ?>
     </table>
     <?php
-    if (!isset($_SESSION["bucket"])) {
+    if (!isset($_SESSION["bucket"]) || empty($_SESSION["bucket"]) ) {
         echo "<h3>Your  Bucket is empty!</h3>";
     } else {
         ?>
         <?= isset($total) ? "<h4 id='total' >Total in  bucket &nbsp -> &nbsp" . $total . "</h4>" : "" ?>
         <button class="finish" id="finish" onclick="finishOrder();" value="">Finish your order!</button>
-    <?php } ?>
+<?php } ?>
 </div>
 <script type="text/javascript">
     function convertTableIntoArray(tbl) {
@@ -88,12 +89,11 @@ if (isset($_SESSION["too_late"])) { ?>
                 h3.setAttribute("class", "success");
                 h3.innerHTML = "Congrats! You finished  your order :)";
                 div.appendChild(h3);
-                
-                 for (var i = 0; i <= convertTableIntoArray("products").length + 2; i++) {
+
+                for (var i = 0; i <= convertTableIntoArray("products").length + 2; i++) {
                     var elem = document.getElementById("list");
                     elem.parentNode.removeChild(elem);
                 }
-
 
 //                location.reload();
 //                alert(this.responseText);

@@ -8,7 +8,7 @@ require_once __DIR__ . "/load_data.php";
 function purchaseHistory($pdo, $userId, $productId, $quantity) {
     try {
         $pdo->beginTransaction();
-        $query = "INSERT INTO books_in_order (user_id, bought_book_id, quantity) VALUES(?,?,?)";
+        $query = "INSERT INTO books_in_order (user_id, bought_book_id, quantity,date) VALUES(?,?,?, now())";
         $stmt = $pdo->prepare($query);
         $params = [$userId, $productId, $quantity];
 
