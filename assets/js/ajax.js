@@ -105,8 +105,6 @@ function getBook(pole) {
     request.send();
 }
 
-
-
 function fadeOut() {
         document.addEventListener('click', function (e) {
             if (e.target && e.target.id === 'fade') {

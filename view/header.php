@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="./assets/css/cssReset.css" type="text/css"/>
     </head>
     
-    <body onload="takeAuthors(); takeGenres(); fadeOut();">
+    <body onload="takeAuthors(); takeGenres();">
         <div class="main">
             <nav class="navigation">
 

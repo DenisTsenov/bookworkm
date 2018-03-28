@@ -24,9 +24,6 @@ $_SESSION['discard_after'] = $now + BUCKET_LIVE;
 
 require_once __DIR__ . '/view/header.php';
 ?>
-<div class="main">
-
-</div>
 <link rel="stylesheet" href="./assets/css/styles.css" type="text/css"/>
 <link rel="stylesheet" href="./assets/css/cssReset.css" type="text/css"/>
 <div class="main" id="main">
@@ -62,6 +59,8 @@ require_once __DIR__ . '/view/header.php';
             require_once './view/login.php';
         }
         if (isset($_GET["page"]) && $_GET["page"] == "logout") {
+            require_once './heplerFunctions/bucketHelper.php';
+            removeProduct($pdo, $_SESSION["bucket"], $products);
             session_destroy();
             header("Location: index.php");
         } elseif (isset($_GET["page"])) {
