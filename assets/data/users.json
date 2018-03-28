@@ -1,1 +1,19 @@
-[{"first_name":"Denis","last_name":"tsenov","email":"denis@test.bg","password":"b1b3773a05c0ed0176787a4f1574ff0075f7521e","avatar":".\/assets\/uploads\/Denis.gif","type":0,"cart":[],"history":[]},{"first_name":"Stefan","last_name":"Zlatev","email":"st@ef.an","password":"8cb2237d0679ca88db6464eac60da96345513964","avatar":".\/assets\/uploads\/Stefan.jpg","type":0,"cart":[],"history":[]}]
+[{
+        "first_name": "Denis",
+        "last_name": "tsenov",
+        "email": "denis@test.bg",
+        "password": "b1b3773a05c0ed0176787a4f1574ff0075f7521e",
+        "avatar": ".\/assets\/uploads\/Denis.gif",
+        "type": 0,
+        "cart": [],
+        "history": []
+    }, {
+        "first_name": "Stefan",
+        "last_name": "Zlatev",
+        "email": "st@ef.an",
+        "password": "8cb2237d0679ca88db6464eac60da96345513964",
+        "avatar": ".\/assets\/uploads\/Stefan.jpg",
+        "type": 0,
+        "cart": [],
+        "history": []
+    }]

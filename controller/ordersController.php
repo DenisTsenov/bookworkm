@@ -2,7 +2,7 @@
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-if ($_SESSION["user"]["type"] != 1) {
+if (!$_SESSION["user"]) {
     header("Location: index.php");
 }
 require_once '../model/productsModel.php';

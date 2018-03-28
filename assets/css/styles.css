@@ -361,3 +361,24 @@ drop-down select {
     from {opacity :1;}
     to {opacity :0;}
 }
+.liked_book{
+    padding: 10px;
+    background: #ccc;
+    float: left;
+    margin: 10px;
+    border-radius: 20px;
+    float: left;
+    font-style: oblique;
+    color: #0b7dda;
+    font-size: 1.3em;
+    width: 20%;
+    border: 1px solid #00FF7F;
+    height: auto;
+}
+
+#liked_img{
+    width: 60%;
+    margin-left: 20%;
+    height: 170px;
+    border-radius: 50%;
+}

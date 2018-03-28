@@ -27,8 +27,6 @@ while ($usersRow = $stmtUsers->fetch(PDO::FETCH_ASSOC)){
     $users[] = $usersRow;
 }
 
-
-
 $books_query = "SELECT b.id, b.name , b.price, b.quantity, b.img_url,
 a.name AS author_id , c.name AS category_id  
 FROM books AS b
@@ -41,33 +39,4 @@ $products = [];
 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
     $products[] = $row;
 }
-
-
 ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
