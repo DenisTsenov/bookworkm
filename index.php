@@ -64,7 +64,8 @@ require_once __DIR__ . '/view/header.php';
             require_once './view/login.php';
         }
         if (isset($_GET["page"]) && $_GET["page"] == "logout") {
-            
+            require_once './heplerFunctions/bucketHelper.php';
+            removeProduct($pdo, $_SESSION["bucket"], $products);
             session_destroy();
             header("Location: index.php");
         } elseif (isset($_GET["page"])) {
