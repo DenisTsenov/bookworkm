@@ -208,6 +208,7 @@ span.psw {
     margin-bottom: 10px;
     /*padding: 14px 28px;  Add some padding */
     cursor: pointer; /* Add a pointer cursor on mouse-over */
+    font-size: 0.7em;
 }
 .info {
     background-color: #2196F3;

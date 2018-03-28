@@ -112,7 +112,7 @@ function searchDB($pdo, $criteria){
         
         $query = 'SELECT name FROM books WHERE name LIKE ?;';
         $statement = $pdo->prepare($query);
-        $params = ["%" . trim($criteria) . "%"];
+        $params = [trim($criteria) . "%"];
         
         if ($statement->execute($params)) {
             $result = $statement -> fetch(PDO::FETCH_ASSOC);

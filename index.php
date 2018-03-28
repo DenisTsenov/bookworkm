@@ -5,6 +5,7 @@ require_once "./model/load_data.php";
 
 require_once __DIR__ . '/view/header.php';
 
+
 ?>
 <div class="main">
         
@@ -50,7 +51,8 @@ require_once __DIR__ . '/view/header.php';
             require_once "./view/" . $_GET["page"] . ".php";
         }
 
-//       var_dump($_SESSION);
+      var_dump($_SESSION);
+
 //        var_dump($user);
 
         ?>
