@@ -1,15 +1,33 @@
 <?php
 session_start();
-
 require_once "./model/load_data.php";
+
+require_once './config/session.php';
+$now = time();
+
+if (isset($_SESSION['discard_after']) && $now > $_SESSION['discard_after']) {
+    // the time  has expired and  start  new  session
+    require_once './heplerFunctions/bucketHelper.php';
+    if (LOG) {
+        removeProduct($pdo, $_SESSION["bucket"], $products);
+        session_unset();
+        session_destroy();
+        session_start();
+        $_SESSION["too_late"] = true;
+    } else {
+        removeProduct($pdo, $_SESSION["bucket"], $products);
+        $_SESSION["too_late"] = true;
+    }
+}
+
+$_SESSION['discard_after'] = $now + BUCKET_LIVE;
 
 require_once __DIR__ . '/view/header.php';
 
-
 ?>
 <div class="main">
-        
-    </div>
+
+</div>
 <link rel="stylesheet" href="./assets/css/styles.css" type="text/css"/>
 <link rel="stylesheet" href="./assets/css/cssReset.css" type="text/css"/>
 <div class="main" id="main">
@@ -54,7 +72,6 @@ require_once __DIR__ . '/view/header.php';
       var_dump($_SESSION);
 
 //        var_dump($user);
-
         ?>
 
 
@@ -69,10 +86,8 @@ require_once __DIR__ . '/view/header.php';
         <p>This is footer</p>
     </footer>
 </div>
-<script src="./assets/js/ajax.js">
-    
-   
-</script>
+<script src="./assets/js/ajax.js"></script>
+<script src="./assets/js/jQuery.js"></script>
 
 <?php
 include_once './view/footer.php';

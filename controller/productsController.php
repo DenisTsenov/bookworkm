@@ -56,7 +56,7 @@ if (isset($_POST["redact_name"])) {
         echo json_encode($responseArr);
     } else {
         try {
-            
+
             if (updateBook($pdo, $productName, $productPrice, $productQuantity, $_SESSION["redact"]["old"])) {
 //                $output = getProductInfo($pdo, $productName);
                 $_SESSION["redact"]["name"] = $productName;
@@ -85,7 +85,7 @@ if (isset($_POST["insertBook"])) {
     $price = trim(htmlentities($_POST["new_price"]));
     $quantity = trim(htmlentities($_POST["new_quantity"]));
     $genre = trim(htmlentities($_POST["new_category"]));
-    
+
     $insertErr = [];
 
     if (empty($name) || mb_strlen($name) < 2) {
@@ -108,7 +108,16 @@ if (isset($_POST["insertBook"])) {
         $insertErr[] = "Invaid genre!";
     }
     $tmp_name = $_FILES["new_img"]["tmp_name"];
-    $orig_name = $_FILES["new_img"]["name"];
+    $orig_name = basename($_FILES['new_img']['name']);
+    $imageFileType = strtolower(pathinfo($orig_name, PATHINFO_EXTENSION));
+    $imgSize = $_FILES['new_img']['size'];
+    if ($imgSize > 100000) {
+        $insertErr[] = "Max size is 100 KB!<br>";
+    }
+
+    if ($imageFileType != "jpg" && $imageFileType != "ico" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
+        $insertErr[] = "Sorry, only JPG, JPEG, ICO, PNG & GIF files are allowed.<br>";
+    }
 
     if (is_uploaded_file($tmp_name)) {
         $exploded_name = explode(".", $orig_name);
@@ -131,22 +140,20 @@ if (isset($_POST["insertBook"])) {
 
         $authorResult = getAuthorName($pdo, $author);
         $genreResult = getGenreName($pdo, $genre);
-        
+
         if (!$genreResult) {
             $insertErr[] = "Invalid  author!";
-
         }
-        
+
         if (!$authorResult) {
             $insertErr[] = "Invalid  author!";
-
         }
 
         if ($insertErr) {
             echo json_encode($insertErr);
         } else {
 
-            
+
             if (insertBook($pdo, $name, $author, $price, $quantity, $genre, $name . ".jpg")) {
                 $_SESSION["success"] = true;
                 header("Location: ../index.php?page=addBook");
@@ -158,11 +165,56 @@ if (isset($_POST["insertBook"])) {
     }
 }
 
-if(isset($_GET["search"])){
+if (isset($_POST["like_for"])) {
+
+    /* @var $likedProduct
+     *  type string 
+     */
+    $likedProduct = trim(htmlentities($_POST["like_for"]));
+    $resultArr = [];
+    if (!empty($likedProduct) && mb_strlen($likedProduct) > 2) {
+
+        if (!ifIsLiked($pdo, $_SESSION["user"]["id"], $likedProduct)) {
+            if (likeProduct($pdo, $_SESSION["user"]["id"], $likedProduct)) {
+               $resultArr[] = "You liked $likedProduct!" ;
+               echo json_encode($resultArr);
+            } else {
+                $resultArr[] = "Something  went wrong with $likedProduct!" ;
+               echo json_encode($resultArr);
+            }
+        }else{
+            $resultArr[] = "You  allready like this book!";
+            echo json_encode($resultArr);
+        }
+    } else {
+        $resultArr[] = "Invaid book!";
+        echo json_encode($resultArr);
+    }
+}
+
+if (isset($_GET["user_id"])) {
+    $userId = trim(htmlentities($_GET["user_id"]));
+
+    if (!is_numeric($userId) || $userId < 0) {
+        $resultArr = [];
+        $resultArr[] = "Invaid user!!";
+        echo json_encode($resultArr);
+    } else {
+        $r = getLikedProducts($pdo, $userId);
+
+        if (!empty($r)) {
+            echo json_encode($r);
+        } else {
+            return false;
+        }
+    }
+}
+
+if (isset($_GET["search"])) {
     $criteria = $_GET["search"];
     $result = array();
     $counter = 0;
     $result = searchDB($pdo, $criteria);
-    
+
     echo json_encode($result);
 }

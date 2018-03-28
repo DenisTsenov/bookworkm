@@ -302,3 +302,31 @@ drop-down select {
     height: 200px;
     visibility: hidden;
 }
+.finish{
+    width: 50%;
+    margin-left: 25%;
+    background-color: #00FF7F;
+    color: black;
+    font-size: 1.1em;
+}
+
+.finish:hover{
+    color: #555;
+}
+.success{
+    background-color: #00FF7F;
+    width: 50%;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 1.1em;
+    color: #0b7dda;
+    margin-left: 25%;
+}
+#like{
+    background-color: chartreuse;
+     /*margin-top: 5px;*/
+     padding: 5px;
+    height: 30px;
+    border: 1px solid cyan;
+    border-radius: 5px;
+}
