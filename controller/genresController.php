@@ -21,10 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     if ($result) {
         echo json_encode($result);
     } else {
-//        echo "losho mi e!";
-        //todo  
-        //return  error page
-        //or some  err msg
+//    echo json_encode("okk");
     }
 }
 

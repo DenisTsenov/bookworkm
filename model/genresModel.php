@@ -10,7 +10,7 @@ function getAllGenres($pdo) {
     $query = "SELECT id, name FROM categories;";
     $stmt = $pdo->prepare($query);
     $stmt->execute();
-    
+
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
         $result[] = $row;
     }

@@ -122,3 +122,22 @@ function fadeOut() {
             }
         });
     }
+
+function takeGenres() {
+    var request = new XMLHttpRequest;
+    request.open("GET", "./controller/genresController.php", true);
+    request.onreadystatechange = function (ev) {
+        if (this.readyState === 4 && this.status) {
+            var select = document.getElementById("category");
+            var resp = JSON.parse(this.responseText);
+
+            for (i in resp) {
+                var option = document.createElement("option");
+                option.setAttribute("value", resp[i]["id"]);
+                option.innerHTML = resp[i]["name"];
+                select.appendChild(option);
+            }
+        }
+    };
+    request.send();
+}

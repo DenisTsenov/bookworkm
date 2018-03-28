@@ -6,9 +6,7 @@ function registerProfile($firstName, $lastName, $email, $password, $logo_url) {
         $query = "INSERT INTO users (first_name, last_name, email, password, img_name, type) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $pdo->prepare($query);
         $params = [$firstName, $lastName, $email, $password, $logo_url, 0];
-        var_dump($params);
         $result =  $stmt -> execute($params);
-        var_dump($result);
         return $result;
     } catch (PDOException $exp) {
         echo "Something  went wrong! " . $exp->getMessage();

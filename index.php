@@ -23,6 +23,7 @@ if (isset($_SESSION['discard_after']) && $now > $_SESSION['discard_after']) {
 $_SESSION['discard_after'] = $now + BUCKET_LIVE;
 
 require_once __DIR__ . '/view/header.php';
+
 ?>
 <link rel="stylesheet" href="./assets/css/styles.css" type="text/css"/>
 <link rel="stylesheet" href="./assets/css/cssReset.css" type="text/css"/>
@@ -67,7 +68,8 @@ require_once __DIR__ . '/view/header.php';
             require_once "./view/" . $_GET["page"] . ".php";
         }
 
-//       var_dump($_SESSION);
+      var_dump($_SESSION);
+
 //        var_dump($user);
         ?>
 
