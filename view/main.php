@@ -31,7 +31,7 @@
                     btn.addEventListener('click', function (e) {
                         var btnId = document.getElementById("by_id").value;
                         var request = new XMLHttpRequest;
-                        request.open("GET", "./controller/bucketController.php?buy_product=" + btnId);
+                        request.open("GET", "./controller/bucketController.php?buy_product=" + this.value);
                         request.onreadystatechange = function (ev) {
                             if (this.readyState === 4 && this.status === 200) {
                                 location.reload();
