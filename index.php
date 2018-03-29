@@ -32,7 +32,7 @@ require_once __DIR__ . '/view/header.php';
 
         <aside class="category_list">
             <input type="text" onkeydown="getBook(this);">
-            <form action="controller/productsController.php" method="post">
+            <form action="./controller/productsController.php" method="post">
                 <select name="category">
                     <option value="category1">Category1</option>
                     <option value="category2">Category2</option>

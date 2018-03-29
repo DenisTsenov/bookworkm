@@ -1,6 +1,6 @@
 <?php
 
-if ($_SESSION["user"]["type"] != 1) {
+if (!$_SESSION["user"]) {
     header("Location: index.php");
 }
 require_once __DIR__ . "/load_data.php";
