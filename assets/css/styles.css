@@ -382,3 +382,9 @@ drop-down select {
     height: 170px;
     border-radius: 50%;
 }
+#by_id{
+    background-color: teal;
+    color: #00FF7F;
+    border-radius: 7px;
+    padding: 10px;
+}
