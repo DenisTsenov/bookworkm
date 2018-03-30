@@ -32,9 +32,8 @@ unset($_SESSION["success"]) ?>
             var h = document.createElement("h3");
             h.setAttribute("id", "addAuthor");
             h.innerHTML = response;
-            
             var d = document.getElementById("addBook").appendChild(h);
-            fade(f);
+            
         }
     };
     request.send("name=" + name);

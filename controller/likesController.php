@@ -7,7 +7,13 @@ if (session_status() == PHP_SESSION_NONE) {
 require_once '../model/likesModel.php';
 
 if (isset($_GET["liked"])) {
-    $r = getMoostLiked($pdo);
-    echo json_encode($r);
+    try{
+        $r = getMoostLiked($pdo);
+        
+        echo json_encode($r);
+    } catch (PDOException $exp){
+        echo "Somethon  went wrong " . $exp->getMessage();
+    }
+    
     
 }

@@ -15,7 +15,10 @@ function getMoostLiked($pod) {
         $stmt->execute();
         $result = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $result [] = $row;
+            if ($row["quantity"] > 0) {
+                $result [] = $row;
+            }
+            
         }
         return $result;
     } catch (PDOException $exp) {
