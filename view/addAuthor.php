@@ -30,8 +30,10 @@ unset($_SESSION["success"]) ?>
         if (this.readyState === 4 && this.status === 200) {
             var response = JSON.parse(this.responseText);
             var h = document.createElement("h3");
+            h.setAttribute("id", "addAuthor");
             h.innerHTML = response;
             var d = document.getElementById("addBook").appendChild(h);
+            
         }
     };
     request.send("name=" + name);

@@ -40,6 +40,7 @@ if ($_SESSION["user"]["type"] != 1) {
 
                 var resp = JSON.parse(this.responseText);
                 h.innerHTML = resp;
+                h.setAttribute("id", "addGenre");
                 var d = document.getElementById("addBook").appendChild(h);
             }
         };

@@ -330,3 +330,110 @@ drop-down select {
     border: 1px solid cyan;
     border-radius: 5px;
 }
+
+
+#signup-response{
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    background-color: #00FF7F;
+    padding: 10px;
+        
+    margin-top: 20px;
+    
+     animation:signup-response 0.5s 1;
+    -webkit-animation:signup-response 0.5s 1;
+    animation-fill-mode: forwards;
+
+    animation-delay:2s;
+    -webkit-animation-delay:2s; /* Safari and Chrome */
+    -webkit-animation-fill-mode: forwards;
+
+} 
+
+@keyframes signup-response{
+    from {opacity :1;}
+    to {opacity :0;}
+}
+
+@-webkit-keyframes signup-response{
+    from {opacity :1;}
+    to {opacity :0;}
+}
+.liked_book{
+    padding: 10px;
+    background: #ccc;
+    float: left;
+    margin: 10px;
+    border-radius: 20px;
+    float: left;
+    font-style: oblique;
+    color: #0b7dda;
+    font-size: 1.3em;
+    width: 25%;
+    border: 1px solid #00FF7F;
+    height: auto;
+}
+
+#liked_img{
+    width: 60%;
+    margin-left: 20%;
+    height: 170px;
+    border-radius: 50%;
+}
+#by_id{
+    background-color: teal;
+    color: #00FF7F;
+    border-radius: 7px;
+    padding: 10px;
+    box-shadow: 5px 10px 8px #888888;
+}
+#by_id:hover{
+    box-shadow: 5px 5px 5px #888888;
+}
+.errJs{
+    background-color: #f44336;
+    font-style: initial;
+    text-align: center;
+    font-size: 1em;
+    padding: 10px;
+    border-radius: 8px;
+    color: threedshadow;
+     
+     animation:signup-response 0.5s 1;
+    -webkit-animation:signup-response 0.5s 1;
+    animation-fill-mode: forwards;
+
+    animation-delay:2s;
+    -webkit-animation-delay:2s; /* Safari and Chrome */
+    -webkit-animation-fill-mode: forwards;
+}
+#addAuthor{
+    background-color: #2196F3;
+    text-align: center;
+    color: black;
+    padding: 10px;
+    
+     animation:signup-response 0.5s 1;
+    -webkit-animation:signup-response 0.5s 1;
+    animation-fill-mode: forwards;
+
+    animation-delay:2s;
+    -webkit-animation-delay:2s; /* Safari and Chrome */
+    -webkit-animation-fill-mode: forwards;
+}
+#addGenre{
+    background-color: #2196F3;
+    text-align: center;
+    color: black;
+    padding: 10px;
+    
+     animation:signup-response 0.5s 1;
+    -webkit-animation:signup-response 0.5s 1;
+    animation-fill-mode: forwards;
+
+    animation-delay:2s;
+    -webkit-animation-delay:2s; /* Safari and Chrome */
+    -webkit-animation-fill-mode: forwards;
+}

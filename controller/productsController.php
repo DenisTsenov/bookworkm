@@ -111,7 +111,7 @@ if (isset($_POST["insertBook"])) {
     $orig_name = basename($_FILES['new_img']['name']);
     $imageFileType = strtolower(pathinfo($orig_name, PATHINFO_EXTENSION));
     $imgSize = $_FILES['new_img']['size'];
-    if ($imgSize > 100000) {
+    if ($imgSize > 1000000) {
         $insertErr[] = "Max size is 100 KB!<br>";
     }
 
@@ -154,7 +154,7 @@ if (isset($_POST["insertBook"])) {
         } else {
 
 
-            if (insertBook($pdo, $name, $author, $price, $quantity, $genre, $name . ".jpg")) {
+            if (insertBook($pdo, $name, $author, $price, $quantity, $genre, $name . ".".$imageFileType)) {
                 $_SESSION["success"] = true;
                 header("Location: ../index.php?page=addBook");
             } else {

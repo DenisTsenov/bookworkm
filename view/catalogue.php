@@ -2,7 +2,6 @@
     <div id="catalog" ></div>
     <table id="products">
         <tr>
-
             <th>Book Name</th>
             <th>Author</th>
             <th>Price</th>
@@ -11,9 +10,7 @@
             <th>Image</th>
             <?php if (isset($_SESSION["user"])) { ?>
                 <th>To Cart</th>
-                <?php
-            }
-            ?>
+            <?php } ?>
 
             <?php if (isset($_SESSION["user"]) && $_SESSION["user"]["type"] == 1) { ?>
                 <th>Redact</th>
@@ -31,16 +28,16 @@
                     <td><?= $product["category_id"] ?></td>
                     <td>
                         <img id="book_img" src="./assets/uploads/product_img/<?= $product["img_url"]; ?>" alt="book_img">
-                        <button id="like" class="like" onclick="likeProduct(this.value)" value="<?= $product["name"] ?>">Like</button>
+                        <?php if (isset($_SESSION["user"])) { ?>
+                            <button id="like" class="like" onclick="likeProduct(this.value)" value="<?= $product["name"] ?>">Like</button>
+                        <?php } ?>
                     </td>
 
                     <?php if (isset($_SESSION["user"])) { ?>
                         <td>
-                            <button class="btn info" value="<?= $product["name"]; ?>" onclick="addToCart(this.value);successAdd(this.value)" >Add to Cart</button>
+                            <button class="btn info" value="<?= $product["name"]; ?>" onclick="addToCart(this.value);" >Add to Cart</button>
                         </td>
-                        <?php
-                    }
-                    ?>
+                    <?php } ?>
                     <?php if (isset($_SESSION["user"]) && $_SESSION["user"]["type"] == 1) { ?>
                         <td>        
                             <form action="./controller/productsController.php" method="GET">
@@ -48,9 +45,7 @@
                                 <input type="submit" class="btn info" name="redact" value="Redact"/>
                             </form>
                         </td>
-                        <?php
-                    }
-                    ?>
+                    <?php } ?>
                 </tr>
                 <?php
             }
@@ -61,6 +56,7 @@
 </section>
 
 <script type="text/javascript">
+    
 //    function getLikedProducts() {
 //        var userId = "<?= $_SESSION["user"]["id"] ?>";
 //
@@ -80,23 +76,25 @@
 //        request.send();
 //    }
     function likeProduct(like_name) {
+        var getId = document.getElementById("catalog");
+
+        var res = document.createElement("h3");
+        res.setAttribute("id", "signup-response");
+
         var req = new XMLHttpRequest();
         req.open("POST", "./controller/productsController.php", true);
         req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         req.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
-                var result = JSON.parse(this.responseText);
-                var getId = document.getElementById("catalog");
 
-                var res = document.createElement("h3");
-                res.setAttribute("id", "finish");
-                
+                var result = JSON.parse(this.responseText);
+
                 res.innerHTML = result[0];
                 getId.appendChild(res);
-
+                fade(getId);
+                unfade(getId);
             }
         };
         req.send("like_for=" + like_name);
     }
-
 </script>

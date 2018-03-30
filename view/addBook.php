@@ -5,42 +5,46 @@ if (session_status() == PHP_SESSION_NONE) {
 
 if ($_SESSION["user"]["type"] != 1) {
     header("Location: index.php");
-}
+}?>
+<?=
+isset($_SESSION["success"]) ? "<h3>Succsessfully adde  new  book!</h3>" : "";
+unset($_SESSION["success"])
 ?>
-<?= isset($_SESSION["success"]) ? "<h3>Succsessfully adde  new  book!</h3>" : "";
-unset($_SESSION["success"]) ?>
+
 <div id="addBook" >
 
-    <form action="./controller/productsController.php" method="POST" enctype="multipart/form-data">
-    <label for="name">Book Name</label>
-    <input type="text" id="name" name="new_name" placeholder="Book name..">
+    <form name="myForm" action="./controller/productsController.php" method="POST" onsubmit="return validateBook()" enctype="multipart/form-data">
+        <label for="name">Book Name</label>
+        <input type="text" id="name" name="new_name" placeholder="Book name..">
 
-    <label for="author">Author</label>
-    <select id="author" name="new_author">
+        <label for="author">Author</label>
+        <select id="author" name="new_author">
 
-    </select>
-    <hr/>
-    <label for="price">Price</label>
-    <input type="number" step=".01" id="price" name="new_price" >
-    <hr/>
-    <label for="quantity">Quantity</label>
-    <input type="number" id="quantity" name="new_quantity" >
-    <hr/>
-    <label for="category">Category</label>
-    <select id="category" name="new_category">
+        </select>
+        <hr/>
+        <label for="price">Price</label>
+        <input type="number" step=".01" id="price" name="new_price" >
+        <hr/>
+        <label for="quantity">Quantity</label>
+        <input type="number" id="quantity" name="new_quantity" >
+        <hr/>
+        <label for="category">Category</label>
+        <select id="category" name="new_category">
 
-    </select>
-    <hr/>
-    <label for="img">Image</label>
-    <input type="file" name="new_img" id="img">
-    <br/>
-    
-    <button type="submit" class="smal_blue" name="insertBook"><input class="btn blue" type="submit" value="Add Book" name="insertBook"></button>
-</form>
+        </select>
+        <hr/>
+        <label for="img">Image</label>
+        <input type="file" name="new_img" multiple accept='image/*' id="img">
+        <br/>
+
+        <button type="submit" class="smal_blue" name="insertBook"><input  class="btn blue" type="submit" value="Add Book" name="insertBook"></button>
+    </form>
+<div id="errorContent" ></div>
 </div>
 
 <script type="text/javascript">
     function takeAuthors() {
+
         var request = new XMLHttpRequest;
         request.open("GET", "./controller/authorsController.php", true);
         request.onreadystatechange = function (ev) {
@@ -58,10 +62,8 @@ unset($_SESSION["success"]) ?>
         };
         request.send();
     }
-
-
-
-//    function addBook() {
+    
+//      function addBook() {
 //        var name = document.getElementById("name").value;
 //        var author = document.getElementById("author").value;
 //        var price = document.getElementById("price").value;

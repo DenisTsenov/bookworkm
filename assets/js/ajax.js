@@ -33,8 +33,6 @@ function removeBook(nameToRemove) {
     request.send();
 }
 
-
-
 function getBookInfo(bookName) {
     var request = new XMLHttpRequest;
     request.open("get", "./controller/productsController.php?productName=" + bookName);
@@ -64,8 +62,6 @@ function getBookInfo(bookName) {
     request.send();
 }
 
-
-
 var request = new XMLHttpRequest;
 request.open("GET", "./controller/typesController.php", true);
 request.onreadystatechange = function (ev) {
@@ -91,7 +87,7 @@ function getBook(pole) {
     request.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             var names = this.responseText;
-            console.log(names);
+//            console.log(names);
 //            var ul = document.createElement("ul");
 //            for(var i = 0; i < names.length; i++){
 //                var li = document.createElement("li");
@@ -104,8 +100,6 @@ function getBook(pole) {
     };
     request.send();
 }
-
-
 
 function fadeOut() {
         document.addEventListener('click', function (e) {
@@ -143,3 +137,4 @@ function takeGenres() {
     };
     request.send();
 }
+

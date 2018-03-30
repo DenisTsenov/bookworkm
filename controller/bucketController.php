@@ -46,8 +46,6 @@ if (isset($_GET["buy_product"])) {
     }
 }
 
-
-
 if (isset($_GET["book_to_remove"])) {
     //premahwame kolichestwoto  ot producta  i go wrushtame obratno  w kataloga
     $productToRemove = trim(htmlentities($_GET["book_to_remove"]));
