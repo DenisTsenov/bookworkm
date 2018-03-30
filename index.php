@@ -4,7 +4,7 @@ require_once "./model/load_data.php";
 require_once "./model/searchModel.php";
 require_once "./controller/searchController.php";
 require_once 'config/session.php';
-
+$searchedProducts = array();
 $now = time();
 
 if (isset($_SESSION["user"])) {
@@ -41,7 +41,7 @@ require_once __DIR__ . '/view/header.php';
                 <option value="<?= $resultAuthors[$i]; ?>"> <?= $resultAuthors[$i]; ?> </option>
                 <?php } ?>
             </select>
-            <input type="submit" name="findCategory" value="Search">
+            <input type="submit" name="findAuthor" value="Search">
         </form>
         <form action="controller/searchController.php" method="post">
             <select name="category">
@@ -49,7 +49,7 @@ require_once __DIR__ . '/view/header.php';
                     <option value="<?= $resultCategories[$j]; ?>"><?= $resultCategories[$j]; ?></option>
                 <?php } ?>
             </select>
-            <input type="submit" name="findAuthor" value="Search">
+            <input type="submit" name="findCategory" value="Search">
         </form>
         <div id="result">
 
@@ -84,7 +84,7 @@ require_once __DIR__ . '/view/header.php';
 
       
 
-//      var_dump($_SESSION);
+    var_dump($_SESSION);
 //        var_dump($resultCategories);
         //var_dump($resultAuthors) . PHP_EOL;
 
