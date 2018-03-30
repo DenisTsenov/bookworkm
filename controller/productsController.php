@@ -36,7 +36,6 @@ if (isset($_POST["redact_name"])) {
     $productName = trim(htmlentities($_POST["redact_name"]));
     $productPrice = trim(htmlentities($_POST["redact_price"]));
     $productQuantity = trim(htmlentities($_POST["redact_quantity"]));
-
     $responseArr = [];
 
     if (empty($productName) || mb_strlen($productName) < 2) {
@@ -58,7 +57,6 @@ if (isset($_POST["redact_name"])) {
         try {
 
             if (updateBook($pdo, $productName, $productPrice, $productQuantity, $_SESSION["redact"]["old"])) {
-//                $output = getProductInfo($pdo, $productName);
                 $_SESSION["redact"]["name"] = $productName;
                 $_SESSION["redact"]["price"] = $productPrice;
                 $_SESSION["redact"]["quantity"] = $productQuantity;
@@ -68,7 +66,6 @@ if (isset($_POST["redact_name"])) {
             } else {
                 $responseArr[] = "Sorry... something went  wrong  with your query! Try again  later!";
                 echo json_encode($responseArr);
-//                header("Location: ../imdex.php?page=updateError");
             }
         } catch (PDOException $exp) {
             echo "something went  wrong! " . $exp->getMessage();

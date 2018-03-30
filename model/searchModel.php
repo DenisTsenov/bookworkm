@@ -1,6 +1,6 @@
 <?php
 
-include_once "./model/load_data.php";
+include_once  __DIR__ ."/load_data.php";
 
 function getAllAuthors($pdo, &$resultAuthors){
     try{

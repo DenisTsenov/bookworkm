@@ -13,7 +13,8 @@ unset($_SESSION["success"])
 
 <div id="addBook" >
 
-    <form name="myForm" action="./controller/productsController.php" method="POST" onsubmit="return validateBook()" enctype="multipart/form-data">
+    <form name="myForm" action="./controller/productsController.php" method="POST"
+          onsubmit="return validateBook()" enctype="multipart/form-data">
         <label for="name">Book Name</label>
         <input type="text" id="name" name="new_name" placeholder="Book name..">
 
@@ -37,7 +38,9 @@ unset($_SESSION["success"])
         <input type="file" name="new_img" multiple accept='image/*' id="img">
         <br/>
 
-        <button type="submit" class="smal_blue" name="insertBook"><input  class="btn blue" type="submit" value="Add Book" name="insertBook"></button>
+        <button type="submit" class="smal_blue" name="insertBook">
+        <input class="btn blue" type="submit" value="Add Book" name="insertBook">
+        </button>
     </form>
 <div id="errorContent" ></div>
 </div>

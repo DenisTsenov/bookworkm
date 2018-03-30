@@ -9,7 +9,6 @@
             for (arr in response) {
                 
                 if (response[arr]["quantity"] <= 0) {
-    
                 }else{
                     
                 var console = document.createElement("DIV");
@@ -46,7 +45,6 @@
                     console.appendChild(btn);
 
                 <?php } ?>
-
                 var quantity = document.createElement("p");
                 quantity.innerHTML = "Quantity: " + response[arr]["quantity"];
 

@@ -1,5 +1,5 @@
 <?php
-include_once 'C:\xampp\htdocs\storm\untitled\Bookworms\model\searchModel.php';
+include_once dirname(__DIR__). DIRECTORY_SEPARATOR. "model" . DIRECTORY_SEPARATOR ."searchModel.php";
 
 if(isset($_POST["author"])){
     $id = null;

@@ -11,7 +11,7 @@ getAllAuthors($pdo, $resultAuthors);
 getAllCategories($pdo, $resultCategories);
 
 if (isset($_SESSION["user"])) {
-    if (isset($_SESSION['discard_after']) && $now > $_SESSION['discard_after']) {
+    if (isset($_SESSION['discard_after']) && $now > $_SESSION['discard_after']){
         // the time  has expired and  start  new  session
         require_once './heplerFunctions/bucketHelper.php';
         if (LOG) {
@@ -71,29 +71,24 @@ require_once __DIR__ . '/view/header.php';
                 foreach ($error_log as $err) {
                     echo $err . "<br/>";
                 }
-                require_once './view/login.php';
+//                require_once './view/login.php';
             }
             if (isset($_GET["page"]) && $_GET["page"] == "logout") {
                 require_once './heplerFunctions/bucketHelper.php';
                 removeProduct($pdo, $_SESSION["bucket"], $products);
                 session_destroy();
-                header("Location: index.php");
+                header("Location: ./index.php?page=main");
             } elseif (isset($_GET["page"])) {
                 require_once "./view/" . $_GET["page"] . ".php";
             }else{
                 require_once "./view/main.php";
             }
-            require_once './view/login.php';
+//            require_once './view/login.php';
 
-        if (isset($_GET["page"]) && $_GET["page"] == "logout") {
-            session_destroy();
-            header("Location: index.php");
-        } elseif (isset($_GET["page"])) {
-            require_once "./view/" . $_GET["page"] . ".php";
-        }
+      
 
-      var_dump($_SESSION);
-        var_dump($resultCategories);
+//      var_dump($_SESSION);
+//        var_dump($resultCategories);
         //var_dump($resultAuthors) . PHP_EOL;
 
 //            var_dump($_SESSION);
