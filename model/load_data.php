@@ -39,4 +39,32 @@ $products = [];
 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
     $products[] = $row;
 }
+
+
+try {
+    $authors_query = "SELECT name FROM authors";
+    $stmt = $pdo->prepare($authors_query);
+    $stmt->execute();
+
+    while ($row = $stmt->fetch(PDO::FETCH_COLUMN)) {
+        $resultAuthors[] = $row;
+    }
+} catch (PDOException $exp) {
+    return "Oops, something went wrong " . $exp->getMessage();
+}
+
+
+try {
+    $categories_query = "SELECT name FROM categories";
+    $stmt = $pdo->prepare($categories_query);
+    $stmt->execute();
+
+    while ($row = $stmt->fetch(PDO::FETCH_COLUMN)) {
+        $resultCategories[] = $row;
+    }
+}
+catch (PDOException $exp) {
+    return "Oops, something went wrong " . $exp->getMessage();
+}
+
 ?>

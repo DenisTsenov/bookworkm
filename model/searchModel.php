@@ -1,6 +1,8 @@
 <?php
 
 
+include_once  __DIR__ ."/load_data.php";
+
 
 function getAllAuthors($pdo, &$resultAuthors){
     try{
@@ -34,7 +36,7 @@ function getAllCategories($pdo, &$resultCategories){
     }
 }
 
-function getBooksByAuthor($pdo, $id, $products){
+function getBooksByAuthor($pdo, $id, $searchedProducts){
     try{
         $query = "SELECT b.name, b.author_id, b.price, b.quantity, b.img_url
                   FROM books as b JOIN authors AS a
@@ -42,9 +44,9 @@ function getBooksByAuthor($pdo, $id, $products){
                   WHERE a.id = ?";
         $stmt = $pdo -> prepare($query);
         $stmt -> execute(array($id));
-        $products = array();
+        $searchedProducts = array();
         while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-            $products[] = $row;
+            $searchedProducts[] = $row;
         }
     }
     catch(PDOException $exp){
