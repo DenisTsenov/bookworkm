@@ -6,10 +6,6 @@ require_once "./controller/searchController.php";
 require_once 'config/session.php';
 
 $now = time();
-$resultAuthors = array();
-$resultCategories = array();
-getAllAuthors($pdo, $resultAuthors);
-getAllCategories($pdo, $resultCategories);
 
 if (isset($_SESSION["user"])) {
     if (isset($_SESSION['discard_after']) && $now > $_SESSION['discard_after']){
