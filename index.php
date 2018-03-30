@@ -1,9 +1,14 @@
 <?php
 session_start();
 require_once "./model/load_data.php";
-
-require_once './config/session.php';
+require_once "./model/searchModel.php";
+require_once "./controller/searchController.php";
+require_once 'config/session.php';
 $now = time();
+$resultAuthors = array();
+$resultCategories = array();
+getAllAuthors($pdo, $resultAuthors);
+getAllCategories($pdo, $resultCategories);
 
 if (isset($_SESSION['discard_after']) && $now > $_SESSION['discard_after']) {
     // the time  has expired and  start  new  session
@@ -34,14 +39,21 @@ require_once __DIR__ . '/view/header.php';
 
     <aside class="category_list">
         <input type="text" onkeydown="getBook(this);">
-        <form action="controller/productsController.php" method="post">
-            <select name="category">
-                <option value="category1">Category1</option>
-                <option value="category2">Category2</option>
-                <option value="category3">Category3</option>
-                <option value="category4">Category4</option>
+        <form action="controller/searchController.php" method="post">
+            <select name="author">
+                <?php for ($i=0; $i<count($resultAuthors); $i++) { ?>
+                <option value="<?= $resultAuthors[$i]; ?>"> <?= $resultAuthors[$i]; ?> </option>
+                <?php } ?>
             </select>
-            <input type="submit" name="search" value="Submit">
+            <input type="submit" name="findCategory" value="Search">
+        </form>
+        <form action="controller/searchController.php" method="post">
+            <select name="category">
+                <?php for ($j=0; $j < count($resultCategories); $j++) { ?>
+                    <option value="<?= $resultCategories[$j]; ?>"><?= $resultCategories[$j]; ?></option>
+                <?php } ?>
+            </select>
+            <input type="submit" name="findAuthor" value="Search">
         </form>
         <div id="result">
 
@@ -70,6 +82,8 @@ require_once __DIR__ . '/view/header.php';
         }
 
       var_dump($_SESSION);
+        var_dump($resultCategories);
+        //var_dump($resultAuthors) . PHP_EOL;
 
 //        var_dump($user);
         ?>
