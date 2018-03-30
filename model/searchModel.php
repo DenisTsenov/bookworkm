@@ -1,6 +1,6 @@
 <?php
 
-include_once "./model/load_data.php";
+
 
 function getAllAuthors($pdo, &$resultAuthors){
     try{
@@ -42,7 +42,10 @@ function getBooksByAuthor($pdo, $id, $products){
                   WHERE a.id = ?";
         $stmt = $pdo -> prepare($query);
         $stmt -> execute(array($id));
-        $products = $stmt->fetch(PDO::FETCH_ASSOC);
+        $products = array();
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+            $products[] = $row;
+        }
     }
     catch(PDOException $exp){
         return "Oops, something went wrong " . $exp ->getMessage();

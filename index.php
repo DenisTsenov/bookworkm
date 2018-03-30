@@ -4,6 +4,7 @@ require_once "./model/load_data.php";
 require_once "./model/searchModel.php";
 require_once "./controller/searchController.php";
 require_once 'config/session.php';
+
 $now = time();
 $resultAuthors = array();
 $resultCategories = array();
