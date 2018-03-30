@@ -27,7 +27,7 @@
                     var btn = document.createElement("button");
                     btn.setAttribute("id", "by_id");
                     btn.value = response[arr]["name"];
-                    btn.innerHTML = "Buy!";
+                    btn.innerHTML = "In Bucket!";
                     btn.addEventListener('click', function (e) {
                         var btnId = document.getElementById("by_id").value;
                         var request = new XMLHttpRequest;

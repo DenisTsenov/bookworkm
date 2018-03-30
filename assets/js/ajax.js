@@ -137,3 +137,4 @@ function takeGenres() {
     };
     request.send();
 }
+

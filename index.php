@@ -85,8 +85,10 @@ require_once __DIR__ . '/view/header.php';
             <p>This is footer</p>
         </footer>
     </div>
-    <script src="./assets/js/ajax.js"></script>
-    <script src="./assets/js/jQuery.js"></script>
+    <script src="./assets/js/ajax.js" type="text/javascript"></script>
+    <script src="./assets/js/jQuery.js" type="text/javascript"></script>
+    <script src="./assets/js/validate.js"  type="text/javascript"></script>
+    <script src="./assets/js/effects.js"  type="text/javascript"></script>
     
     <?php
     include_once './view/footer.php';
