@@ -1,8 +1,5 @@
 <?php
-
-
 include_once  __DIR__ ."/load_data.php";
-
 
 function getBooksByAuthor($pdo, $id, $searchedProducts){
     try{
