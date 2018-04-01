@@ -117,9 +117,8 @@ if (isset($_POST["insertBook"])) {
     }
 
     if (is_uploaded_file($tmp_name)) {
-        $exploded_name = explode(".", $orig_name);
-        $ext = $exploded_name[count($exploded_name) - 1];
-        $logo_url = "../assets/uploads/product_img/$name.$ext";
+        
+        $logo_url = "../assets/uploads/product_img/$name.$imageFileType";
         if (move_uploaded_file($tmp_name, $logo_url)) {
             
         } else {

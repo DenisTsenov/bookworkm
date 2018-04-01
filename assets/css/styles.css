@@ -437,3 +437,52 @@ drop-down select {
     -webkit-animation-delay:2s; /* Safari and Chrome */
     -webkit-animation-fill-mode: forwards;
 }
+.left{
+    margin-left: 20%;
+    border-radius: 10px;
+}
+
+#histoy-table {
+    margin-left: 5%;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#histoy-table td, #histoy-table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#histoy-table tr:nth-child(even){background-color: #f2f2f2;}
+
+#histoy-tabl tr:hover {background-color: #ddd;}
+
+#histoy-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+
+#disabled {
+  border: 1px solid #0066cc;
+  background-color: #0099cc;
+  color: #ffffff;
+  /*padding: 5px 10px;*/
+}
+
+#disabled:hover {
+  /*border: 1px solid #0099cc;*/
+  background-color: #00aacc;
+  color: #ffffff;
+  /*padding: 5px 10px;*/
+}
+
+#disabled:disabled,
+#disabled[disabled]{
+  /*border: 1px solid #999999;*/
+  background-color: #cccccc;
+  color: #666666;
+}

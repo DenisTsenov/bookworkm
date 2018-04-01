@@ -4,10 +4,6 @@ if ($_SESSION["user"]["type"] != 1) {
 }
 require_once __DIR__ . "/load_data.php";
 
-if (!$_SESSION["user"]) {
-    header("Location: index.php");
-}
-
 function getAllAuthors($pdo) {
     try{
         

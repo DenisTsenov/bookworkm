@@ -8,7 +8,7 @@ $searchedProducts = array();
 $now = time();
 
 if (isset($_SESSION["user"])) {
-    if (isset($_SESSION['discard_after']) && $now > $_SESSION['discard_after']){
+    if (isset($_SESSION['discard_after']) && $now > $_SESSION['discard_after']) {
         // the time  has expired and  start  new  session
         require_once './heplerFunctions/bucketHelper.php';
         if (LOG) {
@@ -33,25 +33,25 @@ require_once __DIR__ . '/view/header.php';
     <link rel="stylesheet" href="./assets/css/cssReset.css" type="text/css"/>
     <div class="main" id="main">
 
-    <aside class="category_list">
-        <input type="text" onkeydown="getBook(this);">
-        <form action="controller/searchController.php" method="post">
-            <select name="author">
-                <?php for ($i=0; $i<count($resultAuthors); $i++) { ?>
-                <option value="<?= $resultAuthors[$i]; ?>"> <?= $resultAuthors[$i]; ?> </option>
-                <?php } ?>
-            </select>
-            <input type="submit" name="findAuthor" value="Search">
-        </form>
-        <form action="controller/searchController.php" method="post">
-            <select name="category">
-                <?php for ($j=0; $j < count($resultCategories); $j++) { ?>
-                    <option value="<?= $resultCategories[$j]; ?>"><?= $resultCategories[$j]; ?></option>
-                <?php } ?>
-            </select>
-            <input type="submit" name="findCategory" value="Search">
-        </form>
-        <div id="result">
+        <aside class="category_list">
+            <input type="text" onkeydown="getBook(this);">
+            <form action="controller/searchController.php" method="post">
+                <select name="author">
+                    <?php for ($i = 0; $i < count($resultAuthors); $i++) { ?>
+                        <option value="<?= $resultAuthors[$i]; ?>"> <?= $resultAuthors[$i]; ?> </option>
+                    <?php } ?>
+                </select>
+                <input type="submit" name="findAuthor" value="Search">
+            </form>
+            <form action="controller/searchController.php" method="post">
+                <select name="category">
+                    <?php for ($j = 0; $j < count($resultCategories); $j++) { ?>
+                        <option value="<?= $resultCategories[$j]; ?>"><?= $resultCategories[$j]; ?></option>
+                    <?php } ?>
+                </select>
+                <input type="submit" name="findCategory" value="Search">
+            </form>
+            <div id="result">
 
             </div>
         </aside>
@@ -71,23 +71,21 @@ require_once __DIR__ . '/view/header.php';
 //                require_once './view/login.php';
             }
             if (isset($_GET["page"]) && $_GET["page"] == "logout") {
-                require_once './heplerFunctions/bucketHelper.php';
-                removeProduct($pdo, $_SESSION["bucket"], $products);
+                if (isset($_SESSION["bucket"])) {
+                    require_once './heplerFunctions/bucketHelper.php';
+                    removeProduct($pdo, $_SESSION["bucket"], $products);
+                }
                 session_destroy();
                 header("Location: ./index.php?page=main");
             } elseif (isset($_GET["page"])) {
                 require_once "./view/" . $_GET["page"] . ".php";
-            }else{
+            } else {
                 require_once "./view/main.php";
             }
 //            require_once './view/login.php';
-
-      
-
-    var_dump($_SESSION);
+//    var_dump($_SESSION);
 //        var_dump($resultCategories);
-        //var_dump($resultAuthors) . PHP_EOL;
-
+            //var_dump($resultAuthors) . PHP_EOL;
 //            var_dump($_SESSION);
 //        var_dump($user);
             ?>
@@ -106,7 +104,6 @@ require_once __DIR__ . '/view/header.php';
     <script src="./assets/js/jQuery.js" type="text/javascript"></script>
     <script src="./assets/js/validate.js"  type="text/javascript"></script>
     <script src="./assets/js/effects.js"  type="text/javascript"></script>
-    
-    <?php
-    include_once './view/footer.php';
-    
+
+<?php
+include_once './view/footer.php';
