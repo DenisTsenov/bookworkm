@@ -10,7 +10,7 @@
 body {
     height: 100%;
     min-height: 100%;
-    
+
 }
 .navigation{
     overflow: hidden;
@@ -22,19 +22,19 @@ body {
     height: 15%;
 }
 .navigation a:hover {
-  background: #ddd;
-  color: black;
+    background: #ddd;
+    color: black;
 }
 .navigation #login {
-  float: right;
-  margin-right: 30px;
-  margin-top: 20px;
-  display: block;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
+    float: right;
+    margin-right: 30px;
+    margin-top: 20px;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
 }
 #logo{
     width: 120px;
@@ -52,17 +52,17 @@ body {
     width: 75%;
     height: auto;
     display: inline-block;
-    
+
     margin: 0 auto;
 }
 .popular_book{
     width: 72%;
     position: absolute;
     float: right;
-    
+
     display: inline-block;
     height: 200px;
-    
+
     background-color: chartreuse;
 }
 
@@ -71,7 +71,7 @@ body {
     height: 30px;
     background-color: #333;
     display: inline-block;
-    
+
 }
 .footer p{
     text-align: center;
@@ -157,11 +157,11 @@ span.psw {
 /* Change styles for span and cancel button on extra small screens */
 @media screen and (max-width: 300px) {
     span.psw {
-       display: block;
-       float: none;
+        display: block;
+        float: none;
     }
     .cancelbtn {
-       width: 100%;
+        width: 100%;
     }
 }
 #avatar{
@@ -221,7 +221,7 @@ span.psw {
     font-size:2em;
     padding: 10px;
     visibility: hidden;
-    
+
     background-color: chartreuse;
     text-align: center;
 }
@@ -240,7 +240,7 @@ span.psw {
 #redact input[type=text]:focus {
     border: 3px solid #555;
 }
- 
+
 #redact{
     margin: 5px;
     padding: 10px;
@@ -283,11 +283,11 @@ drop-down select {
 }
 
 #drop-down:hover{
-    
+
     height: 40px;
-    
+
     margin-right: 20px;
-    
+
     background-color: whitesmoke;
     color: #2196F3;
     margin-top: 30px;
@@ -324,8 +324,16 @@ drop-down select {
 }
 #like{
     background-color: chartreuse;
-     /*margin-top: 5px;*/
-     padding: 5px;
+    /*margin-top: 5px;*/
+    padding: 5px;
+    height: 30px;
+    border: 1px solid cyan;
+    border-radius: 5px;
+}
+#dislike{
+    background-color: tomato;
+    /*margin-top: 5px;*/
+    padding: 5px;
     height: 30px;
     border: 1px solid cyan;
     border-radius: 5px;
@@ -339,10 +347,10 @@ drop-down select {
     text-align: center;
     background-color: #00FF7F;
     padding: 10px;
-        
+
     margin-top: 20px;
-    
-     animation:signup-response 0.5s 1;
+
+    animation:signup-response 0.5s 1;
     -webkit-animation:signup-response 0.5s 1;
     animation-fill-mode: forwards;
 
@@ -400,8 +408,8 @@ drop-down select {
     padding: 10px;
     border-radius: 8px;
     color: threedshadow;
-     
-     animation:signup-response 0.5s 1;
+
+    animation:signup-response 0.5s 1;
     -webkit-animation:signup-response 0.5s 1;
     animation-fill-mode: forwards;
 
@@ -414,8 +422,8 @@ drop-down select {
     text-align: center;
     color: black;
     padding: 10px;
-    
-     animation:signup-response 0.5s 1;
+
+    animation:signup-response 0.5s 1;
     -webkit-animation:signup-response 0.5s 1;
     animation-fill-mode: forwards;
 
@@ -428,8 +436,8 @@ drop-down select {
     text-align: center;
     color: black;
     padding: 10px;
-    
-     animation:signup-response 0.5s 1;
+
+    animation:signup-response 0.5s 1;
     -webkit-animation:signup-response 0.5s 1;
     animation-fill-mode: forwards;
 
@@ -467,32 +475,54 @@ drop-down select {
 }
 
 #disabled {
-  border: 1px solid #0066cc;
-  background-color: #0099cc;
-  color: #ffffff;
-  /*padding: 5px 10px;*/
+    border: 1px solid #0066cc;
+    background-color: #0099cc;
+    color: #ffffff;
+    /*padding: 5px 10px;*/
 }
 
 #disabled:hover {
-  /*border: 1px solid #0099cc;*/
-  background-color: #00aacc;
-  color: #ffffff;
-  /*padding: 5px 10px;*/
+    /*border: 1px solid #0099cc;*/
+    background-color: #00aacc;
+    color: #ffffff;
+    /*padding: 5px 10px;*/
 }
 
 #disabled:disabled,
 #disabled[disabled]{
-  /*border: 1px solid #999999;*/
-  background-color: #cccccc;
-  color: #666666;
+    /*border: 1px solid #999999;*/
+    background-color: #cccccc;
+    color: #666666;
 }
+
+
+.disabled{
+     border: 1px solid #0066cc;
+    background-color: #0099cc;
+    color: #ffffff;
+}
+
+.disabled:hover {
+    /*border: 1px solid #0099cc;*/
+    background-color: #00aacc;
+    color: #ffffff;
+    /*padding: 5px 10px;*/
+}
+
+.disabled:disabled,
+.disabled[disabled]{
+    /*border: 1px solid #999999;*/
+    background-color: #cccccc;
+    color: #666666;
+}
+
 .addAuthor{
     background-color: #f44336;
     text-align: center;
     color: black;
     padding: 10px;
-    
-     animation:signup-response 0.5s 1;
+
+    animation:signup-response 0.5s 1;
     -webkit-animation:signup-response 0.5s 1;
     animation-fill-mode: forwards;
 

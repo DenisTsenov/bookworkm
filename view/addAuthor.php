@@ -41,5 +41,4 @@ unset($_SESSION["success"])
         request.send("name=" + name);
     }
 
-
 </script>

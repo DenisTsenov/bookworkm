@@ -18,10 +18,29 @@ function getMoostLiked($pod) {
             if ($row["quantity"] > 0) {
                 $result [] = $row;
             }
-            
         }
         return $result;
     } catch (PDOException $exp) {
         return "No book's liked yet!" . $exp->getMessage();
+    }
+}
+
+function dislikeProduct($pdo, $dislikeId, $userId) {
+    try {
+        $pdo->beginTransaction();
+        $query = "DELETE FROM likes WHERE b_id = ? AND user_id = ? ;";
+        $stmt = $pdo->prepare($query);
+        $params = [$dislikeId, $userId];
+        
+        if ($stmt->execute($params)) {
+            $pdo->commit();
+            return true;
+        }else{
+            $pdo->rollBack();
+            return  false;
+        }
+    } catch (PDOException $exp) {
+        $pdo->rollBack();
+        return "Oops, something  went  wrong! " . $exp->getMessage();
     }
 }

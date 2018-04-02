@@ -191,7 +191,7 @@ function getLikedProducts($pdo, $userId) {
         $result = [];
         
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-            $result[] = $row;
+            $result[] = $row["b_id"];
         }
         return  $result;
     } catch (PDOException $exp) {

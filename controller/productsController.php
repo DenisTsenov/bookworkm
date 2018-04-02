@@ -9,6 +9,10 @@ if (!$_SESSION["user"]) {
 
 require_once '../model/productsModel.php';
 
+/*
+ * vrushta nujnata informaciqta  za 
+ * knigata koqto  shte redaktirame
+ */
 if (isset($_GET["redact"])) {
     $productName = trim(htmlentities($_GET["book_name"]));
 
@@ -161,6 +165,10 @@ if (isset($_POST["insertBook"])) {
     }
 }
 
+/*
+ * suzdawa now zapis w  bazata
+ * sus id-to  na  haresanata  kniga
+ */
 if (isset($_POST["like_for"])) {
 
     /* @var $likedProduct
@@ -188,6 +196,10 @@ if (isset($_POST["like_for"])) {
     }
 }
 
+/*
+ *  vrushta  masiwa  s knigi koito  
+ *  potrebitelq e haresal
+ */
 if (isset($_GET["user_id"])) {
     $userId = trim(htmlentities($_GET["user_id"]));
 
