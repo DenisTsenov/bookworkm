@@ -5,14 +5,14 @@ if (session_status() == PHP_SESSION_NONE) {
 
 if ($_SESSION["user"]["type"] != 1) {
     header("Location: index.php");
-}?>
+}
+?>
 <?=
 isset($_SESSION["success"]) ? "<h3>Succsessfully adde  new  book!</h3>" : "";
 unset($_SESSION["success"])
 ?>
 
 <div id="addBook" >
-
     <form name="myForm" action="./controller/productsController.php" method="POST"
           onsubmit="return validateBook()" enctype="multipart/form-data">
         <label for="name">Book Name</label>
@@ -39,15 +39,15 @@ unset($_SESSION["success"])
         <br/>
 
         <button type="submit" class="smal_blue" name="insertBook">
-        <input class="btn blue" type="submit" value="Add Book" name="insertBook">
+            <input class="btn blue" type="submit" value="Add Book" name="insertBook">
         </button>
     </form>
-<div id="errorContent" ></div>
+    <div id="errorContent" ></div>
 </div>
 
 <script type="text/javascript">
     function takeAuthors() {
-
+        
         var request = new XMLHttpRequest;
         request.open("GET", "./controller/authorsController.php", true);
         request.onreadystatechange = function (ev) {
@@ -65,7 +65,7 @@ unset($_SESSION["success"])
         };
         request.send();
     }
-    
+
 //      function addBook() {
 //        var name = document.getElementById("name").value;
 //        var author = document.getElementById("author").value;
@@ -92,5 +92,6 @@ unset($_SESSION["success"])
 //        request.send("insertBook=" + name + "&author=" + author + "&price=" + price + "&quantity="
 //                + quantity + "&genre=" + genre + "&img=" + formData);
 //    }
+
 
 </script>

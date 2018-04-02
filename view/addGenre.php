@@ -21,11 +21,14 @@ if ($_SESSION["user"]["type"] != 1) {
 
     <button type="submit" onclick="insertGenre();"  class="smal_blue" name="insertBook"><input  class="btn blue" type="submit" value="Add Book"></button>
     <!--</form>-->
+    <div id="addGendre"></div>
 </div>
 
 <script type="text/javascript">
     function insertGenre() {
         var h = document.createElement("h3");
+        var genreDiv = document.getElementById("addGendre");
+        genreDiv.innerHTML = '';
         h.setAttribute("id", "clear");
 //        if (document.getElementById("clear").innerHTML !== "") {
 //            document.getElementById("clear").innerHTML = "";
@@ -41,7 +44,7 @@ if ($_SESSION["user"]["type"] != 1) {
                 var resp = JSON.parse(this.responseText);
                 h.innerHTML = resp;
                 h.setAttribute("id", "addGenre");
-                var d = document.getElementById("addBook").appendChild(h);
+                genreDiv.appendChild(h);
             }
         };
         request.send("new_genre=" + name + "&type=" + type);

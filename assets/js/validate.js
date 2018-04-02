@@ -1,12 +1,12 @@
-function validateAuthor(){
-    var name = document.getElementById("author_name").value;
-    var container = document.getElementById("addBook");
+function validateAuthor(name, container){
+    
+    container.innerHTML = "";
     return minLength(name, container);
 }
 
 function  validateBook() {
-    
     var container = document.getElementById("errorContent");
+    container.innerHTML = "";
     var name = document.forms['myForm']['new_name'].value;
     var author = document.forms['myForm']['author'].value;
     var price = document.forms['myForm']['new_price'].value;
@@ -32,8 +32,6 @@ function  validateBook() {
         container.appendChild(imgErr);
         return  false;
     }
-    
-//    unfade(container);
 }
 function checkFiles(img) {
 
@@ -45,7 +43,6 @@ function checkFiles(img) {
             || ext === "jpg" || ext === "JPG" || ext === "doc") {
         return true;
     } else {
-
         return false;
     }
 }

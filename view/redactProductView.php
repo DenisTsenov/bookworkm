@@ -22,6 +22,7 @@ if ($_SESSION["user"]["type"] != 1) {
 <input type="file" id="redact_img" name="product_pic"><br>-->
     <button type="submit" value="<?= $_SESSION["redact"]["name"]; ?>" onclick="redactBook(this.value)" name="redact-product">Redact</button>
     <a href="index.php?page=addBook"><button type="submit" class="blue" name="newBook">Add  New Book!</button></a>
+    <ul id="errs"></ul>
 </div>
 
 <script type="text/javascript">
@@ -32,7 +33,8 @@ if ($_SESSION["user"]["type"] != 1) {
         var quantity = document.getElementById("redact_quantity").value;
 //    var img = document.getElementById("redact_img");
 
-
+        var div = document.getElementById("redact");
+        
         var request = new XMLHttpRequest;
         request.open("POST", "./controller/productsController.php", true);
         request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -44,17 +46,17 @@ if ($_SESSION["user"]["type"] != 1) {
 //            alert(response);
 //                console.log(response);
 
-                var h4 = document.createElement("h4");
-                
+                var h4 = document.getElementById("errs");
+                h4.innerHTML = "";
+                h4.setAttribute("class", "err");
                 for (var i in response) {
-
-                    h4.setAttribute("class", "err");
-//                    h4.setAttribute("id", "fade");
-                    h4.innerHTML = response[i];
-                    var div = document.getElementById("redact");
-                    div.appendChild(h4);
+                    var li = document.createElement("li");
+                    li.innerHTML = response[i];  
+                    h4.appendChild(li);
+                    
                     
                 }
+                div.appendChild(h4);
 //                setTimeout(function(){h4.style.visibility = "none";}, 200);
                 
                 name.value = response.name;

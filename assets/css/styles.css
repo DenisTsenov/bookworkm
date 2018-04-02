@@ -258,7 +258,7 @@ span.psw {
     width: 50%;
     margin: 0 auto;
     padding: 5px;
-    height: 30px;
+    height: auto;
     text-align: center;
     border: 1px solid yellow;
     background-color: orangered;
@@ -485,4 +485,18 @@ drop-down select {
   /*border: 1px solid #999999;*/
   background-color: #cccccc;
   color: #666666;
+}
+.addAuthor{
+    background-color: #f44336;
+    text-align: center;
+    color: black;
+    padding: 10px;
+    
+     animation:signup-response 0.5s 1;
+    -webkit-animation:signup-response 0.5s 1;
+    animation-fill-mode: forwards;
+
+    animation-delay:2s;
+    -webkit-animation-delay:2s; /* Safari and Chrome */
+    -webkit-animation-fill-mode: forwards;
 }

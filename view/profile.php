@@ -25,6 +25,9 @@
             if (this.readyState === 4 && this.status === 200) {
                 var resp = JSON.parse(this.responseText);
 //                console.log(resp);
+                if (typeof resp === "null") {
+                    alert("No history for now!");
+                }
                 var basicContent = document.getElementById("baic_content");
                 var table = document.createElement('table');
                 
@@ -78,7 +81,7 @@
                 }
                 basicContent.appendChild(table);
             }
-        }
+        };
         request.send();
     }
 </script>

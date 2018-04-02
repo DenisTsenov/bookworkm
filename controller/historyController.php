@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         if ($list) {
             echo json_encode($list);
         } else {
-            $historyErr[] = "No history for the moment!!";
+            $historyErr[] = null;
             echo json_encode($historyErr);
         }
     }
