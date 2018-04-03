@@ -19,7 +19,14 @@ if (isset($_GET["buy_product"])) {
             try {
                 $result = minusQuantity($pdo, $product["name"]);
             } catch (PDOException $exp) {
-                $exp->getMessage();
+                $errFile = fopen("../errlog/PDOExeption.txt", "a+");
+                if (is_writable($errFile)) {
+                    fwrite($errFile, $exp->getMessage() . '. Date -->> ' . date('l jS \of F Y h:i:s A'));
+                    fclose($errFile);
+                } else {
+                    fclose($errFile);
+                }
+                header("Location: ../index.php?page=errpage.php");
             }
 //            $product["quantity"] --;
 //            $encod = json_encode($products);
@@ -40,7 +47,6 @@ if (isset($_GET["buy_product"])) {
         }
         $_SESSION["bucket"] = $bucket;
         $success = "You added " . $_SESSION["bucket"][$productToBuy]["name"] . " in  your bucket!";
-//        echo $success;
     } else {
         echo $noProductError;
     }
@@ -57,10 +63,6 @@ if (isset($_GET["book_to_remove"])) {
                 //fakticheskoto wrushtane na kolichestwoto  w kataloga
 //                $product['quantity'] += $removeQuantity["quantity"];
                 $result = plusQuantity($pdo, $removeQuantity["quantity"], $removeQuantity["name"]);
-
-                if (!$result) {
-                    echo $result;
-                }
 
                 //zapiswame books.json sus nowoto(staro) kolichestwo
 //                $encod = json_encode($products);
@@ -81,7 +83,18 @@ if (isset($_GET["book"])) {
         foreach ($products as &$product) {
             if ($bookName["name"] == $product["name"]) {
 
-                plusOneQuantity($pdo, $product["name"]);
+                try {
+                    plusOneQuantity($pdo, $product["name"]);
+                } catch (PDOException $exp) {
+                    $errFile = fopen("../errlog/PDOExeption.txt", "a+");
+                    if (is_writable($errFile)) {
+                        fwrite($errFile, $exp->getMessage() . '. Date -->> ' . date('l jS \of F Y h:i:s A'));
+                        fclose($errFile);
+                    } else {
+                        fclose($errFile);
+                    }
+                    header("Location: ../index.php?page=errpage.php");
+                }
 //                $product['quantity'] ++;
 //                $encod = json_encode($products);
 //                file_put_contents("./assets/data/books.json", $encod);

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * start new session if there is no session
  */
@@ -15,15 +16,25 @@ require_once '../model/typesModel.php';
  * return list of types
  */
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    $result = getAllTypes($pdo);
-    
-    if ($result) {
-        echo json_encode($result);
-    }else{
-//        echo "losho mi e!";
-        //todo  
-        //return  error page
-        //or some  err msg
+
+    try {
+
+        $result = getAllTypes($pdo);
+
+        if ($result) {
+            echo json_encode($result);
+        } else {
+            header("Location: ../index.php?page=errpage.php");
+        }
+    } catch (PDOException $exp) {
+        $errFile = fopen("../errlog/PDOExeption.txt", "a+");
+        if (is_writable($errFile)) {
+            fwrite($errFile, $exp->getMessage() . '. Date -->> ' . date('l jS \of F Y h:i:s A'));
+            fclose($errFile);
+        } else {
+            fclose($errFile);
+        }
+        header("Location: ../index.php?page=errpage.php");
     }
 }
 

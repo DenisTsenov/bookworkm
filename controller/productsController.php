@@ -24,12 +24,18 @@ if (isset($_GET["redact"])) {
             $_SESSION['redact'] = $result;
 
             header("Location: ../index.php?page=redactProductView");
-        } catch (Exception $exp) {
-            echo "Something  went  worng. " . $exp->getMessage();
+        } catch (PDOException $exp) {
+            $errFile = fopen("../errlog/PDOExeption.txt", "a+");
+            if (is_writable($errFile)) {
+                fwrite($errFile, $exp->getMessage() . '. Date -->> ' . date('l jS \of F Y h:i:s A'));
+                fclose($errFile);
+            } else {
+                fclose($errFile);
+            }
+            header("Location: ../index.php?page=errpage.php");
         }
     } else {
-        //TODO
-        //display  error view
+        header("Location: ../index.php?page=errpage.php");
     }
 }
 /*
@@ -72,7 +78,14 @@ if (isset($_POST["redact_name"])) {
                 echo json_encode($responseArr);
             }
         } catch (PDOException $exp) {
-            echo "something went  wrong! " . $exp->getMessage();
+            $errFile = fopen("../errlog/PDOExeption.txt", "a+");
+            if (is_writable($errFile)) {
+                fwrite($errFile, $exp->getMessage() . '. Date -->> ' . date('l jS \of F Y h:i:s A'));
+                fclose($errFile);
+            } else {
+                fclose($errFile);
+            }
+            header("Location: ../index.php?page=errpage.php");
         }
     }
 }
@@ -121,7 +134,7 @@ if (isset($_POST["insertBook"])) {
     }
 
     if (is_uploaded_file($tmp_name)) {
-        
+
         $logo_url = "../assets/uploads/product_img/$name.$imageFileType";
         if (move_uploaded_file($tmp_name, $logo_url)) {
             
@@ -153,13 +166,23 @@ if (isset($_POST["insertBook"])) {
             echo json_encode($insertErr);
         } else {
 
+            try {
 
-            if (insertBook($pdo, $name, $author, $price, $quantity, $genre, $name . ".".$imageFileType)) {
-                $_SESSION["success"] = true;
-                header("Location: ../index.php?page=addBook");
-            } else {
-                //todo
-                //return err msg or redirect
+                if (insertBook($pdo, $name, $author, $price, $quantity, $genre, $name . "." . $imageFileType)) {
+                    $_SESSION["success"] = true;
+                    header("Location: ../index.php?page=addBook");
+                } else {
+                    header("Location: ../index.php?page=errpage.php");
+                }
+            } catch (PDOException $exp) {
+                $errFile = fopen("../errlog/PDOExeption.txt", "a+");
+                if (is_writable($errFile)) {
+                    fwrite($errFile, $exp->getMessage() . '. Date -->> ' . date('l jS \of F Y h:i:s A'));
+                    fclose($errFile);
+                } else {
+                    fclose($errFile);
+                }
+                header("Location: ../index.php?page=errpage.php");
             }
         }
     }
@@ -178,17 +201,29 @@ if (isset($_POST["like_for"])) {
     $resultArr = [];
     if (!empty($likedProduct) && mb_strlen($likedProduct) > 2) {
 
-        if (!ifIsLiked($pdo, $_SESSION["user"]["id"], $likedProduct)) {
-            if (likeProduct($pdo, $_SESSION["user"]["id"], $likedProduct)) {
-               $resultArr[] = "You liked $likedProduct!" ;
-               echo json_encode($resultArr);
+        try {
+
+            if (!ifIsLiked($pdo, $_SESSION["user"]["id"], $likedProduct)) {
+                if (likeProduct($pdo, $_SESSION["user"]["id"], $likedProduct)) {
+                    $resultArr[] = "You liked $likedProduct!";
+                    echo json_encode($resultArr);
+                } else {
+                    $resultArr[] = "Something  went wrong with $likedProduct!";
+                    echo json_encode($resultArr);
+                }
             } else {
-                $resultArr[] = "Something  went wrong with $likedProduct!" ;
-               echo json_encode($resultArr);
+                $resultArr[] = "You  allready like this book!";
+                echo json_encode($resultArr);
             }
-        }else{
-            $resultArr[] = "You  allready like this book!";
-            echo json_encode($resultArr);
+        } catch (PDOException $exp) {
+            $errFile = fopen("../errlog/PDOExeption.txt", "a+");
+            if (is_writable($errFile)) {
+                fwrite($errFile, $exp->getMessage() . '. Date -->> ' . date('l jS \of F Y h:i:s A'));
+                fclose($errFile);
+            } else {
+                fclose($errFile);
+            }
+            header("Location: ../index.php?page=errpage.php");
         }
     } else {
         $resultArr[] = "Invaid book!";
@@ -208,12 +243,23 @@ if (isset($_GET["user_id"])) {
         $resultArr[] = "Invaid user!!";
         echo json_encode($resultArr);
     } else {
-        $r = getLikedProducts($pdo, $userId);
+        try {
+            $r = getLikedProducts($pdo, $userId);
 
-        if (!empty($r)) {
-            echo json_encode($r);
-        } else {
-            return false;
+            if (!empty($r)) {
+                echo json_encode($r);
+            } else {
+                return false;
+            }
+        } catch (PDOException $exp) {
+            $errFile = fopen("../errlog/PDOExeption.txt", "a+");
+            if (is_writable($errFile)) {
+                fwrite($errFile, $exp->getMessage() . '. Date -->> ' . date('l jS \of F Y h:i:s A'));
+                fclose($errFile);
+            } else {
+                fclose($errFile);
+            }
+            header("Location: ../index.php?page=errpage.php");
         }
     }
 }

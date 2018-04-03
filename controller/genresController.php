@@ -16,12 +16,24 @@ require_once '../model/genresModel.php';
  * return list of genres
  */
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    $result = getAllGenres($pdo);
 
-    if ($result) {
-        echo json_encode($result);
-    } else {
-//    echo json_encode("okk");
+    try {
+        $result = getAllGenres($pdo);
+
+        if ($result) {
+            echo json_encode($result);
+        } else {
+            header("Location: ../index.php?page=errpage.php");
+        }
+    } catch (PDOException $exp) {
+        $errFile = fopen("../errlog/PDOExeption.txt", "a+");
+        if (is_writable($errFile)) {
+            fwrite($errFile, $exp->getMessage() . '. Date -->> ' . date('l jS \of F Y h:i:s A'));
+            fclose($errFile);
+        } else {
+            fclose($errFile);
+        }
+        header("Location: ../index.php?page=errpage.php");
     }
 }
 
@@ -41,31 +53,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["new_genre"])) {
     } else {
         require_once '../model/typesModel.php';
 
-        if (ifTypeExsist($pdo, $type)) {
+        try {
 
-            if (!ifGenreExsist($pdo, $genre)) {
+            if (ifTypeExsist($pdo, $type)) {
 
-                if (addGenre($pdo, $genre, $type)) {
+                if (!ifGenreExsist($pdo, $genre)) {
 
-                    $responseArr[] = "Succsessfuly added " . $genre . " genre!";
-                    
-                    echo json_encode($responseArr);
-//                    header("Location: ../index.php?page=addGenre");
+                    if (addGenre($pdo, $genre, $type)) {
+
+                        $responseArr[] = "Succsessfuly added " . $genre . " genre!";
+
+                        echo json_encode($responseArr);
+
+                    } else {
+                        $responseArr[] = "Something went wrong! Please  try  again  later!";
+                        echo json_encode($responseArr);
+
+                    }
                 } else {
-                    $responseArr[] =  "Something went wrong! Please  try  again  later!";
+                    $responseArr[] = "This genre allready exsist!";
                     echo json_encode($responseArr);
-//                    header("Location: ../index.php?page=addGenre");
+
                 }
             } else {
-                $responseArr[] = "This genre allready exsist!";
+                $responseArr[] = "Type not exsist!";
                 echo json_encode($responseArr);
-//                header("Location: ../index.php?page=addGenre");
             }
-        } else {
-            $responseArr[] = "Type not exsist!";
-            echo json_encode($responseArr);
-//            header("Location: ../index.php?page=addGenre");
-        }
+        } catch (PDOException $exp) {
+            $errFile = fopen("../errlog/PDOExeption.txt", "a+");
+            if (is_writable($errFile)) {
+                fwrite($errFile, $exp->getMessage() . '. Date -->> ' . date('l jS \of F Y h:i:s A'));
+                fclose($errFile);
+            } else {
+                fclose($errFile);
+            }
+            header("Location: ../index.php?page=errpage.php");
+        } 
     }
 }
 

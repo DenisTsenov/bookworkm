@@ -64,18 +64,22 @@
         var userId = "<?= $_SESSION["user"]["id"] ?>";
 
         var request = new XMLHttpRequest();
-
+        var dislike = document.getElementById("dislike");
+        
         request.open("GET", "./controller/productsController.php?user_id=" + userId, true);
         request.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
                 var resp = JSON.parse(this.responseText);
 
-                for (i in resp) {
-                    if (resp[i] === <?= $product["id"] ?>) {
-                        var dislike = document.getElementById("dislike");
-                        dislike.setAttribute("class", "disabled");
+
+                    for (i in resp) {
+                        if (resp[i] === <?= $product["id"] ?>) {
+                            
+                            dislike.innerHTML = "";
+//                            dislike.setAttribute("class", "disabled");
+                        }
                     }
-                }
+
 
             }
         };
@@ -87,7 +91,7 @@
         var getId = document.getElementById("catalog");
         var res = document.createElement("h3");
         res.setAttribute("id", "signup-response");
-        
+
         var userId = "<?= $_SESSION["user"]["id"] ?>";
         var request = new XMLHttpRequest();
         request.open("GET", "./controller/likesController.php?user_id="

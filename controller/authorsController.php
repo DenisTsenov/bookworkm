@@ -16,15 +16,24 @@ require_once '../model/authorsModel.php';
  * return  list  of  authors
  */
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    $result = getAllAuthors($pdo);
+    try {
 
-    if ($result) {
-        echo json_encode($result);
-    } else {
-//        echo "losho mi e!";
-        //todo  
-        //return  error page
-        //or some  err msg
+        $result = getAllAuthors($pdo);
+
+        if ($result) {
+            echo json_encode($result);
+        } else {
+            header("Location: ../index.php?page=errpage.php");
+        }
+    } catch (PDOException $exp) {
+        $errFile = fopen("../errlog/PDOExeption.txt", "a+");
+        if (is_writable($errFile)) {
+            fwrite($errFile, $exp->getMessage() . '. Date -->> ' . date('l jS \of F Y h:i:s A'));
+            fclose($errFile);
+        } else {
+            fclose($errFile);
+        }
+        header("Location: ../index.php?page=errpage.php");
     }
 }
 
@@ -35,27 +44,36 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["name"])) {
     $authorName = trim(htmlentities($_POST["name"]));
     $responseArr = [];
-    
+
     if (mb_strlen($authorName) < 4) {
         $responseArr[] = "Name min length  is  5 chars!";
         echo json_encode($responseArr);
     } else {
+        try {
 
-        if (!ifAuthorExsist($pdo, $authorName)) {
+            if (!ifAuthorExsist($pdo, $authorName)) {
 
-            if (insertAuthor($pdo, $authorName)) {
-                $responseArr[] = "You added $authorName succsessfully!";
-                echo json_encode($responseArr);
+                if (insertAuthor($pdo, $authorName)) {
+                    $responseArr[] = "You added $authorName succsessfully!";
+                    echo json_encode($responseArr);
+                } else {
+                   header("Location: ../index.php?page=errpage.php");
+                }
+
             } else {
-                $responseArr[] = "Something  went  wrong!";
+                $responseArr[] = "Author allready  exsist!";
                 echo json_encode($responseArr);
+
             }
-//            $_SESSION["success"] = $authorName;
-//            header("Location: ../index.php?page=addAuthor");
-        } else {
-            $responseArr[] = "Author allready  exsist!";
-            echo json_encode($responseArr);
-//        header("Location: ../index.php?page=addAuthor");
+        } catch (PDOException $exp) {
+            $errFile = fopen("../errlog/PDOExeption.txt", "a+");
+            if (is_writable($errFile)) {
+                fwrite($errFile, $exp->getMessage() . '. Date -->> ' . date('l jS \of F Y h:i:s A'));
+                fclose($errFile);
+            } else {
+                fclose($errFile);
+            }
+            header("Location: ../index.php?page=errpage.php");
         }
     }
 }
