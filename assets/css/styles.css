@@ -285,9 +285,7 @@ drop-down select {
 #drop-down:hover{
 
     height: 40px;
-
     margin-right: 20px;
-
     background-color: whitesmoke;
     color: #2196F3;
     margin-top: 30px;
@@ -529,4 +527,13 @@ drop-down select {
     animation-delay:2s;
     -webkit-animation-delay:2s; /* Safari and Chrome */
     -webkit-animation-fill-mode: forwards;
+}
+#page_number{
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    background-color: #00FF7F;
+    margin: 10px;
+    text-align: center;
+    padding: 20px;
 }

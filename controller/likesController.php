@@ -19,7 +19,7 @@ if (isset($_GET["liked"])) {
         } else {
             fclose($errFile);
         }
-        header("Location: ../index.php?page=errpage.php");
+        header("Location: ../index.php?page=errpage");
     }
 }
 
@@ -45,7 +45,7 @@ if (isset($_GET["disliked_product"]) && isset($_GET["user_id"])) {
                 $dislikeSuccess [] = "Your dislike is succsessfull!";
                 echo json_encode($dislikeSuccess);
             } else {
-                header("Location: ../index.php?page=errpage.php");
+                header("Location: ../index.php?page=errpage");
             }
         } catch (PDOException $exp) {
             $errFile = fopen("../errlog/PDOExeotion.txt", "a+");
@@ -55,7 +55,7 @@ if (isset($_GET["disliked_product"]) && isset($_GET["user_id"])) {
             } else {
                 fclose($errFile);
             }
-            header("Location: ../index.php?page=errpage.php");
+            header("Location: ../index.php?page=errpage");
         }
     }
 }

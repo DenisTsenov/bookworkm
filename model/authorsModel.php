@@ -7,7 +7,7 @@ require_once __DIR__ . "/load_data.php";
 function getAllAuthors($pdo) {
     try{
         
-    $query = "SELECT id, name from authors";
+    $query = "SELECT id, name from authors ORDER BY name";
     $stmt = $pdo->prepare($query);
     $stmt->execute();
     

@@ -1,6 +1,8 @@
-<section class="table">
+
+<section class="table" id="table">
     <div id="catalog" ></div>
     <table id="products">
+        <thead>
         <tr>
             <th>Book Name</th>
             <th>Author</th>
@@ -8,79 +10,174 @@
             <th>Quantity</th>
             <th>Genre</th>
             <th>Image</th>
-            <?php if (isset($_SESSION["user"])) { ?>
-                <th>To Cart</th>
-            <?php } ?>
-
-            <?php if (isset($_SESSION["user"]) && $_SESSION["user"]["type"] == 1) { ?>
+            <?php if (isset($_SESSION["user"])  && $_SESSION["user"]["type"] == 1) { ?>
                 <th>Redact</th>
             <?php } ?>
+
+            <?php if (isset($_SESSION["user"])) { ?>
+                <th>To cart</th>
+            <?php } ?>
         </tr>
-        <?php
-        foreach ($products as $product) {
-            if ($product["quantity"] > 0) {
-                ?>
-                <tr id="tr">
-                    <td><?= $product["name"] ?></td>
-                    <td><?= $product["author_id"] ?></td>
-                    <td><?= $product["price"] ?></td>
-                    <td><?= $product["quantity"] ?></td>
-                    <td><?= $product["category_id"] ?></td>
-                    <td>
-                        <img id="book_img" src="./assets/uploads/product_img/<?= $product["img_url"]; ?>" alt="book_img">
-                        <?php if (isset($_SESSION["user"])) { ?>
-                            <button id="like" class="like" onclick="likeProduct(this.value)" value="<?= $product["name"] ?>">Like</button>
-
-                            <button id="dislike"  onclick="dislikeProduct(this.value)" value="<?= $product["id"] ?>">Dislike</button>
-
-                        <?php } ?>
-                    </td>
-
-                    <?php if (isset($_SESSION["user"])) { ?>
-                        <td>
-                            <button class="btn info" value="<?= $product["name"]; ?>" onclick="addToCart(this.value);" >Add to Cart</button>
-                        </td>
-                    <?php } ?>
-                    <?php if (isset($_SESSION["user"]) && $_SESSION["user"]["type"] == 1) { ?>
-                        <td>        
-                            <form action="./controller/productsController.php" method="GET">
-                                <input type="hidden" name="book_name" value="<?= $product["name"] ?>"/>
-                                <input type="submit" class="btn info" name="redact" value="Redact"/>
-                            </form>
-                        </td>
-                    <?php } ?>
-                </tr>
-                <?php
-            }
-        }
-        ?>
+        </thead>
+        <tbody id="product">
+            
+        </tbody>
     </table>
-
+    <div id="links"></div>
 </section>
 
 <script type="text/javascript">
-    getLikedProducts();
-    function getLikedProducts() {
-        var userId = "<?= $_SESSION["user"]["id"] ?>";
-
+    
+createLinks(3);
+getCatalog(1,3);
+    /*
+     * create  pages for  catalog
+     * with pagination
+     */
+    function getCatalog(page, articles) {
         var request = new XMLHttpRequest();
-        var dislike = document.getElementById("dislike");
-        
-        request.open("GET", "./controller/productsController.php?user_id=" + userId, true);
+        request.open("GET", "./controller/catalogController.php?page=" + page +
+                "&articles=" + articles, true);
         request.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
                 var resp = JSON.parse(this.responseText);
+                console.log(resp);
+                var table = document.getElementById("product");
+                
+                table.innerHTML = "";
+                for (i in resp) {
+                    var tr = document.createElement("tr");
 
+                    var name = document.createElement("td");
+                    name.innerHTML = resp[i]["name"];
 
-                    for (i in resp) {
-                        if (resp[i] === <?= $product["id"] ?>) {
-                            
-                            dislike.innerHTML = "";
-//                            dislike.setAttribute("class", "disabled");
-                        }
-                    }
+                    var price = document.createElement("td");
+                    price.innerHTML = resp[i]["price"];
 
+                    var quantity = document.createElement("td");
+                    quantity.innerHTML = resp[i]["quantity"];
 
+                    var img = document.createElement("img");
+                    img.setAttribute("id", "book_img");
+                    img.src = "./assets/uploads/product_img/" + resp[i]["img_url"];
+
+<?php if (isset($_SESSION["user"])) { ?>
+
+                        var like = document.createElement("button");
+                        like.innerHTML = "Like!";
+                        like.setAttribute("class", "like");
+                        like.setAttribute("id", "like");
+                        like.value = resp[i]["name"];
+                        like.addEventListener("click", function () {
+                            likeProduct(this.value);
+                        });
+
+                        var dislike = document.createElement("button");
+                        dislike.innerHTML = "Dislike!";
+                        dislike.setAttribute("id", "dislike");
+                        dislike.value = resp[i]["id"];
+                        dislike.addEventListener("click", function () {
+                            dislikeProduct(this.value);
+                        });
+
+<?php } ?>
+                    var author = document.createElement("td");
+                    author.innerHTML = resp[i]["author_id"];
+
+                    var category = document.createElement("td");
+                    category.innerHTML = resp[i]["category_id"];
+
+<?php if (isset($_SESSION["user"]) && $_SESSION["user"]["type"] == 1) { ?>
+
+                        var redact = document.createElement("td");
+
+                        var f = document.createElement("form");
+                        f.setAttribute('method', "GET");
+                        f.setAttribute('action', "./controller/productsController.php");
+
+                        var hid = document.createElement("input"); //input element, text
+                        hid.setAttribute('type', "hidden");
+                        hid.setAttribute('name', "book_name");
+                        hid.value = resp[i]["name"];
+
+                        var sub = document.createElement("input"); //input element, text
+                        sub.setAttribute('type', "submit");
+                        sub.setAttribute('name', "redact");
+                        sub.setAttribute("class", "btn info");
+                        sub.value = "Redact";
+
+                        f.appendChild(hid);
+                        f.appendChild(sub);
+                        redact.appendChild(f);
+<?php } 
+
+if (isset($_SESSION["user"])) { ?>
+
+                        var tocart = document.createElement("td");
+
+                        var btn = document.createElement("button");
+                        btn.innerHTML = "Add to cart";
+                        btn.setAttribute("class", "btn info");
+                        btn.value = resp[i]["name"];
+                        btn.addEventListener("click", function () {
+                            addToCart(this.value);
+                        }, true);
+
+                        tocart.appendChild(btn);
+<?php } ?>
+                    tr.appendChild(name);
+                    tr.appendChild(author);
+                    tr.appendChild(price);
+                    tr.appendChild(quantity);
+                    tr.appendChild(category);
+                    tr.appendChild(img);
+                    tr.appendChild(like);
+                    tr.appendChild(dislike);
+                    tr.appendChild(redact);
+                    tr.appendChild(tocart);
+                    table.appendChild(tr);
+                }
+                
+            }
+        };
+
+        request.send();
+    }
+    
+    function createLinks(articles) {
+    var request =  new  XMLHttpRequest();
+    request.open("GET", "./controller/countProductsController.php?pages=1", true);
+    request.onreadystatechange = function (){
+        if (this.readyState === 4 && this.status === 200) {
+            var countProducts = this.responseText;
+            
+            var pages = Math.ceil(countProducts / articles);
+            var linksDiv = document.getElementById("links");
+            
+            for(var j = 0; j < pages; j++){
+                var link = document.createElement("button");
+                link.setAttribute("id", "page_number");
+                link.value = j + 1;
+                link.innerHTML = j + 1;
+                link.addEventListener("click", function(e){
+                    getCatalog(this.value, articles);
+                });
+                
+                linksDiv.appendChild(link);
+            }
+        }
+    };
+    
+    request.send();
+}
+
+    function addToCart(name) {
+        var request = new XMLHttpRequest;
+        request.open("GET", "./controller/bucketController.php?buy_product=" + name);
+        request.onreadystatechange = function (ev) {
+            if (this.readyState === 4 && this.status === 200) {
+//                var resp = this.responseText;
+                location.reload();
             }
         };
         request.send();

@@ -3,9 +3,6 @@
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-if (!$_SESSION["user"]) {
-    header("Location: index.php");
-}
 
 require_once '../model/productsModel.php';
 
@@ -32,10 +29,10 @@ if (isset($_GET["redact"])) {
             } else {
                 fclose($errFile);
             }
-            header("Location: ../index.php?page=errpage.php");
+            header("Location: ../index.php?page=errpage");
         }
     } else {
-        header("Location: ../index.php?page=errpage.php");
+        header("Location: ../index.php?page=errpage");
     }
 }
 /*
@@ -85,7 +82,7 @@ if (isset($_POST["redact_name"])) {
             } else {
                 fclose($errFile);
             }
-            header("Location: ../index.php?page=errpage.php");
+            header("Location: ../index.php?page=errpage");
         }
     }
 }
@@ -182,7 +179,7 @@ if (isset($_POST["insertBook"])) {
                 } else {
                     fclose($errFile);
                 }
-                header("Location: ../index.php?page=errpage.php");
+                header("Location: ../index.php?page=errpage");
             }
         }
     }
@@ -223,7 +220,7 @@ if (isset($_POST["like_for"])) {
             } else {
                 fclose($errFile);
             }
-            header("Location: ../index.php?page=errpage.php");
+            header("Location: ../index.php?page=errpage");
         }
     } else {
         $resultArr[] = "Invaid book!";
@@ -259,7 +256,7 @@ if (isset($_GET["user_id"])) {
             } else {
                 fclose($errFile);
             }
-            header("Location: ../index.php?page=errpage.php");
+            header("Location: ../index.php?page=errpage");
         }
     }
 }

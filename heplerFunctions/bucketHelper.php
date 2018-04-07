@@ -3,13 +3,13 @@
  * this function put  back  the  quantity  from
  * $_SESSION to catalogue if user is not active  for 1 hour!
  */
-function removeProduct($pdo, $productsArr, $productsInCatalogue) {
+function removeProduct($pdo, $bucketArr, $productsInCatalogue) {
 //    $cnt = count($productsArr);
-    foreach ($productsArr as $name => $value) {
+    foreach ($bucketArr as $name => $value) {
 
-        if (isset($productsArr[$name]["quantity"])) {
+        if (isset($bucketArr[$name]["quantity"])) {
             //dostupwame  produkta w sessiqta po referenciq
-            $removeQuantity = &$productsArr[$name];
+            $removeQuantity = &$bucketArr[$name];
             foreach ($productsInCatalogue as &$product) {
 //                var_dump($productsArr);
                 if ($removeQuantity["name"] == $product["name"]) {

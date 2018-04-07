@@ -1,14 +1,4 @@
-function addToCart(name) {
-    var request = new XMLHttpRequest;
-    request.open("GET", "./controller/bucketController.php?buy_product=" + name);
-    request.onreadystatechange = function (ev) {
-        if (this.readyState === 4 && this.status === 200) {
-//                var resp = this.responseText;
-            location.reload();
-        }
-    };
-    request.send();
-}
+
 
 function reverseQuantity(bookName) {
     var request = new XMLHttpRequest;

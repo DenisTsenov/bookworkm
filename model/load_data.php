@@ -5,7 +5,7 @@ $pdo = null;
 try{
     $pdo = new PDO("mysql:host=" . DB_HOST . ":" . DB_PORT . ";dbname=" . DB_NAME, USER, PASS,
     [PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\'']);
-    
+    $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, FALSE);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $exp){
     echo "Something  went wrong " . $exp->getMessage();
