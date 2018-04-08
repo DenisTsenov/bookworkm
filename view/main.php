@@ -1,3 +1,4 @@
+<h3 id="main-heading">Most Liked Books!</h3>
 <script type="text/javascript">
     var request = new XMLHttpRequest();
     request.open("GET", "./controller/likesController.php?liked=1", true);
