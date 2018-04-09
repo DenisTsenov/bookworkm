@@ -57,6 +57,7 @@ if (!isset($_SESSION["user"]) || $_SESSION["user"]["type"] > 0) {
                     price.innerHTML = resp[i]["price"];
 
                     var quantity = document.createElement("td");
+                    quantity.setAttribute("id", resp[i]["name"]);
                     quantity.innerHTML = resp[i]["quantity"];
 
                     var img = document.createElement("img");
@@ -150,62 +151,22 @@ if (!isset($_SESSION["user"]) || $_SESSION["user"]["type"] > 0) {
         request.onreadystatechange = function (ev) {
             if (this.readyState === 4 && this.status === 200) {
                 
+                var response = JSON.parse(this.responseText);
+
+                var q = document.getElementById(response["name"]);
+                q.innerHTML = response["quantity"];
+
+                if (response["quantity"] < 1) {
+                    location.reload();
+
+                } else {
+                    var modal = document.getElementById("mod");
+                    modal.style.display = "block";
+                    modal.innerHTML = "";
+                    var resp = "You add " + name + " in your bucket!";
+                    modalWindow(modal, resp);
+                }
                 
-                var tab = document.getElementById("mod");
-                tab.style.display = "block";
-                tab.innerHTML = "";
-
-                var modal = document.createElement("div");
-                modal.setAttribute("id", "myModal");
-                modal.setAttribute("class", "modal");
-                modal.innerHTML = "";
-
-                var modalContent = document.createElement("div");
-                modalContent.setAttribute("class", "modal-content");
-
-                var modalHeader = document.createElement("div");
-                modalHeader.setAttribute("class", "modal-header");
-
-                var span = document.createElement("span");
-                span.setAttribute("class", "close");
-                span.innerHTML = "x";
-                
-                var h2 = document.createElement("h2");
-                h2.innerHTML = "Success!";
-                
-                var modalBody = document.createElement("div");
-                modalBody.setAttribute("class", "modal-body");
-
-                var modalText = document.createElement("p");
-                modalText.setAttribute("id", "buy");
-                modalText.innerHTML = "You add " + name + " in your bucket!";
-
-                var modalFooter = document.createElement("div");
-                modalFooter.setAttribute("class", "modal-footer");
-                
-                var h3 = document.createElement("h3");
-                h3.innerHTML = "Nice book bro!";
-
-                modalFooter.appendChild(h3);
-                modalBody.appendChild(modalText);
-                modalHeader.appendChild(span);
-                modalHeader.appendChild(h2);
-                modalContent.appendChild(modalHeader);
-                modalContent.appendChild(modalBody);
-                modalContent.appendChild(modalFooter);
-                
-                span.addEventListener("click" , function(){
-
-                  document.getElementById("mod").style.display = "none";
-                });
-                
-                window.onclick = function (event) {
-                    if (event.target === modal) {
-                        modal.style.display = "none";
-                    }
-                };
-                
-                tab.appendChild(modalContent);
                 
             }
         };

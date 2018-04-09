@@ -49,7 +49,7 @@ body {
     background-color: cadetblue;
 }
 .baic_content{
-    width: 75%;
+    width: 80%;
     height: auto;
     display: inline-block;
 
@@ -277,10 +277,14 @@ drop-down select {
     height: 40px;
     float: left;
     margin: 20px;
-    background-color: #333;
+    background-color: #000;
     color: #0b7dda;
     border-radius: 8px;
     margin-top: 30px;
+}
+.admin-opt{
+    background-color: #000;
+    color: black;
 }
 
 #drop-down:hover{
@@ -369,15 +373,15 @@ drop-down select {
     to {opacity :0;}
 }
 .liked_book{
-    padding: 10px;
+    padding: 5px;
     background: #ccc;
     float: left;
     margin: 10px;
     border-radius: 20px;
-    float: left;
+    
     font-style: oblique;
     color: #0b7dda;
-    font-size: 1.3em;
+    font-size: 1em;
     width: 25%;
     border: 1px solid #00FF7F;
     height: auto;
@@ -493,28 +497,18 @@ drop-down select {
     background-color: #cccccc;
     color: #666666;
 }
+ .disabledContent 
+    {
+        cursor: not-allowed;
+        pointer-events: none;
+        background-color: rgb(229, 229, 229) !important;
+    }
 
-
-.disabled{
-    border: 1px solid #0066cc;
-    background-color: #0099cc;
-    color: #ffffff;
-}
-
-.disabled:hover {
-    /*border: 1px solid #0099cc;*/
-    background-color: #00aacc;
-    color: #ffffff;
-    /*padding: 5px 10px;*/
-}
-
-.disabled:disabled,
-.disabled[disabled]{
-    /*border: 1px solid #999999;*/
-    background-color: #cccccc;
-    color: #666666;
-}
-
+    .disabledContent > * 
+    {
+        pointer-events: none;
+        
+    }
 .addAuthor{
     background-color: #f44336;
     text-align: center;
@@ -551,7 +545,7 @@ drop-down select {
 /* Modal window  */
 
   /* The Modal (background) */
-  .modal {
+  #mod{
       display: none; /* Hidden by default */
       position: fixed; /* Stay in place */
       z-index: 1; /* Sit on top */
@@ -561,21 +555,22 @@ drop-down select {
       width: 100%; /* Full width */
       height: 100%; /* Full height */
       overflow: auto; /* Enable scroll if needed */
-      background-color: rgb(0,0,0); /* Fallback color */
+      background-color: rgb(31,51,192); /* Fallback color */
       background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
   }
-
+  
   /* Modal Content */
   .modal-content {
+      text-align: center;
       position: relative;
-      background-color: #fefefe;
+      background-color: #fefef;
       margin: auto;
       padding: 0;
       border: 1px solid #888;
-      width: 80%;
-      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+      width: 40%;
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,4,12,0.19);
       -webkit-animation-name: animatetop;
-      -webkit-animation-duration: 0.4s;
+      -webkit-animation-duration: 0.9s;
       animation-name: animatetop;
       animation-duration: 0.4s
   }
