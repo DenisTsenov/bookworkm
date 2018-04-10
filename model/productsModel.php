@@ -3,14 +3,14 @@
 require_once __DIR__ . "/load_data.php";
 
 function minusQuantity($pdo, $bookName) {
-
     try {
-        $bookCelan = trim(htmlentities($bookName));
-        $query = "UPDATE books SET quantity = quantity - 1 WHERE name = ?;";
+        
+        $query = "UPDATE books SET quantity = quantity - 1 WHERE name = ? AND quantity > 0;";
         $statement = $pdo->prepare($query);
-        $params = [$bookCelan];
+        $params = [$bookName];
         if ($statement->execute($params)) {
-            return true;
+            
+            return getProductQunatity($pdo, $bookName);
         } else {
             return false;
         }
@@ -41,6 +41,20 @@ function plusQuantity($pdo, $qunatity, $bookName) {
         $statement->execute($params);
     } catch (PDOException $exp) {
         return "Something  went wrong " . $exp->getMessage();
+    }
+}
+
+function getProductQunatity($pdo, $bookName) {
+    try {
+
+        $query = "SELECT name, quantity FROM  books WHERE name = ?;";
+        $statement = $pdo->prepare($query);
+        $params = [$bookName];
+        $statement->execute($params);
+        $product = $statement->fetch(PDO::FETCH_ASSOC);
+        return $product;
+    } catch (PDOException $exp) {
+        return "Something  went wrong. " . $exp->getMessage();
     }
 }
 

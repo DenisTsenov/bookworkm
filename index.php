@@ -31,8 +31,9 @@ require_once __DIR__ . '/view/header.php';
 
     <link rel="stylesheet" href="./assets/css/styles.css" type="text/css"/>
     <link rel="stylesheet" href="./assets/css/cssReset.css" type="text/css"/>
+    <div id="mod"></div>
     <div class="main" id="main">
-
+        
         <aside class="category_list">
             <input type="text" oninput="getBook(this);">
             <form action="controller/searchController.php" method="post">

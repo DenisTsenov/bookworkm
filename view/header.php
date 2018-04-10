@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="./assets/css/styles.css" type="text/css"/>
         <link rel="stylesheet" href="./assets/css/cssReset.css" type="text/css"/>
+        <script src="./assets/js/modal.js"  type="text/javascript"></script>
     </head>
 
     <body>
@@ -17,10 +18,10 @@
 
                 <?php if (isset($_SESSION["user"]) && $_SESSION["user"]["type"] == 1) { ?>
                     <select id="drop-down" onchange="window.location.href = this.value;">
-                        <option style="display:none" disabled selected value>New Content</option>
-                        <option value="index.php?page=addBook">Add new Book</option>
-                        <option value="index.php?page=addAuthor">Add new Author</option>
-                        <option value="index.php?page=addGenre">Add new Genre</option>
+                        <option class="admin-opt" style="display:none" disabled selected value>New Content</option>
+                        <option class="admin-opt" value="index.php?page=addBook">Add new Book</option>
+                        <option class="admin-opt" value="index.php?page=addAuthor">Add new Author</option>
+                        <option class="admin-opt" value="index.php?page=addGenre">Add new Genre</option>
                     </select>
                 <?php } ?>
 

@@ -10,7 +10,9 @@ function getCatalogProducts($pdo, $page, $articles) {
             a.name AS author_id , c.name AS category_id  
             FROM books AS b
             JOIN authors AS a ON a.id = b.author_id
-            JOIN categories AS c ON b.category_id = c.id ORDER BY b.name
+            JOIN categories AS c ON b.category_id = c.id 
+            AND b.quantity > 0
+            ORDER BY b.name
             LIMIT :page OFFSET :qoffset ;";
         $stmt = $pdo->prepare($query);
         $stmt->bindParam(':page', $articles, PDO::PARAM_INT);

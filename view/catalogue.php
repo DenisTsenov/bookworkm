@@ -55,97 +55,102 @@ if (!isset($_SESSION["user"])) {
 
                 table.innerHTML = "";
                 for (i in resp) {
-                    var tr = document.createElement("tr");
+                    if (resp[i]["quantity"] > 0) {
 
-                    var name = document.createElement("td");
-                    name.innerHTML = resp[i]["name"];
 
-                    var price = document.createElement("td");
-                    price.innerHTML = resp[i]["price"];
+                        var tr = document.createElement("tr");
 
-                    var quantity = document.createElement("td");
-                    quantity.innerHTML = resp[i]["quantity"];
+                        var name = document.createElement("td");
+                        name.innerHTML = resp[i]["name"];
 
-                    var img = document.createElement("img");
-                    img.setAttribute("id", "book_img");
-                    img.src = "./assets/uploads/product_img/" + resp[i]["img_url"];
+                        var price = document.createElement("td");
+                        price.innerHTML = resp[i]["price"];
+
+                        var quantity = document.createElement("td");
+                        quantity.setAttribute("id", resp[i]["name"]);
+                        quantity.innerHTML = resp[i]["quantity"];
+
+                        var img = document.createElement("img");
+                        img.setAttribute("id", "book_img");
+                        img.src = "./assets/uploads/product_img/" + resp[i]["img_url"];
 
 <?php if (isset($_SESSION["user"])) { ?>
 
-                        var like = document.createElement("button");
-                        like.innerHTML = "Like!";
-                        like.setAttribute("class", "like");
-                        like.setAttribute("id", "like");
-                        like.value = resp[i]["name"];
-                        like.addEventListener("click", function () {
-                            likeProduct(this.value);
-                        });
+                            var like = document.createElement("button");
+                            like.innerHTML = "Like!";
+                            like.setAttribute("class", "like");
+                            like.setAttribute("id", "like");
+                            like.value = resp[i]["name"];
+                            like.addEventListener("click", function () {
+                                likeProduct(this.value);
+                            });
 
-                        var dislike = document.createElement("button");
-                        dislike.innerHTML = "Dislike!";
-                        dislike.setAttribute("id", "dislike");
-                        dislike.value = resp[i]["id"];
-                        dislike.addEventListener("click", function () {
-                            dislikeProduct(this.value);
-                        });
+                            var dislike = document.createElement("button");
+                            dislike.innerHTML = "Dislike!";
+                            dislike.setAttribute("id", "dislike");
+                            dislike.value = resp[i]["id"];
+                            dislike.addEventListener("click", function () {
+                                dislikeProduct(this.value);
+                            });
 
 <?php } ?>
-                    var author = document.createElement("td");
-                    author.innerHTML = resp[i]["author_id"];
+                        var author = document.createElement("td");
+                        author.innerHTML = resp[i]["author_id"];
 
-                    var category = document.createElement("td");
-                    category.innerHTML = resp[i]["category_id"];
+                        var category = document.createElement("td");
+                        category.innerHTML = resp[i]["category_id"];
 
 <?php if (isset($_SESSION["user"]) && $_SESSION["user"]["type"] == 1) { ?>
 
-                        var redact = document.createElement("td");
+                            var redact = document.createElement("td");
 
-                        var f = document.createElement("form");
-                        f.setAttribute('method', "GET");
-                        f.setAttribute('action', "./controller/productsController.php");
+                            var f = document.createElement("form");
+                            f.setAttribute('method', "GET");
+                            f.setAttribute('action', "./controller/productsController.php");
 
-                        var hid = document.createElement("input"); //input element, text
-                        hid.setAttribute('type', "hidden");
-                        hid.setAttribute('name', "book_name");
-                        hid.value = resp[i]["name"];
+                            var hid = document.createElement("input"); //input element, text
+                            hid.setAttribute('type', "hidden");
+                            hid.setAttribute('name', "book_name");
+                            hid.value = resp[i]["name"];
 
-                        var sub = document.createElement("input"); //input element, text
-                        sub.setAttribute('type', "submit");
-                        sub.setAttribute('name', "redact");
-                        sub.setAttribute("class", "btn info");
-                        sub.value = "Redact";
+                            var sub = document.createElement("input"); //input element, text
+                            sub.setAttribute('type', "submit");
+                            sub.setAttribute('name', "redact");
+                            sub.setAttribute("class", "btn info");
+                            sub.value = "Redact";
 
-                        f.appendChild(hid);
-                        f.appendChild(sub);
-                        redact.appendChild(f);
+                            f.appendChild(hid);
+                            f.appendChild(sub);
+                            redact.appendChild(f);
 <?php } if (isset($_SESSION["user"])) { ?>
 
-                        var tocart = document.createElement("td");
+                            var tocart = document.createElement("td");
 
-                        var btn = document.createElement("button");
-                        btn.innerHTML = "Add to cart";
-                        btn.setAttribute("class", "btn info");
-                        btn.setAttribute("id", "buy");
-                        btn.value = resp[i]["name"];
-                        btn.addEventListener("click", function () {
-                            addToCart(this.value);
-                        }, true);
+                            var btn = document.createElement("button");
+                            btn.innerHTML = "Add to cart";
+                            btn.setAttribute("class", "btn info");
+                            btn.setAttribute("id", "buy");
+                            btn.value = resp[i]["name"];
+                            btn.addEventListener("click", function () {
+                                addToCart(this.value);
+                            }, true);
 
-                        tocart.appendChild(btn);
+                            tocart.appendChild(btn);
 <?php } ?>
-                    tr.appendChild(name);
-                    tr.appendChild(author);
-                    tr.appendChild(price);
-                    tr.appendChild(quantity);
-                    tr.appendChild(category);
-                    tr.appendChild(img);
-                    tr.appendChild(like);
-                    tr.appendChild(dislike);
-                    tr.appendChild(redact);
-                    tr.appendChild(tocart);
-                    table.appendChild(tr);
-                }
+                        tr.appendChild(name);
+                        tr.appendChild(author);
+                        tr.appendChild(price);
+                        tr.appendChild(quantity);
+                        tr.appendChild(category);
+                        tr.appendChild(img);
+                        tr.appendChild(like);
+                        tr.appendChild(dislike);
+                        tr.appendChild(redact);
+                        tr.appendChild(tocart);
+                        table.appendChild(tr);
+                    }
 
+                }
             }
         };
 
@@ -184,64 +189,22 @@ if (!isset($_SESSION["user"])) {
         request.open("GET", "./controller/bucketController.php?buy_product=" + name);
         request.onreadystatechange = function (ev) {
             if (this.readyState === 4 && this.status === 200) {
-                
-                var tab = document.getElementById("mod");
-                tab.style.display = "block";
-                tab.innerHTML = "";
+                var response = JSON.parse(this.responseText);
 
-                var modal = document.createElement("div");
-                modal.setAttribute("id", "myModal");
-                modal.setAttribute("class", "modal");
-                modal.innerHTML = "";
+                var q = document.getElementById(response["name"]);
+                q.innerHTML = response["quantity"];
 
-                var modalContent = document.createElement("div");
-                modalContent.setAttribute("class", "modal-content");
+                if (response["quantity"] < 1) {
+                    location.reload();
 
-                var modalHeader = document.createElement("div");
-                modalHeader.setAttribute("class", "modal-header");
+                } else {
+                    var modal = document.getElementById("mod");
+                    modal.style.display = "block";
+                    modal.innerHTML = "";
+                    var resp = "You add " + name + " in your bucket!";
+                    modalWindow(modal, resp);
+                }
 
-                var span = document.createElement("span");
-                span.setAttribute("class", "close");
-                span.innerHTML = "x";
-                
-                var h2 = document.createElement("h2");
-                h2.innerHTML = "Success!";
-                
-                var modalBody = document.createElement("div");
-                modalBody.setAttribute("class", "modal-body");
-
-                var modalText = document.createElement("p");
-                modalText.setAttribute("id", "buy");
-                modalText.innerHTML = "You add " + name + " in your bucket!";
-
-                var modalFooter = document.createElement("div");
-                modalFooter.setAttribute("class", "modal-footer");
-                
-                var h3 = document.createElement("h3");
-                h3.innerHTML = "Nice book bro!";
-
-                modalFooter.appendChild(h3);
-                modalBody.appendChild(modalText);
-                modalHeader.appendChild(span);
-                modalHeader.appendChild(h2);
-                modalContent.appendChild(modalHeader);
-                modalContent.appendChild(modalBody);
-                modalContent.appendChild(modalFooter);
-                
-                span.addEventListener("click" , function(){
-
-                  document.getElementById("mod").style.display = "none";
-                });
-                
-                window.onclick = function (event) {
-                    if (event.target === modal) {
-                        modal.style.display = "none";
-                    }
-                };
-                
-                tab.appendChild(modalContent);
-                
-                
             }
         };
         request.send();
@@ -291,4 +254,5 @@ if (!isset($_SESSION["user"])) {
         };
         req.send("like_for=" + like_name);
     }
+
 </script>

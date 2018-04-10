@@ -18,6 +18,9 @@ if (isset($_GET["buy_product"])) {
 
             try {
                 $result = minusQuantity($pdo, $product["name"]);
+                
+                echo json_encode($result);
+                
             } catch (PDOException $exp) {
                 $errFile = fopen("../errlog/PDOExeption.txt", "a+");
                 if (is_writable($errFile)) {
