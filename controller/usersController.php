@@ -33,11 +33,17 @@ if (isset($_POST["register"])) {
         $error_reg[] = "Password mismatch!";
     }
     if (!$error_reg) {
-        $a = registerProfile($firstName, $lastName, $email, $password, $logo_url);
-        header("Location: ../index.php?page=login");
+        $existingUser = checkForExistingUser($email);
+        if(empty($existingUser)){
+            $a = registerProfile($firstName, $lastName, $email, $password, $logo_url);
+            header("Location: ../index.php?page=login");
+        }
+        else{
+            $error_reg[] = "That email is already in use!";
+        }
 
     } else {
-        require_once "../../view/register.php";
+        header("Location: ../index.php?page=register");
     }
 }
 
@@ -50,6 +56,11 @@ if (isset($_POST["login"])) {
     }
     if(!$error_log){
         $result = login($email, sha1($password));
+    }
+    else{
+        header("Location: ../index.php?page=login");
+        echo $error_log[0];
+        die();
     }
     if ($result) {
         $_SESSION["user"] = $result;

@@ -34,7 +34,7 @@ require_once __DIR__ . '/view/header.php';
     <div class="main" id="main">
 
         <aside class="category_list">
-            <input type="text" onkeydown="getBook(this);">
+            <input type="text" oninput="getBook(this);">
             <form action="controller/searchController.php" method="post">
                 <select name="author">
                     <?php for ($i = 0; $i < count($resultAuthors); $i++) { ?>
@@ -76,14 +76,14 @@ require_once __DIR__ . '/view/header.php';
                     removeProduct($pdo, $_SESSION["bucket"], $products);
                 }
                 session_destroy();
-                header("Location: ./index.php?page=main");
+                require_once "./view/main.php";
             } elseif (isset($_GET["page"])) {
                 require_once "./view/" . $_GET["page"] . ".php";
             } else {
                 require_once "./view/main.php";
             }
 //            require_once './view/login.php';
-//    var_dump($_SESSION);
+    var_dump($_SESSION);
 //        var_dump($resultCategories);
             //var_dump($resultAuthors) . PHP_EOL;
 //            var_dump($_SESSION);

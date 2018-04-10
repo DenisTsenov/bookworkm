@@ -11,10 +11,10 @@ if(isset($_SESSION["user"])){
 
   <div class="container">
     <label for="email"><b>Email Address</b></label>
-    <input type="text" placeholder="Enter Email.." name="email" required>
+    <input type="text" placeholder="Enter Email.." name="email">
 
     <label for="pass"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="pass" required>
+    <input type="password" placeholder="Enter Password" name="pass">
         
     <button type="submit" name="login">Login</button>
 <!--    <label>

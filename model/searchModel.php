@@ -1,5 +1,10 @@
 <?php
 include_once  __DIR__ ."/load_data.php";
+
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
 function getBooksByAuthor($pdo, $id){
     try{
         $query = "SELECT b.name, b.author_id, b.price, b.quantity, b.img_url
@@ -18,7 +23,7 @@ function getBooksByAuthor($pdo, $id){
         return "Oops, something went wrong " . $exp ->getMessage();
     }
 }
-function getAuthor($pdo, $author, &$id){
+function getAuthor($pdo, $author, $id){
     try{
         $query = "SELECT id FROM authors WHERE name= ?";
         $stmt = $pdo -> prepare($query);

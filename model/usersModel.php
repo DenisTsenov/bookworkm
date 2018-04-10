@@ -61,3 +61,19 @@ function editUser($id, $firstName, $lastName, $email, $password, $avatar){
     }
 }
 
+function checkForExistingUser($email){
+    require_once __DIR__."/load_data.php";
+    try{
+        $result = array();
+        $statement = $pdo -> prepare("SELECT * FROM users WHERE email = ?");
+        $params = array($email);
+        $statement -> execute($params);
+        while($row = $statement -> fetch(PDO::FETCH_COLUMN)){
+            $result[] = $row;
+        }
+        return $result;
+    }
+    catch (PDOException $e){
+
+    }
+}

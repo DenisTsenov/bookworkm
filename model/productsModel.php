@@ -205,13 +205,15 @@ function searchForBooks($category) {
 function searchDB($pdo, $criteria) {
     try {
 
-        $query = 'SELECT name FROM books WHERE name LIKE ?;';
+        $query = 'SELECT name FROM books WHERE name LIKE ? LIMIT 10;';
         $statement = $pdo->prepare($query);
 
-        $params = [trim($criteria) . "%"];
+        $params = [$criteria . "%"];
 
         if ($statement->execute($params)) {
-            $result = $statement->fetch(PDO::FETCH_ASSOC);
+            while($row = $statement->fetch(PDO::FETCH_COLUMN)){
+                $result[] = $row;
+            }
             return $result;
         } else {
             return false;

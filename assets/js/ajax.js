@@ -66,29 +66,37 @@ request.onreadystatechange = function (ev) {
             select.appendChild(option);
         }
     }
-};
-request.send();
+    request.send();
+}
+
 
 function getBook(pole) {
     var div = document.getElementById("result");
     div.innerHTML = "";
-    var request = new XMLHttpRequest();
-    request.open("GET", "controller/productsController.php?search=" + pole.value, true);
-    request.onreadystatechange = function () {
-        if (this.readyState === 4 && this.status === 200) {
-            var names = this.responseText;
-//            console.log(names);
-//            var ul = document.createElement("ul");
-//            for(var i = 0; i < names.length; i++){
-//                var li = document.createElement("li");
-//                li.innerHTML = names[i];
-//                ul.appendChild(li);
-//            }
-//            div.appendChild(ul);
-//            div.style.visibility = "visible";
-        }
-    };
-    request.send();
+    if(pole.innerHTML != "") {
+        var request = new XMLHttpRequest();
+        request.open("GET", "controller/productsController.php?search=" + pole.value, true);
+        request.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                var names = JSON.parse(this.responseText);
+                console.log(names);
+                var ul = document.createElement("ul");
+
+                for (var i = 0; i < names.length; i++) {
+                    var li = document.createElement("li");
+                    li.innerHTML = names[i];
+                    ul.appendChild(li);
+                }
+                div.appendChild(ul);
+                div.style.visibility = "visible";
+            }
+
+        };
+        request.send();
+    }
+    else{
+        div.visibility = "none";
+    }
 }
 
 function fadeOut() {
